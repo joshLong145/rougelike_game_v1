@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="isaac" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/isaac" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add library="sfml-graphics" />
+					<Add library="sfml-window" />
+					<Add library="sfml-system" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/isaac" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="sfml-graphics" />
+					<Add library="sfml-window" />
+					<Add library="sfml-system" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="Application.cpp" />
+		<Unit filename="Application.h" />
+		<Unit filename="Bullet.cpp" />
+		<Unit filename="Bullet.h" />
+		<Unit filename="Chest.png" />
+		<Unit filename="GUI.cpp" />
+		<Unit filename="GameState.h" />
+		<Unit filename="Ghost.cpp" />
+		<Unit filename="Ghost.h" />
+		<Unit filename="MenuState.cpp" />
+		<Unit filename="MenuState.h" />
+		<Unit filename="PlayState.cpp" />
+		<Unit filename="PlayState.h" />
+		<Unit filename="Player.cpp" />
+		<Unit filename="Player.h" />
+		<Unit filename="README.md" />
+		<Unit filename="ResourcePath.hpp" />
+		<Unit filename="ResourcePath.mm" />
+		<Unit filename="Update.cpp" />
+		<Unit filename="Update.h" />
+		<Unit filename="bag.cpp" />
+		<Unit filename="bag.h" />
+		<Unit filename="baseBullet.h" />
+		<Unit filename="baseEnemy.h" />
+		<Unit filename="bulletMovingState.cpp" />
+		<Unit filename="bulletMovingState.h" />
+		<Unit filename="bullets.png" />
+		<Unit filename="cb.bmp" />
+		<Unit filename="checkCollision.cpp" />
+		<Unit filename="checkCollision.h" />
+		<Unit filename="chest.cpp" />
+		<Unit filename="chest.h" />
+		<Unit filename="dirt.png" />
+		<Unit filename="door.png" />
+		<Unit filename="doorBlock.cpp" />
+		<Unit filename="doorBlock.h" />
+		<Unit filename="enemyBullet.cpp" />
+		<Unit filename="enemyBullet.h" />
+		<Unit filename="enemyWalkingState.cpp" />
+		<Unit filename="enemyWalkingState.h" />
+		<Unit filename="enviormentBlocks.h" />
+		<Unit filename="fly.cpp" />
+		<Unit filename="fly.h" />
+		<Unit filename="fly.png" />
+		<Unit filename="gameObjectState.h" />
+		<Unit filename="gameObjectStateManager.cpp" />
+		<Unit filename="gameObjectStateManager.h" />
+		<Unit filename="game_proj-Info.plist" />
+		<Unit filename="ghost_enemy.png" />
+		<Unit filename="groundBlock.cpp" />
+		<Unit filename="groundBlock.h" />
+		<Unit filename="isaac.cbp" />
+		<Unit filename="loadLevel.cpp" />
+		<Unit filename="loadLevel.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="nice_music.ogg" />
+		<Unit filename="panelManager.cpp" />
+		<Unit filename="panelManager.h" />
+		<Unit filename="play_button.png" />
+		<Unit filename="playerBounceState.cpp" />
+		<Unit filename="playerBounceState.h" />
+		<Unit filename="playerBullet.cpp" />
+		<Unit filename="playerBullet.h" />
+		<Unit filename="playerSpriteSheet.png" />
+		<Unit filename="playerWalkingState.cpp" />
+		<Unit filename="playerWalkingState.h" />
+		<Unit filename="rock.png" />
+		<Unit filename="sansation.ttf" />
+		<Unit filename="wallBlock.cpp" />
+		<Unit filename="wallBlock.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
