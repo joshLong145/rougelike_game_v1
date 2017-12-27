@@ -8,6 +8,7 @@
 
 #include "Ghost.h"
 #include "enemyWalkingState.h"
+#include <math.h>
 
 Ghost::Ghost(int x_pos, int y_pos,const int v):baseEnemy(x_pos,y_pos,v){
     texture.loadFromFile( "ghost_enemy.png");
@@ -24,18 +25,21 @@ int Ghost::getHealth(){
     return health;
 }
 void Ghost::move(){
-      if(isWallHit()){
-        sprite.move(velocity,0);
+    dt = mainTimer.restart();
+
+    if(isWallHit()){
+        sprite.move(velocity * dt.asSeconds(),0);
     }else{
-        sprite.move(-velocity,0);
+        sprite.move(-(velocity * dt.asSeconds()),0);
     }
 }
 
 void Ghost::bounce(){
     if(wallhit){
-         sprite.move(-velocity,0);
+        // probably should change this soon!!!!!
+         sprite.move(-velocity / 10,0);
     }else{
-         sprite.move(velocity,0);
+         sprite.move(velocity / 10,0);
     }
     wallhit = !wallhit;
 }

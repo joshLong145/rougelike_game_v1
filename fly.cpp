@@ -9,6 +9,7 @@
 #include "fly.h"
 #include <math.h>
 #include "time.h"
+#include <stdlib.h>
 
 fly::fly(int x_pos, int y_pos, int v, Player &p):baseEnemy(x_pos,y_pos,v){
     texture.loadFromFile("Black_Fly.png");
@@ -16,6 +17,7 @@ fly::fly(int x_pos, int y_pos, int v, Player &p):baseEnemy(x_pos,y_pos,v){
     sprite.setPosition(x_val,y_val);
     velocity = v;
     player = &p;
+    srand(time(NULL));
 }
 
 sf::Sprite fly::loadImage(){
@@ -29,25 +31,23 @@ int fly::getHealth(){
 }
 
 void fly::move(){
-    srand(time(NULL));
-    sprite.move(sin(player->getX()) * rand() % 3, sin(player->getY()) * rand() % 3);
+    sprite.move(sin(x_val + player->getX()) * ((rand() % velocity) + 1), sin(y_val + player->getY()) * ((rand() % velocity) + 1));
 }
 
 
 int fly::getVelocity(){return velocity;}
 
 void fly::bounce(){
-    velocity *= -1;
-    sprite.move(velocity * 3, velocity * 3);
+    sprite.move(-(velocity * dt.asSeconds()), -(velocity * dt.asSeconds()));
 }
 
 void fly::bounceEnemy(){}
 
 void fly::updateStates(){}
 
-bool fly::isWallHit(){}
+bool fly::isWallHit(){ return false; }
 
-int fly::path_length(int x1, int y1, int x2, int y2){}
+int fly::path_length(int x1, int y1, int x2, int y2){ return 0;}
 
 std::vector<std::unique_ptr<enemyBullet>> & fly::getBulletVector(){ return bullets; }
 

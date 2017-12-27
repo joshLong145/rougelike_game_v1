@@ -25,6 +25,7 @@ class GameState{
         virtual void initilize() = 0;
         virtual bool nextPanel() = 0;
         virtual states getState() = 0;
+        virtual void setNext(bool n) = 0;
     protected:
         sf::RenderWindow &window;
         bool next = false;

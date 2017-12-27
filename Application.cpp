@@ -26,11 +26,15 @@ void Application::startGame(){
                 // Someone closed the window- bye
                 standard_window.close();
             }
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && states.getCurrentPanel().getState() == GameState::states::PlayState){
+            if(states.getCurrentPanel().getState() == GameState::states::PlayState &&
+               sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
+                states.getCurrentPanel().setNext(true);
                 states.newPanel(std::make_unique<MenuState>(standard_window));
                 states.nextPanel();
             }
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && states.getCurrentPanel().getState() == GameState::states::MenuState){
+            if(states.getCurrentPanel().getState() == GameState::states::MenuState &&
+               sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+                states.getCurrentPanel().setNext(true);
                 states.newPanel(std::make_unique<PlayState>(standard_window));
                 states.nextPanel();
             }

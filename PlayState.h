@@ -31,6 +31,7 @@ class PlayState : public virtual GameState{
         void draw();
         bool nextPanel();
         states getState();
+        void setNext(bool n);
     private:
         //iteration vars;
         int current_level = 0;

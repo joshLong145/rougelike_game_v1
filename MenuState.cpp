@@ -23,11 +23,6 @@ void MenuState::initilize(){
 }
 
 void MenuState::update(){
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-        next = true;
-    }
-
-
 }
 
 void MenuState::draw(){
@@ -38,6 +33,10 @@ void MenuState::draw(){
 
 bool MenuState::nextPanel(){
     return next;
+}
+
+void MenuState::setNext(bool n){
+    next = n;
 }
 
 GameState::states MenuState::getState(){

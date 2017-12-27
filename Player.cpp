@@ -43,8 +43,6 @@ void Player::setHealth(int h){
 }
 void Player::setPosition(int x_val, int y_val){
     sprite.setPosition(x_val,y_val);
-    this ->x_val = x_val;
-    this-> y_val = y_val;
 }
 void Player::setDoor(int d){
     door = d;
@@ -54,23 +52,25 @@ int Player::getDoor(){
 }
 
 void Player::playerControls(){
-
+    sf::Vector2f pos = loadImage().getPosition();
+    //used to smooth player movement
+    delta = mainTimer.restart();
     // add bullets objs to the vector if left, right, up, or down are pressed, cool down of 1 sec based on internal clock rate of one secound.
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
         if (bullet_clock.getElapsedTime().asSeconds() > 0.5){
-            bullets.push_back(std::make_unique<playerBullet>(x_val,y_val,2));
+            bullets.push_back(std::make_unique<playerBullet>(pos.x,pos.y,2));
             bullet_clock.restart();
         }
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
         if (bullet_clock.getElapsedTime().asSeconds() > 0.5){
-            bullets.push_back(std::make_unique<playerBullet>(x_val,y_val,3));
+            bullets.push_back(std::make_unique<playerBullet>(pos.x,pos.y,3));
             bullet_clock.restart();
         }
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
         if (bullet_clock.getElapsedTime().asSeconds() > 0.5){
-            bullets.push_back(std::make_unique<playerBullet>(x_val,y_val,1));
+            bullets.push_back(std::make_unique<playerBullet>(pos.x,pos.y,1));
             bullet_clock.restart();
         }
     }
@@ -78,7 +78,7 @@ void Player::playerControls(){
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
         if (bullet_clock.getElapsedTime().asSeconds() > 0.5){
-            bullets.push_back(std::make_unique<playerBullet>(x_val,y_val,0));
+            bullets.push_back(std::make_unique<playerBullet>(pos.x,pos.y,0));
             bullet_clock.restart();
         }
     }
@@ -147,15 +147,12 @@ void Player::bounce(){
 }
 
 void Player::transporForDoor(){
+    sf::Vector2f pos = loadImage().getPosition();
     if(last_move[0] == 1 && last_move[1] == 0){
-        loadImage().setPosition(x_val - 480,y_val);
-        x_val = loadImage().getPosition().x;
-        y_val = loadImage().getPosition().y;
+        sprite.setPosition(pos.x- 480,pos.y);
     }
     else if (last_move[0] == -1 && last_move[1] == 0){
-        loadImage().setPosition(x_val + 480,y_val);
-        x_val = loadImage().getPosition().x;
-        y_val = loadImage().getPosition().y;
+        loadImage().setPosition(pos.x + 480,pos.y);
     }
 
 }

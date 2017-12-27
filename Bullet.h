@@ -46,7 +46,8 @@ class Bullet{
         sf::Sprite sprite;
         //bool to check animation is at the end
         bool animation_done = false;
-        gameObjectStateManager states;
+        sf::Clock mainTimer;
+        sf::Time delta;
 };
 
 

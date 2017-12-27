@@ -8,8 +8,6 @@ void gameObjectStateManager::newPanel(gameObjectState &state){
 void gameObjectStateManager::nextPanel(){
     if(states.size() > 0){
      if(getCurrentPanel().nextPanel()){
-            delete states.front();
-            states.front() = nullptr;
             states.pop();
         }
     }

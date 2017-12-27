@@ -48,6 +48,9 @@ class Player : public sf::Transformable{
         // returns the stateManager object
         void updateStates();
         void transporForDoor();
+        //USED IN STATES
+        sf::Clock mainTimer;
+        sf::Time delta; // used to calcualte player movement
     private:
         // primitive vars
         int x_val;
@@ -64,6 +67,7 @@ class Player : public sf::Transformable{
         sf::Sprite sprite;
         sf::Clock bullet_clock;
         sf::Clock animation_clock;
+
         // vector of bullet obj pointers
         std::vector<std::shared_ptr<playerBullet>> bullets;
         // object of gameObjectStateManager to manage player states

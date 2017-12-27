@@ -39,6 +39,8 @@ class Ghost: public baseEnemy{
         bool wallhit = true;
         bool isHit = false;
         sf::Clock hitTimer;
+        sf::Clock mainTimer;
+        sf::Time dt;
         gameObjectStateManager states;
         sf::Clock bullet_clock;
 };

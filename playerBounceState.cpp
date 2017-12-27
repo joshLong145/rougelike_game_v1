@@ -5,25 +5,21 @@ playerBounceState::playerBounceState(Player &p) : gameObjectState(){
 }
 
 void playerBounceState::update(){
+    const auto pos = player->loadImage().getPosition();
+    // calcualtes knock back distance when colliding with enemies
+    const auto knock_back = player->delta.asSeconds() * 40;
 
     if((player->getPos()[0] == -1 && player->getPos()[1] == 0) ){
-        player->loadImage().move(5,0);
-        player->incX(5);
-
+        player->loadImage().setPosition(pos.x + knock_back, pos.y);
 
     }else if((player->getPos()[0] == 1 && player->getPos()[1] == 0)){
-        player->loadImage().move(-5,0);
-        player->incX(-5);
-
+        player->loadImage().setPosition(pos.x - knock_back, pos.y);
 
     }else if( (player->getPos()[0] == 0 && player->getPos()[1] == 1) ){
-        player->loadImage().move(0,5);
-        player->incY(5);
+        player->loadImage().setPosition(pos.x, pos.y + knock_back);
 
     }else if((player->getPos()[0] == 0 && player->getPos()[1] == -1) ){
-        player->loadImage().move(0,-5);
-        player->incY(-5);
-
+        player->loadImage().setPosition(pos.x, pos.y - knock_back);
     }
     next = true;
 }

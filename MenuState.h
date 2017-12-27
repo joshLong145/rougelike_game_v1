@@ -19,6 +19,7 @@ class MenuState : public virtual GameState{
         void draw();
         bool nextPanel();
         states getState();
+        void setNext(bool n);
     private:
         // for displaying text
         sf::Font font;

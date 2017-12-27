@@ -41,7 +41,6 @@
 		</Compiler>
 		<Unit filename="Application.cpp" />
 		<Unit filename="Application.h" />
-		<Unit filename="Bullet.cpp" />
 		<Unit filename="Bullet.h" />
 		<Unit filename="Chest.png" />
 		<Unit filename="GUI.cpp" />
@@ -59,8 +58,6 @@
 		<Unit filename="ResourcePath.mm" />
 		<Unit filename="Update.cpp" />
 		<Unit filename="Update.h" />
-		<Unit filename="bag.cpp" />
-		<Unit filename="bag.h" />
 		<Unit filename="baseBullet.h" />
 		<Unit filename="baseEnemy.h" />
 		<Unit filename="bulletMovingState.cpp" />
@@ -112,6 +109,7 @@
 		<Extensions>
 			<code_completion />
 			<debugger />
+			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
