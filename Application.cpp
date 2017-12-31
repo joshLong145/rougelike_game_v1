@@ -26,8 +26,9 @@ void Application::startGame(){
                 // Someone closed the window- bye
                 standard_window.close();
             }
+            //check for state transistions and update accordingly
             if(states.getCurrentPanel().getState() == GameState::states::PlayState &&
-               sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
+               sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && sf::Keyboard::isKeyPressed(sf::Keyboard::E)){
                 states.getCurrentPanel().setNext(true);
                 states.newPanel(std::make_unique<MenuState>(standard_window));
                 states.nextPanel();

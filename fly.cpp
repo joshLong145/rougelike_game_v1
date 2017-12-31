@@ -7,17 +7,13 @@
 //
 
 #include "fly.h"
-#include <math.h>
-#include "time.h"
-#include <stdlib.h>
 
-fly::fly(int x_pos, int y_pos, int v, Player &p):baseEnemy(x_pos,y_pos,v){
+
+fly::fly(int x_pos, int y_pos, int v):baseEnemy(x_pos, y_pos, v){
     texture.loadFromFile("Black_Fly.png");
     sprite.setTexture(texture);
     sprite.setPosition(x_val,y_val);
     velocity = v;
-    player = &p;
-    srand(time(NULL));
 }
 
 sf::Sprite fly::loadImage(){
@@ -30,10 +26,25 @@ int fly::getHealth(){
     return health;
 }
 
-void fly::move(){
-    sprite.move(sin(x_val + player->getX()) * ((rand() % velocity) + 1), sin(y_val + player->getY()) * ((rand() % velocity) + 1));
+//main action for enemy ( changes from enemy to enemy)
+//Fly will move towards to player at a constant speed
+void fly::move(Player &p){
+    dt = mainTimer.restart();
+    float factor = 0.f;
+    float speed = .1f * velocity;
+    factor += dt.asSeconds() * speed;
+    sprite.setPosition(interpolate(sprite.getPosition(),p.loadImage().getPosition(),factor));
 }
 
+//Used to "guess" the next position of movment based on given coords.
+ sf::Vector2f fly::interpolate(const sf::Vector2f point_A, const sf::Vector2f point_B, float factor){
+        if(factor > 1.f){
+            factor = 1.f;
+        }else if(factor < 0.f){
+            factor = 0.f;
+        }
+        return point_A +(point_B - point_A) * factor;
+}
 
 int fly::getVelocity(){return velocity;}
 
@@ -42,8 +53,6 @@ void fly::bounce(){
 }
 
 void fly::bounceEnemy(){}
-
-void fly::updateStates(){}
 
 bool fly::isWallHit(){ return false; }
 

@@ -36,26 +36,25 @@ class Player : public sf::Transformable{
         void setPosition(int x_val, int y_val);
         // get the position of player ( only one player obj within the game so static typing implemented to reduces object passing)
         int * getPos();
+
         sf::IntRect & getImageArray(int col, int row);
+
         void setDoor(int d);
+
         int getDoor();
+
         void clearBullets();
-        void incY(int val);
-        void incX(int val);
-        int getY();
-        int getX();
+
         void updateWalkingAnimation(char dir);
         // returns the stateManager object
         void updateStates();
+
         void transporForDoor();
         //USED IN STATES
         sf::Clock mainTimer;
         sf::Time delta; // used to calcualte player movement
     private:
-        // primitive vars
-        int x_val;
-        int y_val;
-        int velocity = 5;
+        int velocity = 150;
         int image_row = 0;
         int image_col = 0;
         int last_move[2];

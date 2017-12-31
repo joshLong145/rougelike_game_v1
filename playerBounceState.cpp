@@ -7,7 +7,7 @@ playerBounceState::playerBounceState(Player &p) : gameObjectState(){
 void playerBounceState::update(){
     const auto pos = player->loadImage().getPosition();
     // calcualtes knock back distance when colliding with enemies
-    const auto knock_back = player->delta.asSeconds() * 40;
+    const auto knock_back = player->delta.asSeconds() * 80;
 
     if((player->getPos()[0] == -1 && player->getPos()[1] == 0) ){
         player->loadImage().setPosition(pos.x + knock_back, pos.y);

@@ -2,12 +2,14 @@
 
 // move new states to the back of the qeue
 void gameObjectStateManager::newPanel(gameObjectState &state){
-    states.push(std::move(&state));
+    states.push(&state);
 }
 
 void gameObjectStateManager::nextPanel(){
     if(states.size() > 0){
      if(getCurrentPanel().nextPanel()){
+            states.front() = nullptr;
+            delete states.front();
             states.pop();
         }
     }

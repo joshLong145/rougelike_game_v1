@@ -24,7 +24,7 @@ sf::Sprite Ghost::loadImage(){
 int Ghost::getHealth(){
     return health;
 }
-void Ghost::move(){
+void Ghost::move(Player &p){
     dt = mainTimer.restart();
 
     if(isWallHit()){
@@ -46,11 +46,6 @@ void Ghost::bounce(){
 
 void Ghost::hitNonWallObj(){
 
-}
-
-void Ghost::updateStates(){
-    states.nextPanel();
-    states.update();
 }
 
 bool Ghost::isWallHit(){

@@ -20,18 +20,22 @@ class Ghost: public baseEnemy{
         // returns a sprite obj
         sf::Sprite loadImage();
         // moves enemy
-        void move();
+        void move(Player &p);
         //called when collision is made with a wall or rock obj
         void bounce();
         // called when enemy hits a player
         void hitNonWallObj();
         // get health
         int getHealth();
-        void updateStates();
+
         bool isWallHit();
+
         bool setWallHit(bool result);
+
         int getVelocity();
+
         int path_length(int x1, int y1, int x2, int y2);
+
         void setBulletDirection();
         // returns a refrence to vector of bullet obj
         std::vector<std::unique_ptr<enemyBullet>> & getBulletVector();
@@ -39,9 +43,6 @@ class Ghost: public baseEnemy{
         bool wallhit = true;
         bool isHit = false;
         sf::Clock hitTimer;
-        sf::Clock mainTimer;
-        sf::Time dt;
-        gameObjectStateManager states;
         sf::Clock bullet_clock;
 };
 

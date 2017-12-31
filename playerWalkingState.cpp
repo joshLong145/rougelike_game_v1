@@ -12,7 +12,6 @@ void playerWalkingState::update(){
     const auto speed = player->delta.asSeconds() * 100;
     if(button == 'S'){
         player->loadImage().setPosition(pos.x,pos.y +speed);
-        player->incY(speed);
         player->getPos()[0] = 0;
         player->getPos()[1] = -1;
 
@@ -20,21 +19,18 @@ void playerWalkingState::update(){
 
     if(button == 'W'){
         player->loadImage().setPosition(pos.x,pos.y - speed);
-        player->incY(-(speed));
         player->getPos()[0] = 0;
         player->getPos()[1] = 1;
     }
 
     if(button == 'A'){
         player->loadImage().setPosition(pos.x - speed,pos.y);
-        player->incX(-(speed));
         player->getPos()[0] = -1;
         player->getPos()[1] = 0;
 
     }
     if(button == 'D'){
         player->loadImage().setPosition(pos.x + speed,pos.y);
-        player->incX(speed);
         player->getPos()[0] = 1;
         player->getPos()[1] = 0;
     }

@@ -15,20 +15,18 @@
 
 class fly : public baseEnemy{
 public:
-    fly(int x_pos, int y_pos,int v, Player &p);
+    fly(int x_pos, int y_pos, int v);
     ~fly(){};
     // returns a sprite obj
     sf::Sprite loadImage();
     // moves enemy
-    void move();
+    void move(Player &p);
     //called when collision is made with a wall or rock obj
     void bounce();
     // called when enemy hits a player
     void bounceEnemy();
     // get health
     int getHealth();
-
-    void updateStates();
 
     bool isWallHit();
 
@@ -41,6 +39,9 @@ public:
     void setBulletDirection();
 
     void hitNonWallObj();
+
+    sf::Vector2f interpolate(const sf::Vector2f point_A, const sf::Vector2f point_B, float factor);
+
 private:
     bool wallhit = false;
     sf::Clock clock;

@@ -27,10 +27,19 @@ class PlayState : public virtual GameState{
     public:
         PlayState(sf::RenderWindow &w);
         void update();
+
         void initilize();
+
+        void updateGameObjects();
+
+        void checkRoomTransition();
+
         void draw();
+
         bool nextPanel();
+
         states getState();
+
         void setNext(bool n);
     private:
         //iteration vars;

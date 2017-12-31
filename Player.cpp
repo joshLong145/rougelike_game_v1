@@ -13,8 +13,6 @@
 
 // load spritesheet within the constructor of the obj
 Player::Player(int x_pos, int y_pos){
-    x_val = x_pos;
-    y_val = y_pos;
     // splice the sprite sheet for the player into IntRect obj (sprites are a standard 32x32)
     for(int col = 0; col < 4; col++){
         for(int row = 0; row < 3; row++){
@@ -26,7 +24,7 @@ Player::Player(int x_pos, int y_pos){
     // set the initial sprite to
     sprite.setTextureRect(animation_frames[3][2]);
     sprite.setTexture(texture);
-    sprite.setPosition(x_val,y_val);
+    sprite.setPosition(x_pos,y_pos);
 }
 
 sf::Sprite & Player::loadImage(){
@@ -58,19 +56,19 @@ void Player::playerControls(){
     // add bullets objs to the vector if left, right, up, or down are pressed, cool down of 1 sec based on internal clock rate of one secound.
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
         if (bullet_clock.getElapsedTime().asSeconds() > 0.5){
-            bullets.push_back(std::make_unique<playerBullet>(pos.x,pos.y,2));
+            bullets.push_back(std::make_unique<playerBullet>(pos.x + 10,pos.y,2));
             bullet_clock.restart();
         }
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
         if (bullet_clock.getElapsedTime().asSeconds() > 0.5){
-            bullets.push_back(std::make_unique<playerBullet>(pos.x,pos.y,3));
+            bullets.push_back(std::make_unique<playerBullet>(pos.x - 10,pos.y,3));
             bullet_clock.restart();
         }
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
         if (bullet_clock.getElapsedTime().asSeconds() > 0.5){
-            bullets.push_back(std::make_unique<playerBullet>(pos.x,pos.y,1));
+            bullets.push_back(std::make_unique<playerBullet>(pos.x,pos.y - 10,1));
             bullet_clock.restart();
         }
     }
@@ -78,10 +76,11 @@ void Player::playerControls(){
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
         if (bullet_clock.getElapsedTime().asSeconds() > 0.5){
-            bullets.push_back(std::make_unique<playerBullet>(pos.x,pos.y,0));
+            bullets.push_back(std::make_unique<playerBullet>(pos.x,pos.y + 10,0));
             bullet_clock.restart();
         }
     }
+    //TODO: change to unique_ptr's
     // push a new walking state onto the event queue when a player presses a movement key
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
         states.newPanel(*new playerWalkingState('W', *this));
@@ -140,6 +139,7 @@ void Player::updateWalkingAnimation(char dir){
     }
 }
 
+//TODO: change to unique_ptrs
 // collision detection
 // gets the x and y values of the obj collided with and determins where on the map it is based on pixel location
 void Player::bounce(){
@@ -149,28 +149,14 @@ void Player::bounce(){
 void Player::transporForDoor(){
     sf::Vector2f pos = loadImage().getPosition();
     if(last_move[0] == 1 && last_move[1] == 0){
-        sprite.setPosition(pos.x- 480,pos.y);
+        sprite.setPosition(pos.x - 480,pos.y);
     }
     else if (last_move[0] == -1 && last_move[1] == 0){
         loadImage().setPosition(pos.x + 480,pos.y);
     }
 
 }
-void Player::incY(int val){
-    y_val += val;
-}
 
-void Player::incX(int val){
-    x_val += val;
-}
-
-int Player::getY(){
-    return y_val;
-}
-
-int Player::getX(){
-    return x_val;
-}
 std::vector<std::shared_ptr<playerBullet>> & Player::getBulletVector(){
     return bullets;
 }

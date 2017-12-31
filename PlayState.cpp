@@ -12,7 +12,16 @@
 #include "chest.h"
 #include <memory>
 
-PlayState::PlayState(sf::RenderWindow &w):GameState(w){
+PlayState::PlayState(sf::RenderWindow &w):GameState(w){}
+
+//Initilize the all window related values for the game.
+void PlayState::initilize(){
+    // resize the window and set the name of the window to game
+    window.create(sf::VideoMode{650, 700},"game");
+    window.setVerticalSyncEnabled(true); // call it once, after creating the window
+    window.setFramerateLimit(30); // set the frame rate to 30 constant.
+    //Initilize all game objects
+
     int empty_room[10][9] = {
         {W,W,W,W,W,W,W,W,W},
         {W,G,G,G,G,G,G,G,W},
@@ -50,19 +59,21 @@ PlayState::PlayState(sf::RenderWindow &w):GameState(w){
 
     //enemy storage for each level
     std::unique_ptr<baseEnemy> enemy1 = std::make_unique<Ghost>(100,400,100);
-    /*
-    std::unique_ptr<baseEnemy> fly1 = std::make_unique<fly>(450,300,4,player);
-    std::unique_ptr<baseEnemy> fly2 = std::make_unique<fly>(300,300,5,player);
-    std::unique_ptr<baseEnemy> fly3 = std::make_unique<fly>(250,300,9,player);
-    std::unique_ptr<baseEnemy> fly4 = std::make_unique<fly>(100,300,3,player);
+
+    std::unique_ptr<baseEnemy> fly1 = std::make_unique<fly>(200,300,4);
+
+    std::unique_ptr<baseEnemy> fly2 = std::make_unique<fly>(300,300,5);
+    std::unique_ptr<baseEnemy> fly3 = std::make_unique<fly>(250,300,9);
+    std::unique_ptr<baseEnemy> fly4 = std::make_unique<fly>(100,300,3);
 
     //initilize rooms with enemies
     room_one_enemies.push_back(std::move(fly1));
+
     room_one_enemies.push_back(std::move(fly2));
     room_one_enemies.push_back(std::move(fly3));
     room_one_enemies.push_back(std::move(fly4));
-    */
-    room_one_enemies.push_back(std::move(enemy1));
+
+    //room_one_enemies.push_back(std::move(enemy1));
 
     //create vector that will storing view objs that load from level obj
     rooms.push_back(std::make_unique<loadLevel>(empty_room, room_one_enemies));
@@ -70,16 +81,8 @@ PlayState::PlayState(sf::RenderWindow &w):GameState(w){
     rooms.at(current_room)->setPlayer(player);
 }
 
-//Initilize the all window related values for the game.
-void PlayState::initilize(){
-    // resize the window and set the name of the window to game
-    window.create(sf::VideoMode{650, 700},"game");
-    window.setVerticalSyncEnabled(true); // call it once, after creating the window
-    window.setFramerateLimit(30); // set the frame rate to 30 constant.
-}
-void PlayState::update(){
+void PlayState::checkRoomTransition(){
     //TODO: FIX THIS GARBAGE CODE!!!!!
-
     if(player.getDoor() == 1){
         player.clearBullets();
         current_room++;
@@ -93,18 +96,29 @@ void PlayState::update(){
         player.setDoor(0);
     }
 
+}
+
+void PlayState::updateGameObjects(){
+    //update enemy obj
+    update_objects.updateEnemeyObjs(rooms.at(current_room)->getEnemies(),
+                                    rooms.at(current_room)->getRects(),player);
+
+    // update all obj in level
+    update_objects.updatePlayerObjs(player,rooms.at(current_room)->getRects(),
+                                    rooms.at(current_room)->getEnemies(),
+                                    rooms.at(current_room)->getDoors());
+}
+
+void PlayState::update(){
     // if the player's health is 0 or less, quit the game
     if (player.getHealth() <= 0){
         //windows closes
         window.close();
     }
-
-    //update enemy obj
-    update_objects.updateEnemeyObjs(rooms.at(current_room)->getEnemies(),rooms.at(current_room)->getRects(),player);
-
-    // update all obj in level
-    update_objects.updatePlayerObjs(player,rooms.at(current_room)->getRects(),rooms.at(current_room)->getEnemies(),rooms.at(current_room)->getDoors());
-
+    //check if a door is went through by the player
+    checkRoomTransition();
+    // update player, player objects, enemies, and enemy objects
+    updateGameObjects();
 }
 
 void PlayState::draw(){
@@ -120,14 +134,14 @@ void PlayState::draw(){
     //  draw text for the gui
     window.draw(gui.displayTextHealth(player));
 
+    // draw player sprite
+    window.draw(player.loadImage());
+
     // initilize the vector object with a refrence to the bullet vector in the player object.
     std::vector<std::shared_ptr<playerBullet>> &player_bullets = player.getBulletVector();
     for (auto bullet = player_bullets.begin(); bullet != player_bullets.end(); bullet++){
         window.draw((*bullet) -> loadImage() );
     }
-
-    // draw player sprite
-    window.draw(player.loadImage());
 
     // Show everything we just drew
     window.display();

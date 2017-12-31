@@ -41,7 +41,6 @@
 		</Compiler>
 		<Unit filename="Application.cpp" />
 		<Unit filename="Application.h" />
-		<Unit filename="Bullet.h" />
 		<Unit filename="Chest.png" />
 		<Unit filename="GUI.cpp" />
 		<Unit filename="GameState.h" />

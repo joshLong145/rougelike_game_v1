@@ -28,20 +28,23 @@ sf::Sprite enemyBullet::loadImage(){
 }
 
 void enemyBullet::move(){
+    delta = mainTimer.restart();
+    const auto speed = delta.asSeconds() * 200;
+    sf::Vector2f pos = loadImage().getPosition();
     if(direction == EAST){
-        sprite.move(velocity,0);
-        distance += velocity;
+        sprite.setPosition(pos.x + speed,pos.y);
+        distance += speed;
     }
     if(direction == WEST){
-        sprite.move(-velocity,0);
-        distance += velocity;
+        sprite.setPosition(pos.x - speed,pos.y);
+        distance += speed;
     }
     if(direction == NORTH){
-        sprite.move(0,velocity);
-        distance += velocity;
+        sprite.setPosition(pos.x,pos.y + speed);
+        distance += speed;
     }
     if(direction == SOUTH){
-        sprite.move(0,-velocity);
-        distance += velocity;
+        sprite.setPosition(pos.x,pos.y - speed);
+        distance += speed;
     }
 }

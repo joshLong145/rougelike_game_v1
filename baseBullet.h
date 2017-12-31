@@ -45,7 +45,9 @@ class baseBullet : public sf::Transformable{
         sf::Sprite sprite;
         //bool to check animation is at the end
         bool animation_done = false;
-        gameObjectStateManager states;
+        //used to calculate speed
+        sf::Clock mainTimer;
+        sf::Time delta;
 };
 
 

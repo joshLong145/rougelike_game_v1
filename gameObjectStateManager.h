@@ -5,6 +5,7 @@
 
 #include <queue>
 #include "gameObjectState.h"
+#include <memory>
 
 class gameObjectStateManager{
     public:

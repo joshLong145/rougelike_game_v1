@@ -52,7 +52,7 @@ void Update::updateEnemeyObjs(std::vector<std::unique_ptr<baseEnemy>> &e,std::ve
             (*enemy)->bounce();
             enemy++;
         }else{
-            (*enemy)->move();
+            (*enemy)->move(p);
             enemy++;
         }
     }
