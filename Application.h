@@ -9,17 +9,14 @@
 #ifndef Application_h
 #define Application_h
 
-#include <stdio.h>
 #include "PlayState.h"
 #include "MenuState.h"
-#include "panelManager.h"
 
 class Application{
     public:
         Application();
         void startGame();
     private:
-        PanelManager states;
         sf::RenderWindow standard_window;
 };
 

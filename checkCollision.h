@@ -14,17 +14,16 @@
 #include "Player.h"
 #include "doorBlock.h"
 #include <memory>
+namespace checkCollision{
 
-class checkCollision{
-    public:
         bool checkCollisionWalls(sf::Sprite obj,std::vector<sf::Sprite> s2);
         bool checkCollisionPlayerBullets(sf::Sprite obj,Player &p);
         bool checkCollisionBasic(sf::Sprite obj1, sf::Sprite obj2);
         bool checkCollisionEnemies(sf::Sprite obj1,std::vector<std::unique_ptr<baseEnemy>> &enemies);
         bool checkCollisionEnemyBullets(sf::Sprite obj,std::vector<std::unique_ptr<baseEnemy>> &enemies);
         bool checkRangeFromEnemy(sf::Sprite obj1, std::unique_ptr<baseEnemy> &enemy);
-        bool checkCollisionDoors(std::vector<doorBlock*> door,Player &p);
-};
+        bool checkCollisionDoors(std::vector<std::shared_ptr<doorBlock>> door,Player &p);
+}
 
 
 

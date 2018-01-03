@@ -32,14 +32,14 @@ class loadLevel{
         void update();
         std::vector<sf::Sprite> getRects();
         std::vector<std::unique_ptr<baseEnemy>> & getEnemies();
-        std::vector<doorBlock*> getDoors();
+        std::vector<std::shared_ptr<doorBlock>> getDoors();
     private:
         Player *p = nullptr;
         //stores enviorment blocks for the room
-        std::vector<enviormentBlocks*> level_blocks;
+        std::vector<std::shared_ptr<enviormentBlocks>> level_blocks;
         std::vector<sf::Sprite> rects;
         //container for handling door collisions
-        std::vector<doorBlock*> doorRects;
+        std::vector<std::shared_ptr<doorBlock>> doorRects;
         //stores enemies for the given room
         std::vector<std::unique_ptr<baseEnemy>> enemies;
         // stores chests that are within the room

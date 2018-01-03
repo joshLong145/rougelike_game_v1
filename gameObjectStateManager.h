@@ -9,14 +9,15 @@
 
 class gameObjectStateManager{
     public:
-        gameObjectStateManager() {}
-        void newPanel(gameObjectState &panel);
+
+        gameObjectStateManager() = default;
+        void newPanel(std::shared_ptr<gameObjectState> panel);
         void nextPanel();
         void update();
         gameObjectState & getCurrentPanel();
 
     private:
-        std::queue<gameObjectState*> states;
+        std::queue<std::shared_ptr<gameObjectState>> states;
 };
 
 #endif

@@ -7,34 +7,32 @@
 //
 
 #include "panelManager.h"
-
-void PanelManager::newPanel(std::unique_ptr<GameState> state){
-    states.push(std::move(state));
-}
-
-void PanelManager::nextPanel(){
-    if(getCurrentPanel().nextPanel()){
-        states.pop();
-        states.front()->initilize();
+namespace Manager{
+    void newPanel(std::unique_ptr<GameState> state){
+        states.push(std::move(state));
     }
-}
 
-GameState & PanelManager::getCurrentPanel(){
-    return *states.front();
-}
+    void nextPanel(){
+        if(getCurrentPanel().nextPanel()){
+            states.pop();
+            states.front()->initilize();
+        }
+    }
 
-bool PanelManager::switchPanel(){
-    return false;
-}
+    GameState & getCurrentPanel(){
+        return *states.front();
+    }
 
-void PanelManager::update(){
-    getCurrentPanel().update();
-}
+    bool switchPanel(){
+        return false;
+    }
 
-void PanelManager::draw(){
-    getCurrentPanel().draw();
-}
+    void update(){
+        getCurrentPanel().update();
+    }
 
-void PanelManager::deleteData(){
+    void draw(){
+        getCurrentPanel().draw();
+    }
 
 }

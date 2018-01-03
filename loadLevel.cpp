@@ -21,21 +21,21 @@ loadLevel::loadLevel(int map[10][9],std::vector<std::unique_ptr<baseEnemy>> &e) 
         for(int c = 0;  c < 9; c++){
             // add wall objs to both the level and rect vectors. (rect vector is for collision detection)
             if(map[r][c] == WALL){
-                wallBlock *block = new wallBlock(r * 65, c * 70);
+                std::shared_ptr<wallBlock> block = std::make_unique<wallBlock>(r * 65, c * 70);
                 level_blocks.push_back(block);
                 rects.push_back(block->loadImage());
             }
             if(map[r][c] == GROUND){
-                level_blocks.push_back(new groundBlock(r * 65, c * 70));
+                level_blocks.push_back(std::make_unique<groundBlock>(r * 65, c * 70));
             }
             if(map[r][c] == NEXT_DOOR){
-                doorBlock *door = new doorBlock(r * 65, c * 70,1);
+                std::shared_ptr<doorBlock> door = std::make_unique<doorBlock>(r * 65, c * 70,1);
                 level_blocks.push_back(door);
                 doorRects.push_back(door);
                 rects.push_back(door->loadImage());
             }
             if(map[r][c] == BACK_DOOR){
-                doorBlock *door = new doorBlock(r * 65, c * 70,2);
+                std::shared_ptr<doorBlock> door = std::make_unique<doorBlock>(r * 65, c * 70,2);
                 level_blocks.push_back(door);
                 doorRects.push_back(door);
                 rects.push_back(door->loadImage());
@@ -56,21 +56,21 @@ loadLevel::loadLevel(int map[10][9],std::vector<std::unique_ptr<baseEnemy>> &e, 
         for(int c = 0;  c < 9; c++){
             // add wall objs to both the level and rect vectors. (rect vector is for collision detection)
             if(map[r][c] == WALL){
-                wallBlock *block = new wallBlock(r * 65, c * 70);
+                std::shared_ptr<wallBlock> block = std::make_unique<wallBlock>(r * 65, c * 70);
                 level_blocks.push_back(block);
                 rects.push_back(block->loadImage());
             }
             if(map[r][c] == GROUND){
-                level_blocks.push_back(new groundBlock(r * 65, c * 70));
+                level_blocks.push_back(std::make_unique<groundBlock>(r * 65, c * 70));
             }
             if(map[r][c] == NEXT_DOOR){
-                doorBlock *door = new doorBlock(r * 65, c * 70,1);
+                std::shared_ptr<doorBlock> door = std::make_unique<doorBlock>(r * 65, c * 70,1);
                 level_blocks.push_back(door);
                 doorRects.push_back(door);
                 rects.push_back(door->loadImage());
             }
             if(map[r][c] == BACK_DOOR){
-                doorBlock *door = new doorBlock(r * 65, c * 70,2);
+                std::shared_ptr<doorBlock> door = std::make_unique<doorBlock>(r * 65, c * 70,2);
                 level_blocks.push_back(door);
                 doorRects.push_back(door);
                 rects.push_back(door->loadImage());
@@ -118,6 +118,6 @@ std::vector<std::unique_ptr<baseEnemy>> & loadLevel::getEnemies(){
     return enemies;
 }
 
-std::vector<doorBlock*> loadLevel::getDoors(){
+std::vector<std::shared_ptr<doorBlock>> loadLevel::getDoors(){
     return doorRects;
 }

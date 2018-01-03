@@ -83,14 +83,21 @@ void Player::playerControls(){
     //TODO: change to unique_ptr's
     // push a new walking state onto the event queue when a player presses a movement key
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-        states.newPanel(*new playerWalkingState('W', *this));
+        states.newPanel(std::make_unique<playerWalkingState>('W', *this));
     }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-        states.newPanel(*new playerWalkingState('A', *this));
+        states.newPanel(std::make_unique<playerWalkingState>('A', *this));
     }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
-        states.newPanel(*new playerWalkingState('S', *this));
+        states.newPanel(std::make_unique<playerWalkingState>('S', *this));
     }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-        states.newPanel(*new playerWalkingState('D', *this));
+        states.newPanel(std::make_unique<playerWalkingState>('D', *this));
     }
+}
+
+//TODO: change to unique_ptrs
+// collision detection
+// gets the x and y values of the obj collided with and determins where on the map it is based on pixel location
+void Player::bounce(){
+    states.newPanel(std::make_unique<playerBounceState>(*this));
 }
 
 void Player::updateWalkingAnimation(char dir){
@@ -137,13 +144,6 @@ void Player::updateWalkingAnimation(char dir){
             }
             animation_clock.restart();
     }
-}
-
-//TODO: change to unique_ptrs
-// collision detection
-// gets the x and y values of the obj collided with and determins where on the map it is based on pixel location
-void Player::bounce(){
-    states.newPanel(*new playerBounceState(*this));
 }
 
 void Player::transporForDoor(){

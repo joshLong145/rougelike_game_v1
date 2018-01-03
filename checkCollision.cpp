@@ -7,8 +7,9 @@
 //
 
 #include "checkCollision.h"
+namespace checkCollision{
 
-bool checkCollision::checkCollisionWalls(sf::Sprite obj,std::vector<sf::Sprite> s2){
+bool checkCollisionWalls(sf::Sprite obj,std::vector<sf::Sprite> s2){
     for(unsigned int i = 0; i < s2.size(); i++){
         if(obj.getGlobalBounds().intersects(s2[i].getGlobalBounds())){
             return true;
@@ -17,10 +18,10 @@ bool checkCollision::checkCollisionWalls(sf::Sprite obj,std::vector<sf::Sprite> 
     return false;
 }
 
-bool checkCollision::checkCollisionDoors(std::vector<doorBlock*> door, Player &p){
-    for(auto doors = door.begin(); doors != door.end(); doors++){
-        if((*doors)->loadImage().getGlobalBounds().intersects(p.loadImage().getGlobalBounds())){
-            p.setDoor((*doors)->getDirection());
+bool checkCollisionDoors(std::vector<std::shared_ptr<doorBlock>> door, Player &p){
+    for(auto doors : door){
+        if((*doors).loadImage().getGlobalBounds().intersects(p.loadImage().getGlobalBounds())){
+            p.setDoor((*doors).getDirection());
             p.transporForDoor();
             return true;
         }
@@ -28,7 +29,7 @@ bool checkCollision::checkCollisionDoors(std::vector<doorBlock*> door, Player &p
     return false;
 }
 
-bool checkCollision::checkCollisionPlayerBullets(sf::Sprite obj,Player &player){
+bool checkCollisionPlayerBullets(sf::Sprite obj,Player &player){
     Player *p = &player;
     std::vector<std::shared_ptr<playerBullet>> &bullets = p ->getBulletVector();
     for(auto bullet = bullets.begin(); bullet != bullets.end();bullet++){
@@ -40,7 +41,7 @@ bool checkCollision::checkCollisionPlayerBullets(sf::Sprite obj,Player &player){
     return false;
 }
 
-bool checkCollision::checkCollisionBasic(sf::Sprite obj1,sf::Sprite obj2){
+bool checkCollisionBasic(sf::Sprite obj1,sf::Sprite obj2){
     if(obj1.getGlobalBounds().intersects(obj2.getGlobalBounds())){
         return true;
     }else{
@@ -48,7 +49,7 @@ bool checkCollision::checkCollisionBasic(sf::Sprite obj1,sf::Sprite obj2){
     }
 }
 
-bool checkCollision::checkCollisionEnemies(sf::Sprite obj1, std::vector<std::unique_ptr<baseEnemy>> &enemies){
+bool checkCollisionEnemies(sf::Sprite obj1, std::vector<std::unique_ptr<baseEnemy>> &enemies){
     for(auto enemy = enemies.begin(); enemy != enemies.end();enemy++){
         if(obj1.getGlobalBounds().intersects((*enemy)->loadImage().getGlobalBounds())){
             return true;
@@ -57,14 +58,14 @@ bool checkCollision::checkCollisionEnemies(sf::Sprite obj1, std::vector<std::uni
     return false;
 }
 
-bool checkCollision::checkRangeFromEnemy(sf::Sprite obj1, std::unique_ptr<baseEnemy> &enemy){
+bool checkRangeFromEnemy(sf::Sprite obj1, std::unique_ptr<baseEnemy> &enemy){
     if(enemy->path_length(obj1.getPosition().x, obj1.getPosition().y, enemy->loadImage().getPosition(). x, enemy->loadImage().getPosition().y) < 150){
         return true;
     }
 
     return false;
 }
-bool checkCollision::checkCollisionEnemyBullets(sf::Sprite obj,std::vector<std::unique_ptr<baseEnemy>> &enemies){
+bool checkCollisionEnemyBullets(sf::Sprite obj,std::vector<std::unique_ptr<baseEnemy>> &enemies){
 
     for(auto enemy = enemies.begin(); enemy != enemies.end(); enemy++){
         std::vector<std::unique_ptr<enemyBullet>> &bullets = (*enemy)->getBulletVector();
@@ -76,4 +77,6 @@ bool checkCollision::checkCollisionEnemyBullets(sf::Sprite obj,std::vector<std::
         }
     }
     return false;
+}
+
 }

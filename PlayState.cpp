@@ -10,7 +10,11 @@
 #include "Ghost.h"
 #include "fly.h"
 #include "chest.h"
+#include "panelManager.h"
+#include "MenuState.h"
 #include <memory>
+
+using namespace Manager;
 
 PlayState::PlayState(sf::RenderWindow &w):GameState(w){}
 
@@ -137,10 +141,8 @@ void PlayState::draw(){
     // draw player sprite
     window.draw(player.loadImage());
 
-    // initilize the vector object with a refrence to the bullet vector in the player object.
-    std::vector<std::shared_ptr<playerBullet>> &player_bullets = player.getBulletVector();
-    for (auto bullet = player_bullets.begin(); bullet != player_bullets.end(); bullet++){
-        window.draw((*bullet) -> loadImage() );
+    for (auto bullet : player.getBulletVector()){
+        window.draw((*bullet).loadImage() );
     }
 
     // Show everything we just drew

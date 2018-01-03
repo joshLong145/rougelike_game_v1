@@ -7,17 +7,19 @@
 //
 
 #include "Application.h"
+#include "panelManager.h"
+
+using namespace Manager;
 
 Application::Application(){
     // set the frame rate for the window
     //standard_window.setFramerateLimit(30);
     // initlize the app with each menu that will be needed
-    std::unique_ptr<MenuState> menu = std::make_unique<MenuState>(standard_window);
-    states.newPanel(std::move(menu));
+    Manager::newPanel(std::make_unique<MenuState>(standard_window));
 }
 
 void Application::startGame(){
-    states.getCurrentPanel().initilize();
+    getCurrentPanel().initilize();
     while(standard_window.isOpen()){
         sf::Event event;
         while (standard_window.pollEvent(event)){
@@ -27,22 +29,22 @@ void Application::startGame(){
                 standard_window.close();
             }
             //check for state transistions and update accordingly
-            if(states.getCurrentPanel().getState() == GameState::states::PlayState &&
+            if(getCurrentPanel().getState() == GameState::states::PlayState &&
                sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && sf::Keyboard::isKeyPressed(sf::Keyboard::E)){
-                states.getCurrentPanel().setNext(true);
-                states.newPanel(std::make_unique<MenuState>(standard_window));
-                states.nextPanel();
+                getCurrentPanel().setNext(true);
+                newPanel(std::make_unique<MenuState>(standard_window));
+                nextPanel();
             }
-            if(states.getCurrentPanel().getState() == GameState::states::MenuState &&
+            if(getCurrentPanel().getState() == GameState::states::MenuState &&
                sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-                states.getCurrentPanel().setNext(true);
-                states.newPanel(std::make_unique<PlayState>(standard_window));
-                states.nextPanel();
+                getCurrentPanel().setNext(true);
+                newPanel(std::make_unique<PlayState>(standard_window));
+                nextPanel();
             }
         }
 
-        states.nextPanel();
-        states.update();
-        states.draw();
+        nextPanel();
+        update();
+        draw();
     }
 }
