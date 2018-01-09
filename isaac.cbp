@@ -87,6 +87,9 @@
 		<Unit filename="groundBlock.cpp" />
 		<Unit filename="groundBlock.h" />
 		<Unit filename="isaac.cbp" />
+		<Unit filename="level1.txt" />
+		<Unit filename="levelConfiguration.cpp" />
+		<Unit filename="levelConfiguration.h" />
 		<Unit filename="loadLevel.cpp" />
 		<Unit filename="loadLevel.h" />
 		<Unit filename="main.cpp" />

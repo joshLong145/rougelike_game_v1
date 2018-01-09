@@ -9,13 +9,13 @@
 #include "checkCollision.h"
 namespace checkCollision{
 
-bool checkCollisionWalls(sf::Sprite obj,std::vector<sf::Sprite> s2){
+sf::Sprite * checkCollisionWalls(sf::Sprite obj,std::vector<sf::Sprite> s2){
     for(unsigned int i = 0; i < s2.size(); i++){
         if(obj.getGlobalBounds().intersects(s2[i].getGlobalBounds())){
-            return true;
+            return &s2[i];
         }
     }
-    return false;
+    return nullptr;
 }
 
 bool checkCollisionDoors(std::vector<std::shared_ptr<doorBlock>> door, Player &p){

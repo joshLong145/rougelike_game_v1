@@ -28,11 +28,10 @@ int fly::getHealth(){
 
 //main action for enemy ( changes from enemy to enemy)
 //Fly will move towards to player at a constant speed
-void fly::move(Player &p){
-    dt = mainTimer.restart();
+void fly::move(Player &p, sf::Time deltaTime){
     float factor = 0.f;
     float speed = .1f * velocity;
-    factor += dt.asSeconds() * speed;
+    factor += deltaTime.asSeconds() * speed;
     sprite.setPosition(interpolate(sprite.getPosition(),p.loadImage().getPosition(),factor));
 }
 
@@ -48,8 +47,8 @@ void fly::move(Player &p){
 
 int fly::getVelocity(){return velocity;}
 
-void fly::bounce(){
-    sprite.move(-(velocity * dt.asSeconds()), -(velocity * dt.asSeconds()));
+void fly::bounce(sf::Vector2f objBounds){
+
 }
 
 void fly::bounceEnemy(){}

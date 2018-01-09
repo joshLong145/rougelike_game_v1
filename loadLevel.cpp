@@ -14,68 +14,71 @@
 #define NEXT_DOOR 2
 #define BACK_DOOR 3
 
-loadLevel::loadLevel(int map[10][9],std::vector<std::unique_ptr<baseEnemy>> &e) : enemies(std::move(e)){
+loadLevel::loadLevel(std::vector<std::string> rooms, std::vector<std::unique_ptr<baseEnemy>> &e) : enemies(std::move(e)){
     //assign enemy passed to the room to a local var
     // go through matrix and map each integer to a tile obj
-    for(int r = 0; r < 10; r++){
+    int r = 0;
+    for(auto room : rooms ){
         for(int c = 0;  c < 9; c++){
             // add wall objs to both the level and rect vectors. (rect vector is for collision detection)
-            if(map[r][c] == WALL){
+            if(room[c] == 'W'){
                 std::shared_ptr<wallBlock> block = std::make_unique<wallBlock>(r * 65, c * 70);
                 level_blocks.push_back(block);
                 rects.push_back(block->loadImage());
             }
-            if(map[r][c] == GROUND){
+            if(room[c] == 'G'){
                 level_blocks.push_back(std::make_unique<groundBlock>(r * 65, c * 70));
             }
-            if(map[r][c] == NEXT_DOOR){
+            if(room[c] == 'N'){
                 std::shared_ptr<doorBlock> door = std::make_unique<doorBlock>(r * 65, c * 70,1);
                 level_blocks.push_back(door);
                 doorRects.push_back(door);
                 rects.push_back(door->loadImage());
             }
-            if(map[r][c] == BACK_DOOR){
+            if(room[c] == 'B'){
                 std::shared_ptr<doorBlock> door = std::make_unique<doorBlock>(r * 65, c * 70,2);
                 level_blocks.push_back(door);
                 doorRects.push_back(door);
                 rects.push_back(door->loadImage());
             }
         }
+        r++;
     }
 }
 
-loadLevel::loadLevel(int map[10][9],std::vector<std::unique_ptr<baseEnemy>> &e, std::vector<std::unique_ptr<chest>> c) : enemies(std::move(e)){
+loadLevel::loadLevel(std::vector<std::string> rooms,std::vector<std::unique_ptr<baseEnemy>> &e, std::vector<std::unique_ptr<chest>> c) : enemies(std::move(e)){
 
     //assign chests passed to the room to a local var
     chests = std::move(c);
     for(auto chest = chests.begin(); chest != chests.end(); chest++){
         rects.push_back((*chest)->loadImage());
     }
-    // go through matrix and map each integer to a tile obj
-    for(int r = 0; r < 10; r++){
+     int r = 0;
+     for(auto room : rooms ){
         for(int c = 0;  c < 9; c++){
             // add wall objs to both the level and rect vectors. (rect vector is for collision detection)
-            if(map[r][c] == WALL){
+            if(room[c] == 'W'){
                 std::shared_ptr<wallBlock> block = std::make_unique<wallBlock>(r * 65, c * 70);
                 level_blocks.push_back(block);
                 rects.push_back(block->loadImage());
             }
-            if(map[r][c] == GROUND){
+            if(room[c] == 'G'){
                 level_blocks.push_back(std::make_unique<groundBlock>(r * 65, c * 70));
             }
-            if(map[r][c] == NEXT_DOOR){
+            if(room[c] == 'N'){
                 std::shared_ptr<doorBlock> door = std::make_unique<doorBlock>(r * 65, c * 70,1);
                 level_blocks.push_back(door);
                 doorRects.push_back(door);
                 rects.push_back(door->loadImage());
             }
-            if(map[r][c] == BACK_DOOR){
+            if(room[c] == 'B'){
                 std::shared_ptr<doorBlock> door = std::make_unique<doorBlock>(r * 65, c * 70,2);
                 level_blocks.push_back(door);
                 doorRects.push_back(door);
                 rects.push_back(door->loadImage());
             }
         }
+        r++;
     }
 }
 

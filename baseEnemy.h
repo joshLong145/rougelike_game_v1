@@ -27,10 +27,10 @@ class baseEnemy : public sf::Transformable{
         virtual sf::Sprite loadImage() = 0;
         // moves enemy ( based on AI path )
 
-        virtual void move(Player &p) = 0;
+        virtual void move(Player &p, sf::Time deltaTime) = 0;
 
         //called when collision is made with a wall or rock obj
-        virtual void bounce() = 0;
+        virtual void bounce(sf::Vector2f objectBounds) = 0;
 
         //used when interacting with player
         virtual void hitNonWallObj() = 0;
@@ -59,8 +59,6 @@ class baseEnemy : public sf::Transformable{
         sf::Texture texture;
         sf::Sprite sprite;
         sf::Clock animation_clock;
-        sf::Clock mainTimer;
-        sf::Time dt;
         std::vector<std::unique_ptr<enemyBullet>> bullets;
 };
 

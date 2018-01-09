@@ -16,7 +16,7 @@
 #include <memory>
 namespace checkCollision{
 
-        bool checkCollisionWalls(sf::Sprite obj,std::vector<sf::Sprite> s2);
+        sf::Sprite * checkCollisionWalls(sf::Sprite obj,std::vector<sf::Sprite> s2);
         bool checkCollisionPlayerBullets(sf::Sprite obj,Player &p);
         bool checkCollisionBasic(sf::Sprite obj1, sf::Sprite obj2);
         bool checkCollisionEnemies(sf::Sprite obj1,std::vector<std::unique_ptr<baseEnemy>> &enemies);

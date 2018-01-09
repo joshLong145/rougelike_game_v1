@@ -16,8 +16,11 @@
 class Update{
     public:
         Update(){};
-        void updatePlayerObjs(Player &p,std::vector<sf::Sprite> rects,std::vector<std::unique_ptr<baseEnemy>> &e,std::vector<std::shared_ptr<doorBlock>> doorRects);
-        void updateEnemeyObjs(std::vector<std::unique_ptr<baseEnemy>> &e, std::vector<sf::Sprite> rects,Player &p);
+        void updatePlayerObjs(Player &p,std::vector<sf::Sprite> rects,std::vector<std::unique_ptr<baseEnemy>> &e,
+                              std::vector<std::shared_ptr<doorBlock>> doorRects);
+
+        void updateEnemeyObjs(std::vector<std::unique_ptr<baseEnemy>> &e,
+                              std::vector<sf::Sprite> rects, Player &p, sf::Time deltaTime);
     private:
         sf::Clock hit_timer;
 };

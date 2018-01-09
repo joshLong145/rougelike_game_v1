@@ -47,12 +47,14 @@ void Update::updatePlayerObjs(Player &player,std::vector<sf::Sprite> rects,std::
     player.updateStates();
 }
 // checks for collision with all enemy obj
-void Update::updateEnemeyObjs(std::vector<std::unique_ptr<baseEnemy>> &e,std::vector<sf::Sprite> rects,Player &p){
+void Update::updateEnemeyObjs(std::vector<std::unique_ptr<baseEnemy>> &e,std::vector<sf::Sprite> rects,
+                              Player &p, sf::Time deltaTime){
     for(auto enemy = e.begin(); enemy != e.end();enemy++){
-        if(checkCollisionWalls((*enemy)-> loadImage(),rects)){
-            (*enemy)->bounce();
+        sf::Sprite *wallObjectSprite = checkCollisionWalls((*enemy)-> loadImage(),rects);
+        if(wallObjectSprite != nullptr){
+            (*enemy)->bounce(wallObjectSprite->getPosition());
         }else{
-            (*enemy)->move(p);
+            (*enemy)->move(p, deltaTime);
         }
     }
 

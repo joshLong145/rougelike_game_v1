@@ -25,8 +25,8 @@ display() and update() update any object on the screen and display will display 
 
 class loadLevel{
     public:
-        loadLevel(int map[10][9],std::vector<std::unique_ptr<baseEnemy>> &e);
-        loadLevel(int map[10][9],std::vector<std::unique_ptr<baseEnemy>> &e,std::vector<std::unique_ptr<chest>> chests);
+        loadLevel(std::vector<std::string> rooms, std::vector<std::unique_ptr<baseEnemy>> &e);
+        loadLevel(std::vector<std::string> rooms, std::vector<std::unique_ptr<baseEnemy>> &e,std::vector<std::unique_ptr<chest>> chests);
         void setPlayer(Player &player);
         void display(sf::RenderWindow &window);
         void update();

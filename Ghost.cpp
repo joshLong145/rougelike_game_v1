@@ -24,17 +24,15 @@ sf::Sprite Ghost::loadImage(){
 int Ghost::getHealth(){
     return health;
 }
-void Ghost::move(Player &p){
-    dt = mainTimer.restart();
-
+void Ghost::move(Player &p, sf::Time deltaTime){
     if(isWallHit()){
-        sprite.move(velocity * dt.asSeconds(),0);
+        sprite.move(velocity * deltaTime.asSeconds(),0);
     }else{
-        sprite.move(-(velocity * dt.asSeconds()),0);
+        sprite.move(-(velocity * deltaTime.asSeconds()),0);
     }
 }
 
-void Ghost::bounce(){
+void Ghost::bounce(sf::Vector2f objBounds){
     if(wallhit){
         // probably should change this soon!!!!!
          sprite.move(-velocity / 10,0);

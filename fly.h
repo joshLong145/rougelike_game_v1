@@ -20,9 +20,9 @@ public:
     // returns a sprite obj
     sf::Sprite loadImage();
     // moves enemy
-    void move(Player &p);
+    void move(Player &p, sf::Time deltaTime);
     //called when collision is made with a wall or rock obj
-    void bounce();
+    void bounce(sf::Vector2f objBounds);
     // called when enemy hits a player
     void bounceEnemy();
     // get health

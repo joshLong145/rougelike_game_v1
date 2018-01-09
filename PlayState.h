@@ -17,6 +17,9 @@
 #include "Update.h"
 // for GUI
 #include "GUI.h"
+//handle file io
+#include "levelConfiguration.h"
+
 // define statements for level creation
 #define W 0
 #define G 1
@@ -47,8 +50,12 @@ class PlayState : public virtual GameState{
         int current_room = 0;
         //containers for level creation
         std::vector<std::unique_ptr<loadLevel>> rooms;
+        //storage for level data parsed by filereader object
+        std::map<std::string,std::vector<std::vector<std::string>>> rawGameLevels;
         // player object
         Player player = *new Player(75,75);
+        //handles all update syncing of objects
+        sf::Clock mainTimer;
         //create a update obj which will detect collision between player and other obj (also checks collision of bullets from the player)
         Update update_objects;
         // object for GUI
