@@ -89,7 +89,7 @@ void PlayState::updateGameObjects(){
     // update all obj in level
     update_objects.updatePlayerObjs(player,rooms.at(current_room)->getRects(),
                                     rooms.at(current_room)->getEnemies(),
-                                    rooms.at(current_room)->getDoors());
+                                    rooms.at(current_room)->getDoors(), deltaTime);
 }
 
 void PlayState::update(){

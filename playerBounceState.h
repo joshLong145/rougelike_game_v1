@@ -7,7 +7,7 @@
 
 class playerBounceState : public virtual gameObjectState{
     public:
-        playerBounceState(Player &p);
+        playerBounceState(Player &p, sf::Time deltaTime);
         void update();
         bool nextPanel();
     private:

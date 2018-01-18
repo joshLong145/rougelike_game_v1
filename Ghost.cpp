@@ -24,6 +24,11 @@ sf::Sprite Ghost::loadImage(){
 int Ghost::getHealth(){
     return health;
 }
+
+void Ghost::setHealth(int newAmount){
+    health  = newAmount;
+}
+
 void Ghost::move(Player &p, sf::Time deltaTime){
     if(isWallHit()){
         sprite.move(velocity * deltaTime.asSeconds(),0);

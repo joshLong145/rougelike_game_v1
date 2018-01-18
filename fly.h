@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include "baseEnemy.h"
 #include "Player.h"
+#include <math.h>
 
 class fly : public baseEnemy{
 public:
@@ -27,6 +28,8 @@ public:
     void bounceEnemy();
     // get health
     int getHealth();
+
+    void setHealth(int newAmount);
 
     bool isWallHit();
 

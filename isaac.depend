@@ -487,9 +487,10 @@
 	"chest.h"
 	<memory>
 
-1515470948 /home/josh/programming/projects/rougelike_game_v1/Player.h
+1516233838 /home/josh/programming/projects/rougelike_game_v1/Player.h
 	"playerBullet.h"
 	"gameObjectStateManager.h"
+	"baseItem.h"
 	<memory>
 
 1515470948 /home/josh/programming/projects/rougelike_game_v1/playerBullet.h
@@ -502,13 +503,14 @@
 	"gameObjectState.h"
 	<memory>
 
-1515470948 /home/josh/programming/projects/rougelike_game_v1/gameObjectState.h
+1516234115 /home/josh/programming/projects/rougelike_game_v1/gameObjectState.h
+	<SFML/Graphics.hpp>
 
 1515470948 /home/josh/programming/projects/rougelike_game_v1/baseBullet.h
 	<SFML/Graphics.hpp>
 	"gameObjectStateManager.h"
 
-1515526533 /home/josh/programming/projects/rougelike_game_v1/baseEnemy.h
+1516294007 /home/josh/programming/projects/rougelike_game_v1/baseEnemy.h
 	<stdio.h>
 	<SFML/Graphics.hpp>
 	"ResourcePath.hpp"
@@ -543,7 +545,7 @@
 1515470948 /home/josh/programming/projects/rougelike_game_v1/chest.h
 	<SFML/Graphics.hpp>
 
-1515512151 /home/josh/programming/projects/rougelike_game_v1/Update.h
+1516232808 /home/josh/programming/projects/rougelike_game_v1/Update.h
 	"Player.h"
 	"baseEnemy.h"
 	"doorBlock.h"
@@ -596,23 +598,24 @@
 	"baseEnemy.h"
 	"gameObjectState.h"
 
-1515526499 source:/home/josh/programming/projects/rougelike_game_v1/fly.cpp
+1516293934 source:/home/josh/programming/projects/rougelike_game_v1/fly.cpp
 	"fly.h"
 
-1515526619 /home/josh/programming/projects/rougelike_game_v1/fly.h
+1516293557 /home/josh/programming/projects/rougelike_game_v1/fly.h
 	<stdio.h>
 	"baseEnemy.h"
 	"Player.h"
+	<math.h>
 
 1515470948 source:/home/josh/programming/projects/rougelike_game_v1/gameObjectStateManager.cpp
 	"gameObjectStateManager.h"
 
-1515526504 source:/home/josh/programming/projects/rougelike_game_v1/Ghost.cpp
+1516293827 source:/home/josh/programming/projects/rougelike_game_v1/Ghost.cpp
 	"Ghost.h"
 	"enemyWalkingState.h"
 	<math.h>
 
-1515526528 /home/josh/programming/projects/rougelike_game_v1/Ghost.h
+1516293475 /home/josh/programming/projects/rougelike_game_v1/Ghost.h
 	<stdio.h>
 	"baseEnemy.h"
 	"gameObjectStateManager.h"
@@ -638,21 +641,21 @@
 1515470948 source:/home/josh/programming/projects/rougelike_game_v1/panelManager.cpp
 	"panelManager.h"
 
-1515470948 source:/home/josh/programming/projects/rougelike_game_v1/Player.cpp
+1516233881 source:/home/josh/programming/projects/rougelike_game_v1/Player.cpp
 	"Player.h"
 	"playerWalkingState.h"
 	"playerBounceState.h"
 	<memory>
 
-1515470948 /home/josh/programming/projects/rougelike_game_v1/playerWalkingState.h
+1516233176 /home/josh/programming/projects/rougelike_game_v1/playerWalkingState.h
 	"Player.h"
 	"gameObjectState.h"
 
-1515470948 /home/josh/programming/projects/rougelike_game_v1/playerBounceState.h
+1516233240 /home/josh/programming/projects/rougelike_game_v1/playerBounceState.h
 	"Player.h"
 	"gameObjectState.h"
 
-1515470948 source:/home/josh/programming/projects/rougelike_game_v1/playerBounceState.cpp
+1516233997 source:/home/josh/programming/projects/rougelike_game_v1/playerBounceState.cpp
 	"playerBounceState.h"
 
 1515470948 source:/home/josh/programming/projects/rougelike_game_v1/playerBullet.cpp
@@ -660,10 +663,10 @@
 	"ResourcePath.hpp"
 	"bulletMovingState.h"
 
-1515470948 source:/home/josh/programming/projects/rougelike_game_v1/playerWalkingState.cpp
+1516234017 source:/home/josh/programming/projects/rougelike_game_v1/playerWalkingState.cpp
 	"playerWalkingState.h"
 
-1515514364 source:/home/josh/programming/projects/rougelike_game_v1/PlayState.cpp
+1516233272 source:/home/josh/programming/projects/rougelike_game_v1/PlayState.cpp
 	"PlayState.h"
 	"Ghost.h"
 	"fly.h"
@@ -672,7 +675,7 @@
 	"MenuState.h"
 	<memory>
 
-1515512161 source:/home/josh/programming/projects/rougelike_game_v1/Update.cpp
+1516293952 source:/home/josh/programming/projects/rougelike_game_v1/Update.cpp
 	<iostream>
 	"Update.h"
 	"checkCollision.h"
@@ -691,4 +694,8 @@
 1515510597 source:/home/josh/programming/projects/rougelike_game_v1/levelConfiguration.cpp
 	"levelConfiguration.h"
 	<iostream>
+
+1516232259 /home/josh/programming/projects/rougelike_game_v1/baseItem.h
+	<SFML/Graphics.hpp>
+	<string>
 

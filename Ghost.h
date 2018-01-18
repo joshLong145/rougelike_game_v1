@@ -28,6 +28,8 @@ class Ghost: public baseEnemy{
         // get health
         int getHealth();
 
+        void setHealth(int newAmount);
+
         bool isWallHit();
 
         bool setWallHit(bool result);

@@ -5,13 +5,14 @@
 
 using namespace checkCollision;
 // check for collisions with wall obj ( includes bullet obj from the player)
-void Update::updatePlayerObjs(Player &player,std::vector<sf::Sprite> rects,std::vector<std::unique_ptr<baseEnemy>> &e,std::vector<std::shared_ptr<doorBlock>> doors){
+void Update::updatePlayerObjs(Player &player,std::vector<sf::Sprite> rects,std::vector<std::unique_ptr<baseEnemy>> &e,
+                              std::vector<std::shared_ptr<doorBlock>> doors,sf::Time deltaTime){
 
     std::vector<std::shared_ptr<playerBullet>> &bullets = player.getBulletVector();
     if(checkCollisionWalls(player.loadImage(),rects) ){
-        player.bounce();
+        player.bounce(deltaTime);
     }else{
-        player.playerControls();
+        player.playerControls(deltaTime);
     }
     // checks collision with door obj if true, go to next level
     checkCollisionDoors(doors,player);
@@ -59,9 +60,10 @@ void Update::updateEnemeyObjs(std::vector<std::unique_ptr<baseEnemy>> &e,std::ve
     }
 
     for(auto enemy = e.begin(); enemy != e.end();){
-        if(checkCollisionPlayerBullets((*enemy) -> loadImage(),p)){
+        if(checkCollisionPlayerBullets((*enemy) -> loadImage(),p) && (*enemy)->getHealth() <= 0){
             e.erase(enemy);
         }else{
+            (*enemy)->setHealth((*enemy)->getHealth() - 1);
             enemy++;
         }
     }

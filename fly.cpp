@@ -26,29 +26,43 @@ int fly::getHealth(){
     return health;
 }
 
+void fly::setHealth(int newAmount){
+    health = newAmount;
+}
+
 //main action for enemy ( changes from enemy to enemy)
 //Fly will move towards to player at a constant speed
 void fly::move(Player &p, sf::Time deltaTime){
     float factor = 0.f;
     float speed = .1f * velocity;
     factor += deltaTime.asSeconds() * speed;
-    sprite.setPosition(interpolate(sprite.getPosition(),p.loadImage().getPosition(),factor));
+    sprite.setPosition(interpolate(sprite.getPosition(), p.loadImage().getPosition(),factor));
+
 }
 
 //Used to "guess" the next position of movment based on given coords.
  sf::Vector2f fly::interpolate(const sf::Vector2f point_A, const sf::Vector2f point_B, float factor){
-        if(factor > 1.f){
-            factor = 1.f;
+        if(factor > 0.1f){
+            factor =  1.0f;
         }else if(factor < 0.f){
             factor = 0.f;
         }
         return point_A +(point_B - point_A) * factor;
 }
 
-int fly::getVelocity(){return velocity;}
+int fly::getVelocity(){ return velocity; }
 
 void fly::bounce(sf::Vector2f objBounds){
-
+    if(sprite.getPosition().x > objBounds.x){
+        sprite.move(1,0);
+    }else{
+        sprite.move(-1,0);
+    }
+    if(sprite.getPosition().y > objBounds.y){
+        sprite.move(0,1);
+    }else{
+        sprite.move(0,-1);
+    }
 }
 
 void fly::bounceEnemy(){}

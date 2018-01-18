@@ -7,7 +7,7 @@
 
 class playerWalkingState : public virtual gameObjectState{
     public:
-        playerWalkingState(char d, Player &p);
+        playerWalkingState(char d, Player &p, sf::Time deltaTime);
         void update();
         bool nextPanel();
     protected:

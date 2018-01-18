@@ -1,15 +1,16 @@
 
 #include "playerWalkingState.h"
 
-playerWalkingState::playerWalkingState(char b, Player &p) : gameObjectState(){
+playerWalkingState::playerWalkingState(char b, Player &p, sf::Time deltaTime) : gameObjectState(){
     button = b;
     player = &p;
+    delta = deltaTime;
 }
 
 void playerWalkingState::update(){
     player->updateWalkingAnimation(button);
     sf::Vector2f pos = player->loadImage().getPosition();
-    const auto speed = player->delta.asSeconds() * 100;
+    const auto speed = delta.asSeconds() * 100;
     if(button == 'S'){
         player->loadImage().setPosition(pos.x,pos.y +speed);
         player->getPos()[0] = 0;

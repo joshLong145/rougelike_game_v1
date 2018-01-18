@@ -38,7 +38,13 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add directory="/home/josh/usr/include/SFML" />
 		</Compiler>
+		<Linker>
+			<Add library="sfml-graphics" />
+			<Add library="sfml-window" />
+			<Add library="sfml-system" />
+		</Linker>
 		<Unit filename="Application.cpp" />
 		<Unit filename="Application.h" />
 		<Unit filename="Chest.png" />
@@ -59,6 +65,7 @@
 		<Unit filename="Update.h" />
 		<Unit filename="baseBullet.h" />
 		<Unit filename="baseEnemy.h" />
+		<Unit filename="baseItem.h" />
 		<Unit filename="bulletMovingState.cpp" />
 		<Unit filename="bulletMovingState.h" />
 		<Unit filename="bullets.png" />

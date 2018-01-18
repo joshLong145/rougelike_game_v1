@@ -38,6 +38,10 @@ class baseEnemy : public sf::Transformable{
         // get health
         virtual int getHealth() = 0;
 
+        //set value of health to a new object
+        virtual void setHealth(int newAmount) = 0;
+
+        // determins of a wall has been hit by the enemy
         virtual bool isWallHit() = 0;
 
         virtual int getVelocity() = 0;
@@ -47,13 +51,15 @@ class baseEnemy : public sf::Transformable{
         virtual int path_length(int x1, int y1, int x2, int y2) = 0;
 
         virtual void setBulletDirection() = 0;
+
+
     protected:
         int x_val;
         int y_val;
         int velocity;
         int image_x = 0;
         int image_y = 0;
-        int health = 10;
+        int health = 12;
         int last_move[2];
         bool wallHit = false;
         sf::Texture texture;

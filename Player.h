@@ -11,6 +11,7 @@
 
 #include "playerBullet.h"
 #include "gameObjectStateManager.h"
+#include "baseItem.h"
 #include <memory>
 
 class Player : public sf::Transformable{
@@ -22,11 +23,11 @@ class Player : public sf::Transformable{
         // returns a sprite obj
         sf::Sprite & loadImage();
         //player controls live here
-        void playerControls();
+        void playerControls(sf::Time deltaTime);
         // returns a refrence to vector of bullet obj
         std::vector<std::shared_ptr<playerBullet>> & getBulletVector();
         //called when collision is made with a wall or rock obj
-        void bounce();
+        void bounce(sf::Time deltaTime);
         void bounceEnemy();
         // get health
         int getHealth();
@@ -50,11 +51,15 @@ class Player : public sf::Transformable{
         void updateStates();
 
         void transporForDoor();
+
+        void addItem();
+
+        void removeItem();
         //USED IN STATES
         sf::Clock mainTimer;
         sf::Time delta; // used to calcualte player movement
     private:
-        int velocity = 150;
+        int velocity = 200;
         int image_row = 0;
         int image_col = 0;
         int last_move[2];
