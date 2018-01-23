@@ -51,8 +51,7 @@ int Player::getDoor(){
 
 void Player::playerControls(sf::Time deltaTime){
     sf::Vector2f pos = loadImage().getPosition();
-    //used to smooth player movement
-    delta = mainTimer.restart();
+
     // add bullets objs to the vector if left, right, up, or down are pressed, cool down of 1 sec based on internal clock rate of one secound.
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
         if (bullet_clock.getElapsedTime().asSeconds() > 0.5){
@@ -156,7 +155,14 @@ void Player::transporForDoor(){
     }
 
 }
-
+// used for damage calculation for enemies in the update cycle
+int Player::getOffensiveValue(){
+    return offensiveValue;
+}
+// used for damage calculation for player in the update cycle
+int Player::getDefensiveValue(){
+    return defensiveValue;
+}
 std::vector<std::shared_ptr<playerBullet>> & Player::getBulletVector(){
     return bullets;
 }
@@ -171,4 +177,20 @@ void Player::clearBullets(){
 void Player::updateStates(){
     states.nextPanel();
     states.update();
+}
+
+void Player::setDamageColorToggle(bool setting){
+    damageColorToggle = setting;
+}
+
+void Player::manageColors(){
+    if(colorTiming.getElapsedTime().asSeconds() > 0.5f){
+        if(damageColorToggle){
+            sprite.setColor(sf::Color::Red);
+            damageColorToggle = !damageColorToggle;
+        }else{
+            sprite.setColor(sf::Color::White);
+        }
+        colorTiming.restart();
+    }
 }

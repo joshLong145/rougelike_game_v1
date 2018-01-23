@@ -46,6 +46,7 @@ class Ghost: public baseEnemy{
         bool isHit = false;
         sf::Clock hitTimer;
         sf::Clock bullet_clock;
+        int health = 3;
 };
 
 

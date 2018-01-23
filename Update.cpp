@@ -16,6 +16,8 @@ void Update::updatePlayerObjs(Player &player,std::vector<sf::Sprite> rects,std::
     }
     // checks collision with door obj if true, go to next level
     checkCollisionDoors(doors,player);
+    // manages color changing based on enviorment interaction
+    player.manageColors();
     // checks for collision with bullets against wall object.
     //if it does, remove it.
     for(auto bullet = bullets.begin(); bullet != bullets.end();){
@@ -31,6 +33,7 @@ void Update::updatePlayerObjs(Player &player,std::vector<sf::Sprite> rects,std::
         if(checkCollisionBasic(player.loadImage(), (*enemy) ->loadImage())){
             if(hit_timer.getElapsedTime().asSeconds() > 1.0f){
                 player.setHealth((player.getHealth() - 1));
+                player.setDamageColorToggle(true);
                 hit_timer.restart();
             }
             (*enemy)->hitNonWallObj();
@@ -41,6 +44,7 @@ void Update::updatePlayerObjs(Player &player,std::vector<sf::Sprite> rects,std::
     if(checkCollisionEnemyBullets(player.loadImage(),e)){
         if(hit_timer.getElapsedTime().asSeconds() > 1.0f){
                 player.setHealth((player.getHealth() - 1));
+                player.setDamageColorToggle(true);
                 hit_timer.restart();
         }
     }
@@ -48,7 +52,7 @@ void Update::updatePlayerObjs(Player &player,std::vector<sf::Sprite> rects,std::
     player.updateStates();
 }
 // checks for collision with all enemy obj
-void Update::updateEnemeyObjs(std::vector<std::unique_ptr<baseEnemy>> &e,std::vector<sf::Sprite> rects,
+void Update::updateEnemeyObjs(std::vector<std::unique_ptr<baseEnemy>> &e, std::vector<sf::Sprite> rects,
                               Player &p, sf::Time deltaTime){
     for(auto enemy = e.begin(); enemy != e.end();enemy++){
         sf::Sprite *wallObjectSprite = checkCollisionWalls((*enemy)-> loadImage(),rects);
@@ -60,10 +64,13 @@ void Update::updateEnemeyObjs(std::vector<std::unique_ptr<baseEnemy>> &e,std::ve
     }
 
     for(auto enemy = e.begin(); enemy != e.end();){
-        if(checkCollisionPlayerBullets((*enemy) -> loadImage(),p) && (*enemy)->getHealth() <= 0){
-            e.erase(enemy);
+        if(checkCollisionPlayerBullets((*enemy) -> loadImage(),p)){
+            if(((*enemy)->getHealth() <= 0)){
+                e.erase(enemy);
+            }else{
+                (*enemy)->setHealth((*enemy)->getHealth() - p.getOffensiveValue()); //TODO::
+            }
         }else{
-            (*enemy)->setHealth((*enemy)->getHealth() - 1);
             enemy++;
         }
     }

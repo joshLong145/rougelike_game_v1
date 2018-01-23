@@ -46,10 +46,8 @@ public:
     sf::Vector2f interpolate(const sf::Vector2f point_A, const sf::Vector2f point_B, float factor);
 
 private:
-    bool wallhit = false;
-    sf::Clock clock;
-    sf::Time dt;
-    Player *player = nullptr;
+    int health = 1;
+
 };
 
 

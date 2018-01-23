@@ -63,6 +63,8 @@
 		<Unit filename="ResourcePath.mm" />
 		<Unit filename="Update.cpp" />
 		<Unit filename="Update.h" />
+		<Unit filename="bag.cpp" />
+		<Unit filename="bag.h" />
 		<Unit filename="baseBullet.h" />
 		<Unit filename="baseEnemy.h" />
 		<Unit filename="baseItem.h" />

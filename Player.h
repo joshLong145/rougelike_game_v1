@@ -55,9 +55,16 @@ class Player : public sf::Transformable{
         void addItem();
 
         void removeItem();
-        //USED IN STATES
-        sf::Clock mainTimer;
-        sf::Time delta; // used to calcualte player movement
+
+        int getOffensiveValue();
+
+        int getDefensiveValue();
+
+        //manage color of players based on enviorment interaction
+        void manageColors();
+
+        void setDamageColorToggle(bool setting);
+
     private:
         int velocity = 200;
         int image_row = 0;
@@ -65,17 +72,23 @@ class Player : public sf::Transformable{
         int last_move[2];
         int health = 5;
         int door = 4;
+        int offensiveValue  = 1;
+        int defensiveValue = 1;
         // SFML objects
         sf::IntRect animation_frames[4][3];
         sf::Texture texture;
         sf::Sprite sprite;
         sf::Clock bullet_clock;
         sf::Clock animation_clock;
-
+        // times different colors that the player can turn;
+        sf::Clock colorTiming;
+        bool damageColorToggle = false;
         // vector of bullet obj pointers
         std::vector<std::shared_ptr<playerBullet>> bullets;
         // object of gameObjectStateManager to manage player states
         gameObjectStateManager states;
+
+
 };
 
 #endif

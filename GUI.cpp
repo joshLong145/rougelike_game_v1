@@ -28,4 +28,3 @@ sf::Text GUI::displayTextHealth(Player &p){
     healthText.setString(std::to_string(p.getHealth()));
     return healthText;
 }
-

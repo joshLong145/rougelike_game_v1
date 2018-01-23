@@ -9,6 +9,7 @@ class baseItem{
 public:
     baseItem() = default;
     ~baseItem() = default;
+    virtual sf::Sprite loadImage() = 0;
     virtual int getStatModifier() = 0;
     virtual std::string getItemName() = 0;
 private:

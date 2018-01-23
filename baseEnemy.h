@@ -59,7 +59,7 @@ class baseEnemy : public sf::Transformable{
         int velocity;
         int image_x = 0;
         int image_y = 0;
-        int health = 12;
+        int health = 1;
         int last_move[2];
         bool wallHit = false;
         sf::Texture texture;

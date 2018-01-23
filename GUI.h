@@ -6,12 +6,6 @@
 //  Copyright © 2017 josh long. All rights reserved.
 //
 
-
-/*
-
- 
- */
-
 #ifndef GUI_h
 #define GUI_h
 
@@ -23,6 +17,7 @@ class GUI{
         GUI();
         sf::Sprite displayHealthImage();
         sf::Text displayTextHealth(Player &p);
+        std::vector<sf::Sprite> displayItems();
     private:
         sf::Texture texture;
         sf::Sprite sprite;

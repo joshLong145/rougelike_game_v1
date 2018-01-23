@@ -18,7 +18,6 @@ fly::fly(int x_pos, int y_pos, int v):baseEnemy(x_pos, y_pos, v){
 
 sf::Sprite fly::loadImage(){
     sprite.setTextureRect(sf::IntRect(image_x,image_y,19,12));
-    dt = clock.restart();
     return sprite;
 }
 
