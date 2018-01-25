@@ -18,6 +18,53 @@ using namespace Manager;
 
 PlayState::PlayState(sf::RenderWindow &w):GameState(w){}
 
+std::map<std::string,std::vector<std::unique_ptr<loadLevel>>> PlayState::initlizeLevels(){
+    std::map<std::string,std::vector<std::unique_ptr<loadLevel>>> levelData;
+
+    std::vector<std::string> levelTextFiles = {"level1.txt"};
+    std::vector<std::string> EnemyTextFiles = {"enemiesLevel1.txt"};
+
+    //Initilize all game objects
+    envriormentReading levelFiles;
+    enemyReading enemyFiles;
+    levelFiles.openFilesForReading(levelTextFiles);
+    rawGameLevels = levelFiles.readFileData();
+    levelFiles.parseFileData(rawGameLevels);
+    enemyFiles.openFilesForReading(EnemyTextFiles);
+    rawEnemies = enemyFiles.readFileData();
+
+    //create enmies from raw enemy data
+    std::map<std::string,std::map<std::string,std::vector<std::unique_ptr<baseEnemy>>>> enemyData;
+    //cycle through all rawEnemy data and parse into game objects
+    for(auto enemy : rawEnemies){
+        std::string enemyType = std::get<1>(enemy.second);
+        std::string room = std::get<0>(enemy.second);
+        int xValue = std::get<2>(enemy.second);
+        int yValue = std::get<3>(enemy.second);
+        int velocity = std::get<4>(enemy.second);
+
+        //depending on the enemy create a ptr obj of it and put it into its corresponding room.
+        if(enemyType == "fly"){
+            enemyData[enemy.first][room].push_back(std::make_unique<fly>(xValue, yValue, velocity));
+        }
+        if(enemyType == "ghost"){
+            enemyData[enemy.first][room].push_back(std::make_unique<Ghost>(xValue, yValue, velocity));
+        }
+    }
+
+    for(auto level : rawGameLevels){
+        int roomNumber = 1;
+        for(unsigned int i = 0; i < level.second.size(); i++){
+            levelData[level.first].push_back(std::make_unique<loadLevel>(rawGameLevels[level.first][i],
+                                                                         enemyData[level.first]["room"+std::to_string(roomNumber)]));
+            roomNumber++;
+        }
+    }
+
+    return levelData;
+}
+
+
 //Initilize the all window related values for the game.
 void PlayState::initilize(){
     // resize the window and set the name of the window to game
@@ -25,42 +72,9 @@ void PlayState::initilize(){
     window.setVerticalSyncEnabled(true); // call it once, after creating the window
     window.setFramerateLimit(60); // set the frame rate to 30 constant.
 
-    std::vector<std::string> levelTextFiles = {"level1.txt"};
-    //Initilize all game objects
-    fileReading levelFiles;
-    levelFiles.openFilesForReading(levelTextFiles);
-    rawGameLevels = levelFiles.readFileData();
-    levelFiles.parseFileData(rawGameLevels);
+    levels = initlizeLevels();
 
-    // vector of enemies
-    std::vector<std::unique_ptr<baseEnemy>> room_one_enemies;
-    std::vector<std::unique_ptr<baseEnemy>> room_two_enemies;
-
-    //vector of chests
-    std::vector<std::unique_ptr<chest>> chests;
-    std::unique_ptr<chest> chest_1 = std::make_unique<chest>(130,140);
-    chests.push_back(std::move(chest_1));
-
-    //enemy storage for each level
-    std::unique_ptr<baseEnemy> enemy1 = std::make_unique<Ghost>(100,400,100);
-    std::unique_ptr<baseEnemy> fly1 = std::make_unique<fly>(200,300,4);
-    std::unique_ptr<baseEnemy> fly2 = std::make_unique<fly>(300,300,5);
-    std::unique_ptr<baseEnemy> fly3 = std::make_unique<fly>(250,300,9);
-    std::unique_ptr<baseEnemy> fly4 = std::make_unique<fly>(100,300,9);
-
-    //initilize rooms with enemies
-    room_one_enemies.push_back(std::move(fly1));
-    room_one_enemies.push_back(std::move(fly2));
-    room_one_enemies.push_back(std::move(fly3));
-    //second room
-    room_two_enemies.push_back(std::move(fly4));
-    room_two_enemies.push_back(std::move(enemy1));
-
-    //create vector that will storing view objs that load from level obj
-    rooms.push_back(std::make_unique<loadLevel>(rawGameLevels["level1"][0], room_one_enemies));
-    rooms.push_back(std::make_unique<loadLevel>(rawGameLevels["level1"][1], room_two_enemies, std::move(chests)));
-    rooms.push_back(std::make_unique<loadLevel>(rawGameLevels["level1"][2], room_two_enemies));
-    rooms.at(current_room)->setPlayer(player);
+    levels["level"+std::to_string(current_level)][current_room]->setPlayer(player);
 }
 
 void PlayState::checkRoomTransition(){
@@ -68,13 +82,13 @@ void PlayState::checkRoomTransition(){
     if(player.getDoor() == 1){
         player.clearBullets();
         current_room++;
-        rooms.at(current_room)->setPlayer(player);
+        //rooms.at(current_room)->setPlayer(player);
         player.setDoor(0);
 
     }else if(player.getDoor() == 2){
         player.clearBullets();
         current_room--;
-        rooms.at(current_room)->setPlayer(player);
+        //rooms.at(current_room)->setPlayer(player);
         player.setDoor(0);
     }
 
@@ -83,13 +97,13 @@ void PlayState::checkRoomTransition(){
 void PlayState::updateGameObjects(){
     sf::Time deltaTime = mainTimer.restart();
     //update enemy obj
-    update_objects.updateEnemeyObjs(rooms.at(current_room)->getEnemies(),
-                                    rooms.at(current_room)->getRects(),player, deltaTime);
+    update_objects.updateEnemeyObjs(levels["level"+std::to_string(current_level)][current_room]->getEnemies(),
+                                  levels["level"+std::to_string(current_level)][current_room]->getRects(),player, deltaTime);
 
     // update all obj in level
-    update_objects.updatePlayerObjs(player,rooms.at(current_room)->getRects(),
-                                    rooms.at(current_room)->getEnemies(),
-                                    rooms.at(current_room)->getDoors(), deltaTime);
+    update_objects.updatePlayerObjs(player,levels["level"+std::to_string(current_level)][current_room]->getRects(),
+                                   levels["level"+std::to_string(current_level)][current_room]->getEnemies(),
+                                   levels["level"+std::to_string(current_level)][current_room]->getDoors(), deltaTime);
 }
 
 void PlayState::update(){
@@ -109,7 +123,7 @@ void PlayState::draw(){
     window.clear();
 
     // display all obj within level obj
-    rooms.at(current_room) -> display(window);
+    levels["level"+std::to_string(current_level)][current_room]->display(window);
 
     //display GUI elements
     window.draw(gui.displayHealthImage());

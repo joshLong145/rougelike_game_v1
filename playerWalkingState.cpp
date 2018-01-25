@@ -10,7 +10,7 @@ playerWalkingState::playerWalkingState(char b, Player &p, sf::Time deltaTime) : 
 void playerWalkingState::update(){
     player->updateWalkingAnimation(button);
     sf::Vector2f pos = player->loadImage().getPosition();
-    const auto speed = delta.asSeconds() * 100;
+    const auto speed = delta.asSeconds() * 150;
     if(button == 'S'){
         player->loadImage().setPosition(pos.x,pos.y +speed);
         player->getPos()[0] = 0;

@@ -40,7 +40,6 @@ void Update::updatePlayerObjs(Player &player,std::vector<sf::Sprite> rects,std::
         }
     }
     // check for bullet collision with obsticals, if a bullet collides with a obstical, remove it,
-
     if(checkCollisionEnemyBullets(player.loadImage(),e)){
         if(hit_timer.getElapsedTime().asSeconds() > 1.0f){
                 player.setHealth((player.getHealth() - 1));
