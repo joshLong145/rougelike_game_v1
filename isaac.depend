@@ -466,10 +466,9 @@
 	"PlayState.h"
 	"MenuState.h"
 
-1516886690 /home/josh/programming/projects/rougelike_game_v1/PlayState.h
+1516915737 /home/josh/programming/projects/rougelike_game_v1/PlayState.h
 	<stdio.h>
 	"GameState.h"
-	"loadLevel.h"
 	<queue>
 	"Update.h"
 	"GUI.h"
@@ -487,7 +486,7 @@
 	"chest.h"
 	<memory>
 
-1516643429 /home/josh/programming/projects/rougelike_game_v1/Player.h
+1517061780 /home/josh/programming/projects/rougelike_game_v1/Player.h
 	"playerBullet.h"
 	"gameObjectStateManager.h"
 	"baseItem.h"
@@ -510,7 +509,7 @@
 	<SFML/Graphics.hpp>
 	"gameObjectStateManager.h"
 
-1516297987 /home/josh/programming/projects/rougelike_game_v1/baseEnemy.h
+1517061537 /home/josh/programming/projects/rougelike_game_v1/baseEnemy.h
 	<stdio.h>
 	<SFML/Graphics.hpp>
 	"ResourcePath.hpp"
@@ -641,10 +640,11 @@
 1515470948 source:/home/josh/programming/projects/rougelike_game_v1/panelManager.cpp
 	"panelManager.h"
 
-1516643435 source:/home/josh/programming/projects/rougelike_game_v1/Player.cpp
+1517061794 source:/home/josh/programming/projects/rougelike_game_v1/Player.cpp
 	"Player.h"
 	"playerWalkingState.h"
 	"playerBounceState.h"
+	"playerDamageState.h"
 	<memory>
 
 1516233176 /home/josh/programming/projects/rougelike_game_v1/playerWalkingState.h
@@ -666,7 +666,7 @@
 1516814838 source:/home/josh/programming/projects/rougelike_game_v1/playerWalkingState.cpp
 	"playerWalkingState.h"
 
-1516887895 source:/home/josh/programming/projects/rougelike_game_v1/PlayState.cpp
+1516915831 source:/home/josh/programming/projects/rougelike_game_v1/PlayState.cpp
 	"PlayState.h"
 	"Ghost.h"
 	"fly.h"
@@ -675,7 +675,7 @@
 	"MenuState.h"
 	<memory>
 
-1516760561 source:/home/josh/programming/projects/rougelike_game_v1/Update.cpp
+1517061217 source:/home/josh/programming/projects/rougelike_game_v1/Update.cpp
 	<iostream>
 	"Update.h"
 	"checkCollision.h"
@@ -683,7 +683,7 @@
 1515470948 source:/home/josh/programming/projects/rougelike_game_v1/wallBlock.cpp
 	"wallBlock.h"
 
-1516819445 /home/josh/programming/projects/rougelike_game_v1/levelConfiguration.h
+1516933349 /home/josh/programming/projects/rougelike_game_v1/levelConfiguration.h
 	<map>
 	<string>
 	<vector>
@@ -691,8 +691,11 @@
 	<memory>
 	<fstream>
 	<regex>
+	"loadLevel.h"
+	"fly.h"
+	"Ghost.h"
 
-1516828322 source:/home/josh/programming/projects/rougelike_game_v1/levelConfiguration.cpp
+1516933737 source:/home/josh/programming/projects/rougelike_game_v1/levelConfiguration.cpp
 	"levelConfiguration.h"
 	<iostream>
 
@@ -701,4 +704,12 @@
 	<string>
 
 1516230166 source:/home/josh/programming/projects/rougelike_game_v1/bag.cpp
+
+1517061956 source:/home/josh/programming/projects/rougelike_game_v1/playerDamageState.cpp
+	"playerDamageState.h"
+
+1517061944 /home/josh/programming/projects/rougelike_game_v1/playerDamageState.h
+	"Player.h"
+	"baseEnemy.h"
+	"gameObjectState.h"
 

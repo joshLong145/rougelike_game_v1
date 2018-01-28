@@ -5,10 +5,11 @@ MY PROJECT -*- mode: org -*-
 *** ENEMIES 
 +**** TODO Move enemies generation to file.+  
 **** TODO Add a turret enemy ( stationary enemy with high health that fires in a signle direction).
-**** TODO Abstract loading in of enemies into the gam enviroment into a seperate function outside of the sate's init() function.
++**** TODO Abstract loading in of enemies into the gam enviroment into a seperate function outside of the sate's init() function.+
 **** TODO Add one boss enemy (watch more rouge like play throughs to get ideas). 
 *** PLAYER   
-**** TODO abstract damage calculations from update() fstd::map<std::string,std::vector<std::unique_ptr<loadLevel>>>unction into its own custom state class.
+**** TODO abstract damage calculations from update() function into its own custom state class.
+
 *** ITEMS
 **** TODO Finish designing base class for all items to use. 
 **** TODO Add health increase item 
@@ -16,4 +17,4 @@ MY PROJECT -*- mode: org -*-
 **** TODO Add damage decrease item
 **** TODO ADD health decrease item
 *** MISC 
-**** TODO add serialization for saving game data for later play. 
+**** TODO refine state machine to allow for existing states to be pushed back onto the call stack. 

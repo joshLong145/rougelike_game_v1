@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "playerWalkingState.h"
 #include "playerBounceState.h"
+#include "playerDamageState.h"
 #include <memory>
 
 // load spritesheet within the constructor of the obj
@@ -92,7 +93,9 @@ void Player::playerControls(sf::Time deltaTime){
     }
 }
 
-//TODO: change to unique_ptrs
+void Player::evaluateDamage(int enemyDamage){
+    states.newPanel(std::make_unique<playerDamageState>(*this, enemyDamage));
+}
 // collision detection
 // gets the x and y values of the obj collided with and determins where on the map it is based on pixel location
 void Player::bounce(sf::Time deltaTime){

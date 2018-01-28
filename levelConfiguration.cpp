@@ -70,3 +70,60 @@ std::multimap<std::string, std::tuple<std::string, std::string, int, int, int>> 
 
     return enemiesInLevels;
 }
+
+
+void  initilizeLevels::parseEnemyData(std::map<std::string,std::map<std::string,std::vector<std::unique_ptr<baseEnemy>>>> &enemyData){
+
+    std::vector<std::string> EnemyTextFiles = {"enemiesLevel1.txt"};
+
+    //open and load files into memory.
+    enemyReading enemies;
+    enemies.openFilesForReading(EnemyTextFiles);
+    rawEnemies = enemies.readFileData();
+
+    //cycle through all rawEnemy data and parse into game objects
+    for(auto enemy : rawEnemies){
+        std::string enemyType = std::get<1>(enemy.second);
+        std::string room = std::get<0>(enemy.second);
+        int xValue = std::get<2>(enemy.second);
+        int yValue = std::get<3>(enemy.second);
+        int velocity = std::get<4>(enemy.second);
+
+        //depending on the enemy create a ptr obj of it and put it into its corresponding room.
+        if(enemyType == "fly"){
+            enemyData[enemy.first][room].push_back(std::make_unique<fly>(xValue, yValue, velocity));
+        }
+        if(enemyType == "ghost"){
+            enemyData[enemy.first][room].push_back(std::make_unique<Ghost>(xValue, yValue, velocity));
+        }
+    }
+}
+
+std::map<std::string,std::vector<std::unique_ptr<loadLevel>>> initilizeLevels::createAndReturnLevels(){
+    std::map<std::string,std::vector<std::unique_ptr<loadLevel>>>  levelData;
+    std::vector<std::string> enviormentLevels = {"level1.txt"};
+
+    //obj for parsing enviorment data.
+    envriormentReading enviorment;
+    enviorment.openFilesForReading(enviormentLevels);
+    rawGameLevels = enviorment.readFileData();
+    enviorment.parseFileData(rawGameLevels);
+
+    //create enmies from raw enemy data
+    std::map<std::string,std::map<std::string,std::vector<std::unique_ptr<baseEnemy>>>> enemyData;
+    parseEnemyData(enemyData);
+    // loop through rooms in level map and assign each room to each level with corresponding enemy vectors.
+    for(auto level : rawGameLevels){
+        int roomNumber = 1;
+        for(unsigned int i = 0; i < level.second.size(); i++){
+            levelData[level.first].push_back(std::make_unique<loadLevel>(rawGameLevels[level.first][i],
+                                                                         enemyData[level.first]["room"+std::to_string(roomNumber)]));
+            roomNumber++;
+        }
+    }
+
+    return levelData;
+
+}
+
+

@@ -1,6 +1,6 @@
 level1 room2 ghost 200 400 100 
 level1 room2 fly 200 300 9
-level1 room2 fly 200 400 9
+level1 room2 fly 200 400 12
 level1 room3 fly 300 200 10 
 level1 room3 fly 300 100 9
-level1 room2 fly 300 400 9
+level1 room2 fly 300 400 13

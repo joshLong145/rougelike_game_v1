@@ -65,6 +65,8 @@ class Player : public sf::Transformable{
 
         void setDamageColorToggle(bool setting);
 
+        void evaluateDamage(int enemyDamage);
+
     private:
         int velocity = 200;
         int image_row = 0;

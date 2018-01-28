@@ -110,6 +110,8 @@
 		<Unit filename="playerBounceState.h" />
 		<Unit filename="playerBullet.cpp" />
 		<Unit filename="playerBullet.h" />
+		<Unit filename="playerDamageState.cpp" />
+		<Unit filename="playerDamageState.h" />
 		<Unit filename="playerSpriteSheet.png" />
 		<Unit filename="playerWalkingState.cpp" />
 		<Unit filename="playerWalkingState.h" />

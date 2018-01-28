@@ -11,7 +11,6 @@
 
 #include <stdio.h>
 #include "GameState.h"
-#include "loadLevel.h"
 #include <queue>
 // class for checking collision with other objects
 #include "Update.h"
@@ -45,18 +44,12 @@ class PlayState : public virtual GameState{
 
         void setNext(bool n);
 
-        std::map<std::string,std::vector<std::unique_ptr<loadLevel>>> initlizeLevels();
-
     private:
         //iteration vars;
         int current_level = 1;
         int current_room = 0;
         //containers for level creation
         std::map<std::string,std::vector<std::unique_ptr<loadLevel>>> levels;
-        //storage for level data parsed by filereader object
-        std::map<std::string,std::vector<std::vector<std::string>>> rawGameLevels;
-        //stores senemy data patsed from txt files
-        std::multimap<std::string, std::tuple<std::string, std::string, int, int, int>> rawEnemies;
         // player object
         Player player = *new Player(75,75);
         //handles all update syncing of objects

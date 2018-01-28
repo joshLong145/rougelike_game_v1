@@ -18,62 +18,16 @@ using namespace Manager;
 
 PlayState::PlayState(sf::RenderWindow &w):GameState(w){}
 
-std::map<std::string,std::vector<std::unique_ptr<loadLevel>>> PlayState::initlizeLevels(){
-    std::map<std::string,std::vector<std::unique_ptr<loadLevel>>> levelData;
-
-    std::vector<std::string> levelTextFiles = {"level1.txt"};
-    std::vector<std::string> EnemyTextFiles = {"enemiesLevel1.txt"};
-
-    //Initilize all game objects
-    envriormentReading levelFiles;
-    enemyReading enemyFiles;
-    levelFiles.openFilesForReading(levelTextFiles);
-    rawGameLevels = levelFiles.readFileData();
-    levelFiles.parseFileData(rawGameLevels);
-    enemyFiles.openFilesForReading(EnemyTextFiles);
-    rawEnemies = enemyFiles.readFileData();
-
-    //create enmies from raw enemy data
-    std::map<std::string,std::map<std::string,std::vector<std::unique_ptr<baseEnemy>>>> enemyData;
-    //cycle through all rawEnemy data and parse into game objects
-    for(auto enemy : rawEnemies){
-        std::string enemyType = std::get<1>(enemy.second);
-        std::string room = std::get<0>(enemy.second);
-        int xValue = std::get<2>(enemy.second);
-        int yValue = std::get<3>(enemy.second);
-        int velocity = std::get<4>(enemy.second);
-
-        //depending on the enemy create a ptr obj of it and put it into its corresponding room.
-        if(enemyType == "fly"){
-            enemyData[enemy.first][room].push_back(std::make_unique<fly>(xValue, yValue, velocity));
-        }
-        if(enemyType == "ghost"){
-            enemyData[enemy.first][room].push_back(std::make_unique<Ghost>(xValue, yValue, velocity));
-        }
-    }
-
-    for(auto level : rawGameLevels){
-        int roomNumber = 1;
-        for(unsigned int i = 0; i < level.second.size(); i++){
-            levelData[level.first].push_back(std::make_unique<loadLevel>(rawGameLevels[level.first][i],
-                                                                         enemyData[level.first]["room"+std::to_string(roomNumber)]));
-            roomNumber++;
-        }
-    }
-
-    return levelData;
-}
-
-
 //Initilize the all window related values for the game.
 void PlayState::initilize(){
     // resize the window and set the name of the window to game
     window.create(sf::VideoMode{650, 700},"game");
     window.setVerticalSyncEnabled(true); // call it once, after creating the window
     window.setFramerateLimit(60); // set the frame rate to 30 constant.
-
-    levels = initlizeLevels();
-
+    initilizeLevels levelInit;
+    // parses and loacs all level data for the game
+    levels = levelInit.createAndReturnLevels();
+    //set the player to the first room in the first level
     levels["level"+std::to_string(current_level)][current_room]->setPlayer(player);
 }
 

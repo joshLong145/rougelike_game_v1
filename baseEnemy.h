@@ -19,7 +19,11 @@
 
 class baseEnemy : public sf::Transformable{
     public:
-        baseEnemy(int x_pos, int y_pos, const int v){ x_val = x_pos; y_val = y_pos; velocity = v; }
+        baseEnemy(int x_pos, int y_pos, const int v){
+            x_val = x_pos;
+            y_val = y_pos;
+            velocity = v;
+        }
 
         ~baseEnemy() = default;
 
@@ -52,6 +56,7 @@ class baseEnemy : public sf::Transformable{
 
         virtual void setBulletDirection() = 0;
 
+        inline int getDamageAmount(){ return damage; }
 
     protected:
         int x_val;
@@ -60,8 +65,7 @@ class baseEnemy : public sf::Transformable{
         int image_x = 0;
         int image_y = 0;
         int health = 1;
-        int last_move[2];
-        bool wallHit = false;
+        int damage = 1;
         sf::Texture texture;
         sf::Sprite sprite;
         sf::Clock animation_clock;

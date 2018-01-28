@@ -32,8 +32,7 @@ void Update::updatePlayerObjs(Player &player,std::vector<sf::Sprite> rects,std::
     for(auto enemy = e.begin(); enemy != e.end(); enemy++){
         if(checkCollisionBasic(player.loadImage(), (*enemy) ->loadImage())){
             if(hit_timer.getElapsedTime().asSeconds() > 1.0f){
-                player.setHealth((player.getHealth() - 1));
-                player.setDamageColorToggle(true);
+                player.evaluateDamage((*enemy)->getDamageAmount());
                 hit_timer.restart();
             }
             (*enemy)->hitNonWallObj();
@@ -42,8 +41,7 @@ void Update::updatePlayerObjs(Player &player,std::vector<sf::Sprite> rects,std::
     // check for bullet collision with obsticals, if a bullet collides with a obstical, remove it,
     if(checkCollisionEnemyBullets(player.loadImage(),e)){
         if(hit_timer.getElapsedTime().asSeconds() > 1.0f){
-                player.setHealth((player.getHealth() - 1));
-                player.setDamageColorToggle(true);
+                player.evaluateDamage(1); // constant value for bullet damage ( will always be 1 unit of damage)
                 hit_timer.restart();
         }
     }
