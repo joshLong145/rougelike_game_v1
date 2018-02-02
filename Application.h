@@ -11,13 +11,13 @@
 
 #include "PlayState.h"
 #include "MenuState.h"
+#include "panelManager.h"
 
-class Application{
-    public:
-        Application();
-        void startGame();
-    private:
-        sf::RenderWindow standard_window;
-};
+namespace applicationManager{
+    void startGame();
+    void addPanel(GameState::states state);
+    static panelManager manager;
+    static sf::RenderWindow standard_window;
+}
 
 #endif /* Application_hpp */

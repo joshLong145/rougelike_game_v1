@@ -6,9 +6,10 @@ void gameObjectStateManager::newPanel(std::shared_ptr<gameObjectState> state){
 }
 
 void gameObjectStateManager::nextPanel(){
-    if(states.size() > 0){
-     if(getCurrentPanel().nextPanel()){
+    if(states.size() > 0 ){
+     if(getCurrentPanel().nextPanel() && stateTimer.getElapsedTime().asSeconds() > .01f){
             states.pop();
+            stateTimer.restart();
         }
     }
 }

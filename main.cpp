@@ -1,9 +1,8 @@
 // //INCLUDE FILES /////
 #include "Application.h"
-// // It is where our game starts from
-int main()
- {
-     Application app;
-     app.startGame();
+
+int main(){
+
+     applicationManager::startGame();
      return 0;
 }

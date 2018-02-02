@@ -17,12 +17,13 @@ class GUI{
         GUI();
         sf::Sprite displayHealthImage();
         sf::Text displayTextHealth(Player &p);
-        std::vector<sf::Sprite> displayItems();
+        std::vector<sf::Sprite> & displayItems(Player &p);
     private:
         sf::Texture texture;
         sf::Sprite sprite;
         sf::Font font;
         sf::Text healthText;
+         std::vector<sf::Sprite> m_itemSprites;
 };
 
 

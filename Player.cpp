@@ -80,7 +80,6 @@ void Player::playerControls(sf::Time deltaTime){
             bullet_clock.restart();
         }
     }
-    //TODO: change to unique_ptr's
     // push a new walking state onto the event queue when a player presses a movement key
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
         states.newPanel(std::make_unique<playerWalkingState>('W', *this, deltaTime));
@@ -101,6 +100,8 @@ void Player::evaluateDamage(int enemyDamage){
 void Player::bounce(sf::Time deltaTime){
     states.newPanel(std::make_unique<playerBounceState>(*this, deltaTime));
 }
+
+
 
 void Player::updateWalkingAnimation(char dir){
 
@@ -168,6 +169,10 @@ int Player::getDefensiveValue(){
 }
 std::vector<std::shared_ptr<playerBullet>> & Player::getBulletVector(){
     return bullets;
+}
+
+Bag & Player::getItemStorage(){
+    return m_playerItems;
 }
 
 void Player::clearBullets(){

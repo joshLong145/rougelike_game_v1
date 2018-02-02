@@ -7,44 +7,55 @@
 //
 
 #include "Application.h"
-#include "panelManager.h"
 
-using namespace Manager;
+namespace applicationManager{
 
-Application::Application(){
-    // set the frame rate for the window
-    //standard_window.setFramerateLimit(30);
-    // initlize the app with each menu that will be needed
-    Manager::newPanel(std::make_unique<MenuState>(standard_window));
-}
+    void startGame(){
+        //Add the first state of the game to the menu state.
+        manager.newPanel(std::make_unique<MenuState>(standard_window));
+        //Initilize the first panel
+        manager.getCurrentPanel().initilize();
 
-void Application::startGame(){
-    getCurrentPanel().initilize();
-    while(standard_window.isOpen()){
-        sf::Event event;
-        while (standard_window.pollEvent(event)){
+        while(standard_window.isOpen()){
+            sf::Event event;
+            while (standard_window.pollEvent(event)){
 
-            if (event.type == sf::Event::Closed){
-                // Someone closed the window- bye
-                standard_window.close();
+                if (event.type == sf::Event::Closed){
+                    // Someone closed the window- bye
+                    standard_window.close();
+                }
+
+                //check for state transistions and update accordingly
+                if(manager.getCurrentPanel().getState() == GameState::states::PlayState &&
+                   sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && sf::Keyboard::isKeyPressed(sf::Keyboard::E)){
+                    addPanel(GameState::states::MenuState);
+                }
+                if(manager.getCurrentPanel().getState() == GameState::states::MenuState &&
+                   sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+                    addPanel(GameState::states::PlayState);
+                }
             }
-            //check for state transistions and update accordingly
-            if(getCurrentPanel().getState() == GameState::states::PlayState &&
-               sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && sf::Keyboard::isKeyPressed(sf::Keyboard::E)){
-                getCurrentPanel().setNext(true);
-                newPanel(std::make_unique<MenuState>(standard_window));
-                nextPanel();
-            }
-            if(getCurrentPanel().getState() == GameState::states::MenuState &&
-               sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-                getCurrentPanel().setNext(true);
-                newPanel(std::make_unique<PlayState>(standard_window));
-                nextPanel();
-            }
+
+            manager.nextPanel();
+            manager.update();
+            manager.draw();
+        }
+    }
+
+    inline void moveToNextPanel(){
+        manager.getCurrentPanel().setNext(true);
+        manager.nextPanel();
+    }
+
+    void addPanel(GameState::states state){
+        if(state == GameState::states::MenuState){
+            manager.newPanel(std::make_unique<MenuState>(standard_window));
+            moveToNextPanel();
         }
 
-        nextPanel();
-        update();
-        draw();
+        if(state == GameState::states::PlayState){
+            manager.newPanel(std::make_unique<PlayState>(standard_window));
+            moveToNextPanel();
+        }
     }
 }

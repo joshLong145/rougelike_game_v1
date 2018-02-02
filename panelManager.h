@@ -15,17 +15,17 @@ make this into a function maybe it will fix the mess that is this coebase
 #include <queue>
 #include <memory>
 
-namespace Manager{
-
+class panelManager{
+public:
     void newPanel(std::unique_ptr<GameState> panel);
     void nextPanel();
     void update();
     void draw();
     bool switchPanel();
     GameState & getCurrentPanel();
-    static std::queue<std::unique_ptr<GameState>> states;
-
-}
+private:
+     std::queue<std::unique_ptr<GameState>> states;
+};
 
 
 #endif /* panelManger_hpp */

@@ -10,11 +10,10 @@
 #include "Ghost.h"
 #include "fly.h"
 #include "chest.h"
-#include "panelManager.h"
+#include "Application.h"
 #include "MenuState.h"
 #include <memory>
-
-using namespace Manager;
+#include <iostream>
 
 PlayState::PlayState(sf::RenderWindow &w):GameState(w){}
 
@@ -63,8 +62,8 @@ void PlayState::updateGameObjects(){
 void PlayState::update(){
     // if the player's health is 0 or less, quit the game
     if (player.getHealth() <= 0){
-        //windows closes
-        window.close();
+        applicationManager::addPanel(GameState::states::MenuState);
+        return; // need to return from the update cycle ( I HAVE NOT IDEA WHY THIS WORKS).
     }
     //check if a door is went through by the player
     checkRoomTransition();
@@ -85,6 +84,10 @@ void PlayState::draw(){
     //  draw text for the gui
     window.draw(gui.displayTextHealth(player));
 
+    //draws all item icons that the player has aquired
+    for(auto itemSprites : gui.displayItems(player)){
+        window.draw(itemSprites);
+    }
     // draw player sprite
     window.draw(player.loadImage());
 

@@ -10,11 +10,19 @@ MY PROJECT -*- mode: org -*-
 *** PLAYER   
 **** TODO abstract damage calculations from update() function into its own custom state class.
 
-*** ITEMS
+*** ITEM
+   S
 **** TODO Finish designing base class for all items to use. 
 **** TODO Add health increase item 
 **** TODO Add damage increase item   
 **** TODO Add damage decrease item
 **** TODO ADD health decrease item
+**** TODO figure out how to draw blank rectangles efficiently if player to does not have all item slots filled.
 *** MISC 
 **** TODO refine state machine to allow for existing states to be pushed back onto the call stack. 
+  
+*** BUGS
+**** TODO fix issues with player collision when multiple buttons.
+**** TODO 
+Player::getItemStorage(){
+    

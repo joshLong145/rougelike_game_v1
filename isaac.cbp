@@ -95,6 +95,8 @@
 		<Unit filename="ghost_enemy.png" />
 		<Unit filename="groundBlock.cpp" />
 		<Unit filename="groundBlock.h" />
+		<Unit filename="healthIncreaseItem.cpp" />
+		<Unit filename="healthIncreaseItem.h" />
 		<Unit filename="isaac.cbp" />
 		<Unit filename="level1.txt" />
 		<Unit filename="levelConfiguration.cpp" />

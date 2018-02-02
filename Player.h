@@ -5,13 +5,13 @@
 //  Created by josh long on 1/28/17.
 //  Copyright © 2017 josh long. All rights reserved.
 //
-#pragma once
 #ifndef Player_h
 #define Player_h
 
 #include "playerBullet.h"
 #include "gameObjectStateManager.h"
 #include "baseItem.h"
+#include "bag.h"
 #include <memory>
 
 class Player : public sf::Transformable{
@@ -60,12 +60,15 @@ class Player : public sf::Transformable{
 
         int getDefensiveValue();
 
+        Bag & getItemStorage();
+
         //manage color of players based on enviorment interaction
         void manageColors();
 
         void setDamageColorToggle(bool setting);
 
         void evaluateDamage(int enemyDamage);
+
 
     private:
         int velocity = 200;
@@ -87,6 +90,8 @@ class Player : public sf::Transformable{
         bool damageColorToggle = false;
         // vector of bullet obj pointers
         std::vector<std::shared_ptr<playerBullet>> bullets;
+        //Stores all items a player collects wihtin the game
+        Bag m_playerItems;
         // object of gameObjectStateManager to manage player states
         gameObjectStateManager states;
 

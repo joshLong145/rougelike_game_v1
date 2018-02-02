@@ -17,6 +17,7 @@ class gameObjectStateManager{
         gameObjectState & getCurrentPanel();
 
     private:
+        sf::Clock stateTimer;
         std::queue<std::shared_ptr<gameObjectState>> states;
 };
 
