@@ -7,9 +7,6 @@
 //
 
 #include "PlayState.h"
-#include "Ghost.h"
-#include "fly.h"
-#include "chest.h"
 #include "Application.h"
 #include "MenuState.h"
 #include <memory>
@@ -56,7 +53,9 @@ void PlayState::updateGameObjects(){
     // update all obj in level
     update_objects.updatePlayerObjs(player,levels["level"+std::to_string(current_level)][current_room]->getRects(),
                                    levels["level"+std::to_string(current_level)][current_room]->getEnemies(),
-                                   levels["level"+std::to_string(current_level)][current_room]->getDoors(), deltaTime);
+                                   levels["level"+std::to_string(current_level)][current_room]->getDoors(),
+                                   levels["level"+std::to_string(current_level)][current_room]->getChests(),
+                                   deltaTime);
 }
 
 void PlayState::update(){
@@ -84,15 +83,20 @@ void PlayState::draw(){
     //  draw text for the gui
     window.draw(gui.displayTextHealth(player));
 
+    window.draw(gui.displayOffenseImage());
+
+    window.draw(gui.displayTextOffense(player));
+
     //draws all item icons that the player has aquired
-    for(auto itemSprites : gui.displayItems(player)){
-        window.draw(itemSprites);
+    std::vector<sf::Sprite> itemSprites = gui.displayItems(player);
+    for(auto itemSprite = itemSprites.begin(); itemSprite != itemSprites.end(); itemSprite++){
+        window.draw((*itemSprite));
     }
     // draw player sprite
     window.draw(player.loadImage());
 
     for (auto bullet : player.getBulletVector()){
-        window.draw((*bullet).loadImage() );
+        window.draw((*bullet).loadImage());
     }
 
     // Show everything we just drew

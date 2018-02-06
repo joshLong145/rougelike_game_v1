@@ -62,6 +62,8 @@ class Player : public sf::Transformable{
 
         Bag & getItemStorage();
 
+        void addItemModifications();
+
         //manage color of players based on enviorment interaction
         void manageColors();
 
@@ -77,8 +79,8 @@ class Player : public sf::Transformable{
         int last_move[2];
         int health = 5;
         int door = 4;
-        int offensiveValue  = 1;
-        int defensiveValue = 1;
+        int attack  = 1;
+        int armor = 1;
         // SFML objects
         sf::IntRect animation_frames[4][3];
         sf::Texture texture;

@@ -21,6 +21,7 @@ Player::Player(int x_pos, int y_pos){
         }
     }
     texture.loadFromFile("playerSpriteSheet.png");
+    //smooth sprite sheet so edges/pixels are less jaged.
     texture.setSmooth(true);
     // set the initial sprite to
     sprite.setTextureRect(animation_frames[3][2]);
@@ -161,11 +162,11 @@ void Player::transporForDoor(){
 }
 // used for damage calculation for enemies in the update cycle
 int Player::getOffensiveValue(){
-    return offensiveValue;
+    return attack;
 }
 // used for damage calculation for player in the update cycle
 int Player::getDefensiveValue(){
-    return defensiveValue;
+    return armor;
 }
 std::vector<std::shared_ptr<playerBullet>> & Player::getBulletVector(){
     return bullets;
@@ -202,3 +203,22 @@ void Player::manageColors(){
         colorTiming.restart();
     }
 }
+
+void Player::addItemModifications(){
+    for(auto item = m_playerItems.getItems().begin(); item != m_playerItems.getItems().end(); item++){
+        if(!(*item)->isItemUsed()){
+            if((*item)->itemType() == baseItem::items::healthIncrease){
+                health += (*item)->getStatModifier();
+                (*item)->setItemUse(true);
+           }
+
+           if((*item)->itemType() == baseItem::items::damageIncrease){
+                attack += (*item)->getStatModifier();
+                (*item)->setItemUse(true);
+           }
+        }
+    }
+}
+
+
+

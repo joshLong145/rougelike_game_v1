@@ -23,7 +23,7 @@ public:
         description: adds an object derived from the baseItem class used to modify
         player atrributes. Stores said objects within a vector of unique pointers.
     */
-    void addItem(baseItem::items item);
+    void addItem(std::shared_ptr<baseItem> item);
 
 public:
 

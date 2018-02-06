@@ -1,11 +1,9 @@
 #include "healthIncreaseItem.h"
 
 healthIncreaseItem::healthIncreaseItem():baseItem(){
-    m_sprite.setTextureRect(sf::IntRect(0,0,30,35));
-}
-
-sf::Sprite healthIncreaseItem::loadImage(){
-    return m_sprite;
+    m_texture.loadFromFile("health_icon.png");
+    m_sprite.setTextureRect(sf::IntRect(0,0,32,32));
+    m_sprite.setTexture(m_texture);
 }
 
 int healthIncreaseItem::getStatModifier(){
@@ -14,4 +12,8 @@ int healthIncreaseItem::getStatModifier(){
 
 std::string healthIncreaseItem::getItemName(){
     return m_itemName;
+}
+
+baseItem::items healthIncreaseItem::itemType(){
+    return baseItem::items::healthIncrease;
 }

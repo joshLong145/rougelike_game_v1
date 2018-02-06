@@ -19,17 +19,20 @@ public:
     /*
 
     */
-    sf::Sprite loadImage();
-
-    /*
-
-    */
     int getStatModifier();
 
     /*
 
     */
     std::string getItemName();
+
+    /*
+
+    */
+    items itemType();
+
+private:
+    int m_stateModifier = 5;
 
 };
 #endif

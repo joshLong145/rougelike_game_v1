@@ -6,7 +6,8 @@
 using namespace checkCollision;
 // check for collisions with wall obj ( includes bullet obj from the player)
 void Update::updatePlayerObjs(Player &player,std::vector<sf::Sprite> rects,std::vector<std::unique_ptr<baseEnemy>> &e,
-                              std::vector<std::shared_ptr<doorBlock>> doors,sf::Time deltaTime){
+                              std::vector<std::shared_ptr<doorBlock>> doors, std::vector<std::shared_ptr<chest>> chests,
+                              sf::Time deltaTime){
 
     std::vector<std::shared_ptr<playerBullet>> &bullets = player.getBulletVector();
     if(checkCollisionWalls(player.loadImage(),rects) ){
@@ -18,6 +19,8 @@ void Update::updatePlayerObjs(Player &player,std::vector<sf::Sprite> rects,std::
     checkCollisionDoors(doors,player);
     // manages color changing based on enviorment interaction
     player.manageColors();
+
+    player.addItemModifications();
     // checks for collision with bullets against wall object.
     //if it does, remove it.
     for(auto bullet = bullets.begin(); bullet != bullets.end();){
@@ -45,6 +48,15 @@ void Update::updatePlayerObjs(Player &player,std::vector<sf::Sprite> rects,std::
                 hit_timer.restart();
         }
     }
+
+    for(auto chest = chests.begin(); chest != chests.end(); chest++){
+        if(checkCollisionBasic((*chest)->loadImage(),player.loadImage())){
+            if(!(*chest)->isOpened()){
+                player.getItemStorage().addItem((*chest)->getItemStored());
+                (*chest)->setOpened();
+            }
+        }
+    }
     // updates player states to detmine if there is a new action ready to be performed.
     player.updateStates();
 }
@@ -65,7 +77,7 @@ void Update::updateEnemeyObjs(std::vector<std::unique_ptr<baseEnemy>> &e, std::v
             if(((*enemy)->getHealth() <= 0)){
                 e.erase(enemy);
             }else{
-                (*enemy)->setHealth((*enemy)->getHealth() - p.getOffensiveValue()); //TODO::
+                (*enemy)->setHealth((*enemy)->getHealth() - p.getOffensiveValue());
             }
         }else{
             enemy++;

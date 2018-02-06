@@ -3,14 +3,10 @@
 std::vector<std::shared_ptr<baseItem>> & Bag::getItems(){
     return m_itemStorage;
 }
-
-void Bag::addItem(baseItem::items item){
+//TODO: change from enum to unique_ptr
+void Bag::addItem(std::shared_ptr<baseItem> item){
     if(m_itemStorage.size() < 3){
-        if(item == baseItem::items::healthIncrease){
-            m_itemStorage.push_back(std::make_unique<healthIncreaseItem>());
-        }else if (item == baseItem::items::damageIncrease){
-
-        }
+        m_itemStorage.push_back(item);
     }
 }
 

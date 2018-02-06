@@ -5,7 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 
-class baseItem{
+class baseItem : public sf::Transformable{
 public:
     //used to add items to the players active items list, abstracts the creation of objects from outside the itemManager class
     //to inside of the itemManager class.
@@ -13,28 +13,50 @@ public:
         healthIncrease,
         damageIncrease
     };
+
     /*
     */
     baseItem() = default;
+
     /*
 
     */
     ~baseItem() = default;
+
     /*
     */
-    virtual sf::Sprite loadImage() = 0;
+    inline sf::Sprite loadImage(){ return m_sprite; }
+
     /*
     */
     virtual int getStatModifier() = 0;
+
     /*
     */
     virtual std::string getItemName() = 0;
 
+    /*
+
+    */
+    virtual items itemType() = 0;
+
+    /*
+    */
+    inline void setItemUse(bool use){ m_itemUsed = true; }
+
+    /*
+    */
+    inline bool isItemUsed() { return m_itemUsed; }
+
+    inline bool accountedFor() { return m_isAccounted; }
+    inline void setAccountedFor(bool account) { m_isAccounted = account; }
 protected:
     std::string m_itemName;
     int m_stateModifier;
     sf::Texture m_texture;
     sf::Sprite  m_sprite;
+    bool m_itemUsed = false;
+    bool m_isAccounted = false;
 };
 
 

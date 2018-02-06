@@ -7,7 +7,6 @@
 //
 
 #include "loadLevel.h"
-
 // define statements for obj being initilized within constructor
 #define WALL 0
 #define GROUND 1
@@ -46,13 +45,13 @@ loadLevel::loadLevel(std::vector<std::string> rooms, std::vector<std::unique_ptr
     }
 }
 
-loadLevel::loadLevel(std::vector<std::string> rooms,std::vector<std::unique_ptr<baseEnemy>> &e, std::vector<std::unique_ptr<chest>> c) : enemies(std::move(e)){
+loadLevel::loadLevel(std::vector<std::string> rooms,std::vector<std::unique_ptr<baseEnemy>> &e, std::vector<std::shared_ptr<chest>> c) :
+    enemies(std::move(e)),
+    chests(std::move(c)){
 
-    //assign chests passed to the room to a local var
-    chests = std::move(c);
-    for(auto chest = chests.begin(); chest != chests.end(); chest++){
+     for(auto chest = chests.begin(); chest != chests.end(); chest++){
         rects.push_back((*chest)->loadImage());
-    }
+     }
      int r = 0;
      for(auto room : rooms ){
         for(int c = 0;  c < 9; c++){
@@ -102,15 +101,14 @@ void loadLevel::display(sf::RenderWindow &window){
     for (auto enemy = enemies.begin(); enemy != enemies.end(); enemy++){
         std::vector<std::unique_ptr<enemyBullet>> &enemy_bullets = (*enemy)->getBulletVector();
         for (auto bullet = enemy_bullets.begin(); bullet != enemy_bullets.end(); bullet++){
-            window.draw((*bullet) -> loadImage());
+            window.draw((*bullet)->loadImage());
         }
     }
-    // if they exist, draw the chests
-    if(chests.size() > 0){
-        for(auto chest = chests.begin(); chest != chests.end(); chest++){
-            window.draw((*chest) -> loadImage());
-        }
+     //draws the chests in the correct location.
+    for(auto chest = chests.begin(); chest != chests.end(); chest++){
+        window.draw((*chest)->loadImage());
     }
+
 }
 
 // returns boundiries for the level
@@ -123,4 +121,8 @@ std::vector<std::unique_ptr<baseEnemy>> & loadLevel::getEnemies(){
 
 std::vector<std::shared_ptr<doorBlock>> loadLevel::getDoors(){
     return doorRects;
+}
+
+std::vector<std::shared_ptr<chest>> loadLevel::getChests(){
+    return chests;
 }

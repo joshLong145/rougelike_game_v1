@@ -16,14 +16,19 @@ class GUI{
     public:
         GUI();
         sf::Sprite displayHealthImage();
+        sf::Sprite displayOffenseImage();
         sf::Text displayTextHealth(Player &p);
+        sf::Text displayTextOffense(Player &p);
         std::vector<sf::Sprite> & displayItems(Player &p);
     private:
-        sf::Texture texture;
-        sf::Sprite sprite;
-        sf::Font font;
-        sf::Text healthText;
-         std::vector<sf::Sprite> m_itemSprites;
+        sf::Texture m_healthTexture;
+        sf::Texture m_offenseTexture;
+        sf::Sprite m_spriteHealth;
+        sf::Sprite m_spriteAttack;
+        sf::Font m_font;
+        sf::Text m_healthText;
+        sf::Text m_offenseText;
+        std::vector<sf::Sprite> m_itemSprites;
 };
 
 

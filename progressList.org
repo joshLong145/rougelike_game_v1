@@ -11,8 +11,7 @@ MY PROJECT -*- mode: org -*-
 **** TODO abstract damage calculations from update() function into its own custom state class.
 
 *** ITEM
-   S
-**** TODO Finish designing base class for all items to use. 
++**** TODO Finish designing base class for all items to use.+ 
 **** TODO Add health increase item 
 **** TODO Add damage increase item   
 **** TODO Add damage decrease item
@@ -23,6 +22,5 @@ MY PROJECT -*- mode: org -*-
   
 *** BUGS
 **** TODO fix issues with player collision when multiple buttons.
-**** TODO 
-Player::getItemStorage(){
+**** TODO fix issues with damage be assigned to player.
     

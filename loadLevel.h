@@ -26,13 +26,14 @@ display() and update() update any object on the screen and display will display 
 class loadLevel{
     public:
         loadLevel(std::vector<std::string> rooms, std::vector<std::unique_ptr<baseEnemy>> &e);
-        loadLevel(std::vector<std::string> rooms, std::vector<std::unique_ptr<baseEnemy>> &e,std::vector<std::unique_ptr<chest>> chests);
+        loadLevel(std::vector<std::string> rooms, std::vector<std::unique_ptr<baseEnemy>> &e,std::vector<std::shared_ptr<chest>> chests);
         void setPlayer(Player &player);
         void display(sf::RenderWindow &window);
         void update();
         std::vector<sf::Sprite> getRects();
         std::vector<std::unique_ptr<baseEnemy>> & getEnemies();
         std::vector<std::shared_ptr<doorBlock>> getDoors();
+        std::vector<std::shared_ptr<chest>> getChests();
     private:
         Player *p = nullptr;
         //stores enviorment blocks for the room
@@ -43,7 +44,7 @@ class loadLevel{
         //stores enemies for the given room
         std::vector<std::unique_ptr<baseEnemy>> enemies;
         // stores chests that are within the room
-        std::vector<std::unique_ptr<chest>> chests = {};
+        std::vector<std::shared_ptr<chest>> chests;
 };
 
 #endif /* loadLevel_hpp */

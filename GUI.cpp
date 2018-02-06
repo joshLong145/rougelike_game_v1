@@ -10,31 +10,53 @@
 #include <string>
 
 GUI::GUI(){
-    texture.loadFromFile("heart_icon.png");
-    font.loadFromFile("sansation.ttf");
-    sprite.setTextureRect(sf::IntRect(0,0,30,35));
-    sprite.setTexture(texture);
-    sprite.setPosition(10,650);
-    healthText.setFont(font);
-    healthText.setCharacterSize(24);
-    healthText.setPosition(50,650);
+    m_healthTexture.loadFromFile("heart_icon.png");
+    m_offenseTexture.loadFromFile("attack_icon.png");
+    m_font.loadFromFile("sansation.ttf");
+    m_spriteHealth.setTextureRect(sf::IntRect(0,0,30,35));
+    m_spriteAttack.setTextureRect(sf::IntRect(0,0,32,32));
+    m_spriteHealth.setTexture(m_healthTexture);
+    m_spriteAttack.setTexture(m_offenseTexture);
+    m_spriteHealth.setPosition(10,650);
+    m_spriteAttack.setPosition(80,650);
+    m_healthText.setFont(m_font);
+    m_healthText.setCharacterSize(24);
+    m_offenseText.setFont(m_font);
+    m_offenseText.setCharacterSize(24);
+    m_healthText.setPosition(50, 650);
+    m_offenseText.setPosition(110, 650);
 }
 
 sf::Sprite GUI::displayHealthImage(){
-    return sprite;
+    return m_spriteHealth;
+}
+
+sf::Sprite GUI::displayOffenseImage(){
+    return m_spriteAttack;
 }
 
 sf::Text GUI::displayTextHealth(Player &p){
-    healthText.setString(std::to_string(p.getHealth()));
-    return healthText;
+    m_healthText.setString(std::to_string(p.getHealth()));
+    return m_healthText;
+}
+
+sf::Text GUI::displayTextOffense(Player &p){
+    m_offenseText.setString(std::to_string(p.getOffensiveValue()));
+    return m_offenseText;
 }
 
 std::vector<sf::Sprite> & GUI::displayItems(Player &p){
     for(auto item = p.getItemStorage().getItems().begin(); item != p.getItemStorage().getItems().end(); item++){
-        m_itemSprites.push_back((*item)->loadImage());
+        if(!(*item)->accountedFor()){
+            m_itemSprites.push_back((*item)->loadImage());
+            (*item)->setAccountedFor(true);
+        }
     }
-    for( auto item : m_itemSprites){
-        item.setPosition(50,650);
+
+    int counter = 0;
+    for(auto item = m_itemSprites.begin(); item != m_itemSprites.end(); item++){
+        (*item).setPosition(150 + (counter * 30),650);
+        counter++;
     }
     return m_itemSprites;
 }
