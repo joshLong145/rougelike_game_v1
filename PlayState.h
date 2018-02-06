@@ -19,11 +19,11 @@
 //handle file io
 #include "levelConfiguration.h"
 
-// define statements for level creation
-#define W 0
-#define G 1
-#define N 2
-#define B 3
+#include "Application.h"
+
+#include "MenuState.h"
+// for unique and shared pointers
+#include <memory>
 
 class PlayState : public virtual GameState{
     public:

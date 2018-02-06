@@ -7,21 +7,25 @@
 //
 
 #include "PlayState.h"
-#include "Application.h"
-#include "MenuState.h"
-#include <memory>
-#include <iostream>
 
 PlayState::PlayState(sf::RenderWindow &w):GameState(w){}
 
 //Initilize the all window related values for the game.
 void PlayState::initilize(){
     // resize the window and set the name of the window to game
-    window.create(sf::VideoMode{650, 700},"game");
+    auto videoMode = sf::VideoMode::getDesktopMode();
+    window.create(videoMode,"game",sf::Style::Resize);
+    sf::View view;
+    view.setSize(window.getSize().x, window.getSize().y);
+    view.setCenter(view.getSize().x / 4, view.getSize().y / 2);
+    view.zoom(1.0f);
+    window.setView(view);
     window.setVerticalSyncEnabled(true); // call it once, after creating the window
+    window.setMouseCursorVisible(false);
     window.setFramerateLimit(60); // set the frame rate to 30 constant.
     initilizeLevels levelInit;
     // parses and loacs all level data for the game
+
     levels = levelInit.createAndReturnLevels();
     //set the player to the first room in the first level
     levels["level"+std::to_string(current_level)][current_room]->setPlayer(player);

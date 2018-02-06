@@ -19,7 +19,12 @@ MenuState::MenuState(sf::RenderWindow &w) : GameState(w){
 }
 
 void MenuState::initilize(){
-    window.create(sf::VideoMode{500,500},"menu");
+    window.create(sf::VideoMode::getDesktopMode(), "game", sf::Style::Resize);
+    sf::View view;
+    view.setCenter(view.getSize().x / 4, view.getSize().y / 2);
+    window.setView(view);
+    window.setVerticalSyncEnabled(true); // call it once, after creating the window
+    window.setFramerateLimit(60); // set the frame rate to 30 constant.
 }
 
 void MenuState::update(){
