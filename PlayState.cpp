@@ -14,11 +14,10 @@ PlayState::PlayState(sf::RenderWindow &w):GameState(w){}
 void PlayState::initilize(){
     // resize the window and set the name of the window to game
     auto videoMode = sf::VideoMode::getDesktopMode();
-    window.create(videoMode,"game",sf::Style::Resize);
+    window.create(videoMode,"game",sf::Style::Titlebar);
     sf::View view;
     view.setSize(window.getSize().x, window.getSize().y);
     view.setCenter(view.getSize().x / 4, view.getSize().y / 2);
-    view.zoom(1.0f);
     window.setView(view);
     window.setVerticalSyncEnabled(true); // call it once, after creating the window
     window.setMouseCursorVisible(false);
@@ -44,6 +43,11 @@ void PlayState::checkRoomTransition(){
         current_room--;
         //rooms.at(current_room)->setPlayer(player);
         player.setDoor(0);
+    }else if(player.getDoor() == 3){
+        player.clearBullets();
+        current_level++;
+        current_room = 0;
+        player.setDoor(0);
     }
 
 }
@@ -52,26 +56,41 @@ void PlayState::updateGameObjects(){
     sf::Time deltaTime = mainTimer.restart();
     //update enemy obj
     update_objects.updateEnemeyObjs(levels["level"+std::to_string(current_level)][current_room]->getEnemies(),
-                                  levels["level"+std::to_string(current_level)][current_room]->getRects(),player, deltaTime);
+                                  levels["level"+std::to_string(current_level)][current_room]->getEnviormentRocks(),
+                                  levels["level"+std::to_string(current_level)][current_room]->getRects(),player,deltaTime);
 
     // update all obj in level
     update_objects.updatePlayerObjs(player,levels["level"+std::to_string(current_level)][current_room]->getRects(),
                                    levels["level"+std::to_string(current_level)][current_room]->getEnemies(),
                                    levels["level"+std::to_string(current_level)][current_room]->getDoors(),
                                    levels["level"+std::to_string(current_level)][current_room]->getChests(),
+                                    levels["level"+std::to_string(current_level)][current_room]->getEnviormentRocks(),
                                    deltaTime);
 }
 
 void PlayState::update(){
+
+    //check if a door is went through by the player
+    checkRoomTransition();
+    // update player, player objects, enemies, and enemy objects
+    updateGameObjects();
+
     // if the player's health is 0 or less, quit the game
     if (player.getHealth() <= 0){
         applicationManager::addPanel(GameState::states::MenuState);
         return; // need to return from the update cycle ( I HAVE NOT IDEA WHY THIS WORKS).
     }
-    //check if a door is went through by the player
-    checkRoomTransition();
-    // update player, player objects, enemies, and enemy objects
-    updateGameObjects();
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
+        applicationManager::addAndSaveCurrentPanel(GameState::states::PauseState);
+        return;
+    }
+
+    //check for state transistions and update accordingly
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && sf::Keyboard::isKeyPressed(sf::Keyboard::E)){
+        applicationManager::addPanel(GameState::states::MenuState);
+        return;
+    }
 }
 
 void PlayState::draw(){
@@ -117,4 +136,8 @@ void PlayState::setNext(bool n){
 
 GameState::states PlayState::getState(){
     return GameState::states::PlayState;
+}
+
+void PlayState::setMainClock(){
+    mainTimer = sf::Clock();
 }

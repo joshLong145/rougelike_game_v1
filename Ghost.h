@@ -39,6 +39,9 @@ class Ghost: public baseEnemy{
         int path_length(int x1, int y1, int x2, int y2);
 
         void setBulletDirection();
+
+        inline baseEnemy::enemyType getEnemyType() { return baseEnemy::enemyType::ghost; }
+
         // returns a refrence to vector of bullet obj
         std::vector<std::unique_ptr<enemyBullet>> & getBulletVector();
     private:

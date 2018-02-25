@@ -27,9 +27,8 @@ sf::Sprite enemyBullet::loadImage(){
     return sprite;
 }
 
-void enemyBullet::move(){
-    delta = mainTimer.restart();
-    const auto speed = delta.asSeconds() * 200;
+void enemyBullet::move(sf::Time deltaTime){
+    const auto speed = deltaTime.asSeconds() * 250;
     sf::Vector2f pos = loadImage().getPosition();
     if(direction == EAST){
         sprite.setPosition(pos.x + speed,pos.y);

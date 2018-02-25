@@ -7,14 +7,13 @@
 //
 
 #include "Ghost.h"
-#include "enemyWalkingState.h"
-#include <math.h>
+#include "checkCollision.h"
 
 Ghost::Ghost(int x_pos, int y_pos,const int v):baseEnemy(x_pos,y_pos,v){
-    texture.loadFromFile( "ghost_enemy.png");
+    texture.loadFromFile("ghost_enemy.png");
     sprite.setTexture(texture);
     sprite.setPosition(x_val,y_val);
-    sprite.setTextureRect(sf::IntRect(image_x,image_y,50,50));
+    sprite.setTextureRect(sf::IntRect(image_x,image_y,40,40));
 }
 
 sf::Sprite Ghost::loadImage(){
@@ -30,19 +29,23 @@ void Ghost::setHealth(int newAmount){
 }
 
 void Ghost::move(Player &p, sf::Time deltaTime){
-    if(isWallHit()){
-        sprite.move(velocity * deltaTime.asSeconds(),0);
+       if(isWallHit()){
+        sprite.setPosition(sprite.getPosition().x + (velocity * deltaTime.asSeconds()),sprite.getPosition().y);
     }else{
-        sprite.move(-(velocity * deltaTime.asSeconds()),0);
+        sprite.setPosition( sprite.getPosition().x - (velocity * deltaTime.asSeconds()),sprite.getPosition().y);
+    }
+
+    if(path_length(p.loadImage().getPosition().x, p.loadImage().getPosition().y, x_val, y_val) < 150){
+        setBulletDirection();
     }
 }
 
 void Ghost::bounce(sf::Vector2f objBounds){
     if(wallhit){
         // probably should change this soon!!!!!
-         sprite.move(-velocity / 10,0);
+        sprite.setPosition(sprite.getPosition().x - (velocity / 10), sprite.getPosition().y);
     }else{
-         sprite.move(velocity / 10,0);
+         sprite.setPosition(sprite.getPosition().x + (velocity / 10), sprite.getPosition().y);
     }
     wallhit = !wallhit;
 }
@@ -73,7 +76,6 @@ std::vector<std::unique_ptr<enemyBullet>> & Ghost::getBulletVector(){
 }
 
 void Ghost::setBulletDirection(){
-
      if (bullet_clock.getElapsedTime().asSeconds() > 0.5){
         std::unique_ptr<enemyBullet> bullet1 = std::make_unique<enemyBullet>(loadImage().getPosition().x,loadImage().getPosition().y,0);
         std::unique_ptr<enemyBullet> bullet2 = std::make_unique<enemyBullet>(loadImage().getPosition().x,loadImage().getPosition().y,1);

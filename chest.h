@@ -3,12 +3,15 @@
 
 #include <SFML/Graphics.hpp>
 #include "baseItem.h"
+#include "enviormentBlocks.h"
+#include "healthIncreaseItem.h"
+#include "damageIncreaseItem.h"
 #include <memory>
 
-class chest {
+class chest : public enviormentBlocks {
 
     public:
-        chest(int x, int y, std::shared_ptr<baseItem> item);
+        chest(int x, int y);
 
         // returns a sprite obj
         sf::Sprite loadImage();
@@ -17,13 +20,18 @@ class chest {
         */
         std::shared_ptr<baseItem> getItemStored();
 
+        void setImage(std::string image_path);
+
+        virtual void initilizeSprite();
+
+        sf::FloatRect getRect();
+
         bool isOpened() { return opened; }
+
         void setOpened() { opened = true; }
+
     private:
-        sf::Texture texture;
-        sf::Sprite sprite;
-        int x_val;
-        int y_val;
+
         bool opened = false;
         std::shared_ptr<baseItem> m_item = nullptr;
 };

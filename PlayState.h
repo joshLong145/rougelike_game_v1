@@ -44,6 +44,8 @@ class PlayState : public virtual GameState{
 
         void setNext(bool n);
 
+        void setMainClock();
+
     private:
         //iteration vars;
         int current_level = 1;
@@ -52,8 +54,6 @@ class PlayState : public virtual GameState{
         std::map<std::string,std::vector<std::unique_ptr<loadLevel>>> levels;
         // player object
         Player player = *new Player(75,75);
-        //handles all update syncing of objects
-        sf::Clock mainTimer;
         //create a update obj which will detect collision between player and other obj (also checks collision of bullets from the player)
         Update update_objects;
         // object for GUI

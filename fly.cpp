@@ -7,7 +7,7 @@
 //
 
 #include "fly.h"
-
+#include <math.h>
 
 fly::fly(int x_pos, int y_pos, int v):baseEnemy(x_pos, y_pos, v){
     texture.loadFromFile("Black_Fly.png");
@@ -33,10 +33,18 @@ void fly::setHealth(int newAmount){
 //Fly will move towards to player at a constant speed
 void fly::move(Player &p, sf::Time deltaTime){
     float factor = 0.f;
-    float speed = .1f * velocity;
+    const float speed = .1f * velocity;
     factor += deltaTime.asSeconds() * speed;
-    sprite.setPosition(interpolate(sprite.getPosition(), p.loadImage().getPosition(),factor));
 
+    if(path_length(p.loadImage().getPosition().x, p.loadImage().getPosition().y, x_val, y_val) < 300){
+        sprite.setPosition(interpolate(sprite.getPosition(), p.loadImage().getPosition(),factor));
+    }else{
+        if(angle > 360){
+            angle -= 360;
+        }
+        angle += speed + 100; // 100 was found to be a good constant to increment by to get nice circles
+        sprite.move(sin(angle), cos(angle));
+    }
 }
 
 //Used to "guess" the next position of movment based on given coords.
@@ -46,7 +54,8 @@ void fly::move(Player &p, sf::Time deltaTime){
         }else if(factor < 0.f){
             factor = 0.f;
         }
-        return point_A +(point_B - point_A) * factor;
+
+        return point_A * (1.0f - (float)factor) + point_B * factor;
 }
 
 int fly::getVelocity(){ return velocity; }
@@ -68,11 +77,12 @@ void fly::bounceEnemy(){}
 
 bool fly::isWallHit(){ return false; }
 
-int fly::path_length(int x1, int y1, int x2, int y2){ return 0;}
+int fly::path_length(int x1, int y1, int x2, int y2){
+    return std::abs(x1 - x2) + std::abs(y1 - y2);
+}
 
 std::vector<std::unique_ptr<enemyBullet>> & fly::getBulletVector(){ return bullets; }
 
-void fly::setBulletDirection(){}
 
 void fly::hitNonWallObj(){}
 

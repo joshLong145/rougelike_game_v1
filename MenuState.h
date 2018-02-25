@@ -6,8 +6,8 @@
 //  Copyright © 2017 josh long. All rights reserved.
 //
 
-#ifndef MenuState_cpp
-#define MenuState_cpp
+#ifndef MenuState_h
+#define MenuState_h
 
 #include "GameState.h"
 

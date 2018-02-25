@@ -10,11 +10,10 @@
 //pass arguments from child to parent ( might be a better way to do this )
 wallBlock::wallBlock(int xpos, int ypos) : enviormentBlocks(xpos, ypos){
     // initilie texture for the block
-    setImage("rock.png" );
+    setImage("rock.png");
 }
 
 sf::Sprite wallBlock::loadImage(){
-
     return sprite;
 }
 

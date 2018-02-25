@@ -22,7 +22,7 @@ class playerBullet : public baseBullet{
         // returns a sprite at each location of the bullet ( need to change this but sprites are cheap)
         sf::Sprite loadImage();
         // moves sprite to location clicked
-        void move();
+        void move(sf::Time deltaTime);
         // find the distance the bullet has moved
         int getDistance();
         void incDistance(int d);

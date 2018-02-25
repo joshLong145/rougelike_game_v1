@@ -13,7 +13,9 @@
 #include "baseEnemy.h"
 #include "groundBlock.h"
 #include "wallBlock.h"
+#include "rockBlock.h"
 #include "doorBlock.h"
+#include "levelDoorBlock.h"
 #include "chest.h"
 #include <memory>
 
@@ -26,21 +28,23 @@ display() and update() update any object on the screen and display will display 
 class loadLevel{
     public:
         loadLevel(std::vector<std::string> rooms, std::vector<std::unique_ptr<baseEnemy>> &e);
-        loadLevel(std::vector<std::string> rooms, std::vector<std::unique_ptr<baseEnemy>> &e,std::vector<std::shared_ptr<chest>> chests);
         void setPlayer(Player &player);
         void display(sf::RenderWindow &window);
         void update();
         std::vector<sf::Sprite> getRects();
         std::vector<std::unique_ptr<baseEnemy>> & getEnemies();
         std::vector<std::shared_ptr<doorBlock>> getDoors();
+        std::vector<sf::Sprite> getEnviormentRocks();
         std::vector<std::shared_ptr<chest>> getChests();
     private:
         Player *p = nullptr;
         //stores enviorment blocks for the room
         std::vector<std::shared_ptr<enviormentBlocks>> level_blocks;
         std::vector<sf::Sprite> rects;
+        std::vector<sf::Sprite> m_rockRects;
         //container for handling door collisions
         std::vector<std::shared_ptr<doorBlock>> doorRects;
+        std::vector<std::shared_ptr<levelDoorBlock>> m_levelDoorRects;
         //stores enemies for the given room
         std::vector<std::unique_ptr<baseEnemy>> enemies;
         // stores chests that are within the room

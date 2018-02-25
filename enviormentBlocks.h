@@ -14,7 +14,7 @@
 #include "ResourcePath.hpp"
 /*
  base class for object inheritance, all enviorment blocks will derive from this class ( single level inheritace structure )
- 
+
 */
 class enviormentBlocks : public sf::Transformable{
     public:
@@ -27,7 +27,8 @@ class enviormentBlocks : public sf::Transformable{
         int y_pos;
         int x_pos;
         sf::Sprite sprite;
-    
+        sf::Texture texture;
+
 };
 
 

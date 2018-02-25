@@ -77,8 +77,8 @@ class Player : public sf::Transformable{
         int image_row = 0;
         int image_col = 0;
         int last_move[2];
-        int health = 5;
-        int door = 4;
+        int health = 99;
+        int door = -1;
         int attack  = 1;
         int armor = 1;
         // SFML objects
@@ -89,6 +89,8 @@ class Player : public sf::Transformable{
         sf::Clock animation_clock;
         // times different colors that the player can turn;
         sf::Clock colorTiming;
+        //used to time when damage can happen.
+        sf::Clock m_hit_timer;
         bool damageColorToggle = false;
         // vector of bullet obj pointers
         std::vector<std::shared_ptr<playerBullet>> bullets;
@@ -96,7 +98,6 @@ class Player : public sf::Transformable{
         Bag m_playerItems;
         // object of gameObjectStateManager to manage player states
         gameObjectStateManager states;
-
 
 };
 

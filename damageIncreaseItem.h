@@ -1,9 +1,38 @@
+#ifndef damageIncreaseItem_h
+#define damageIncreaseItem_h
+
 #include "baseItem.h"
 
 class damageIncreaseItem : public baseItem{
 public:
-    damageIncreaseItem() = default;
+
+    /*
+
+    */
+    damageIncreaseItem();
+
+    /*
+
+    */
     ~damageIncreaseItem() = default;
+
+    /*
+
+    */
     int getStatModifier();
-    int std::string getItemName();
-}
+
+    /*
+
+    */
+    std::string getItemName();
+
+    /*
+
+    */
+    items itemType();
+
+private:
+    int m_stateModifier = 1;
+
+};
+#endif

@@ -58,13 +58,6 @@ bool checkCollisionEnemies(sf::Sprite obj1, std::vector<std::unique_ptr<baseEnem
     return false;
 }
 
-bool checkRangeFromEnemy(sf::Sprite obj1, std::unique_ptr<baseEnemy> &enemy){
-    if(enemy->path_length(obj1.getPosition().x, obj1.getPosition().y, enemy->loadImage().getPosition(). x, enemy->loadImage().getPosition().y) < 150){
-        return true;
-    }
-
-    return false;
-}
 bool checkCollisionEnemyBullets(sf::Sprite obj,std::vector<std::unique_ptr<baseEnemy>> &enemies){
 
     for(auto enemy = enemies.begin(); enemy != enemies.end(); enemy++){

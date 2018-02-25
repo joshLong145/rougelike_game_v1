@@ -1,6 +1,6 @@
 #include "levelConfiguration.h"
-#include <iostream>
-
+#include <algorithm>    // std::random_shuffle
+#include <stdlib.h> // rand()
 
 bool envriormentReading::openFilesForReading(std::vector<std::string> fileNames){
     for(auto names : fileNames){
@@ -96,12 +96,16 @@ void  initilizeLevels::parseEnemyData(std::map<std::string,std::map<std::string,
         if(enemyType == "ghost"){
             enemyData[enemy.first][room].push_back(std::make_unique<Ghost>(xValue, yValue, velocity));
         }
+
+        if(enemyType == "turret"){
+            enemyData[enemy.first][room].push_back(std::make_unique<Turret>(xValue, yValue, velocity));
+        }
     }
 }
 
 std::map<std::string,std::vector<std::unique_ptr<loadLevel>>> initilizeLevels::createAndReturnLevels(){
     std::map<std::string,std::vector<std::unique_ptr<loadLevel>>>  levelData;
-    std::vector<std::string> enviormentLevels = {"level1.txt"};
+    std::vector<std::string> enviormentLevels = {"level1.txt", "level2.txt"};
 
     //obj for parsing enviorment data.
     envriormentReading enviorment;
@@ -112,22 +116,16 @@ std::map<std::string,std::vector<std::unique_ptr<loadLevel>>> initilizeLevels::c
     //create enmies from raw enemy data
     std::map<std::string,std::map<std::string,std::vector<std::unique_ptr<baseEnemy>>>> enemyData;
     parseEnemyData(enemyData);
-    //test chest vector
-    std::vector<std::shared_ptr<chest>> chests;
-    chests.push_back(std::make_unique<chest>(300, 200, std::make_unique<healthIncreaseItem>()));
-    // loop through rooms in level map and assign each room to each level with corresponding enemy vectors.
+
     for(auto level : rawGameLevels){
         int roomNumber = 1;
         for(unsigned int i = 0; i < level.second.size(); i++){
-            if(i == 0)
-                levelData[level.first].push_back(std::make_unique<loadLevel>(rawGameLevels[level.first][i],
-                                                                         enemyData[level.first]["room"+std::to_string(roomNumber)],
-                                                                         chests));
-            else
-                levelData[level.first].push_back(std::make_unique<loadLevel>(rawGameLevels[level.first][i],
+           levelData[level.first].push_back(std::make_unique<loadLevel>(rawGameLevels[level.first][i],
                                                                          enemyData[level.first]["room"+std::to_string(roomNumber)]));
             roomNumber++;
         }
+        //
+        std::random_shuffle(levelData[level.first].begin() + 1, levelData[level.first].end() -1); // need to keep the first and last room the correct place
     }
 
     return levelData;

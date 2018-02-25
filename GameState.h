@@ -16,7 +16,8 @@ class GameState{
         //used to keep track of which state is which for the application manager
         enum states {
             PlayState,
-            MenuState
+            MenuState,
+            PauseState
         };
         GameState(sf::RenderWindow &w):window(w){}
         virtual ~GameState() = default;
@@ -26,9 +27,14 @@ class GameState{
         virtual bool nextPanel() = 0;
         virtual states getState() = 0;
         virtual void setNext(bool n) = 0;
+        inline void init() { isInitilized = true; }
+        inline bool isInit() { return isInitilized; }
+        inline void setMainTimer(){ mainTimer = sf::Clock(); }
     protected:
         sf::RenderWindow &window;
         bool next = false;
+        bool isInitilized = false;
+        sf::Clock mainTimer;
 };
 
 

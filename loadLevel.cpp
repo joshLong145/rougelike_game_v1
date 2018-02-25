@@ -40,38 +40,19 @@ loadLevel::loadLevel(std::vector<std::string> rooms, std::vector<std::unique_ptr
                 doorRects.push_back(door);
                 rects.push_back(door->loadImage());
             }
-        }
-        r++;
-    }
-}
-
-loadLevel::loadLevel(std::vector<std::string> rooms,std::vector<std::unique_ptr<baseEnemy>> &e, std::vector<std::shared_ptr<chest>> c) :
-    enemies(std::move(e)),
-    chests(std::move(c)){
-
-     for(auto chest = chests.begin(); chest != chests.end(); chest++){
-        rects.push_back((*chest)->loadImage());
-     }
-     int r = 0;
-     for(auto room : rooms ){
-        for(int c = 0;  c < 9; c++){
-            // add wall objs to both the level and rect vectors. (rect vector is for collision detection)
-            if(room[c] == 'W'){
-                std::shared_ptr<wallBlock> block = std::make_unique<wallBlock>(r * 65, c * 70);
-                level_blocks.push_back(block);
-                rects.push_back(block->loadImage());
+            if(room[c] == 'R'){
+                std::shared_ptr<rockBlock> rock = std::make_unique<rockBlock>(r * 65, c * 70);
+                level_blocks.push_back(rock);
+                m_rockRects.push_back(rock->loadImage());
             }
-            if(room[c] == 'G'){
-                level_blocks.push_back(std::make_unique<groundBlock>(r * 65, c * 70));
+            if(room[c] == 'C'){
+                std::shared_ptr<chest> chestTile = std::make_unique<chest>(r * 65,c * 70);
+                level_blocks.push_back(chestTile);
+                chests.push_back(chestTile);
+                m_rockRects.push_back(chestTile->loadImage());
             }
-            if(room[c] == 'N'){
-                std::shared_ptr<doorBlock> door = std::make_unique<doorBlock>(r * 65, c * 70,1);
-                level_blocks.push_back(door);
-                doorRects.push_back(door);
-                rects.push_back(door->loadImage());
-            }
-            if(room[c] == 'B'){
-                std::shared_ptr<doorBlock> door = std::make_unique<doorBlock>(r * 65, c * 70,2);
+            if(room[c] == 'L'){
+                std::shared_ptr<levelDoorBlock> door = std::make_unique<levelDoorBlock>(r * 65, c * 70,3);
                 level_blocks.push_back(door);
                 doorRects.push_back(door);
                 rects.push_back(door->loadImage());
@@ -115,6 +96,11 @@ void loadLevel::display(sf::RenderWindow &window){
 std::vector<sf::Sprite> loadLevel::getRects(){
     return rects;
 }
+
+std::vector<sf::Sprite> loadLevel::getEnviormentRocks(){
+    return m_rockRects;
+}
+
 std::vector<std::unique_ptr<baseEnemy>> & loadLevel::getEnemies(){
     return enemies;
 }

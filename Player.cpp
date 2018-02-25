@@ -35,9 +35,11 @@ sf::Sprite & Player::loadImage(){
 int Player::getHealth(){
     return health;
 }
+
 int * Player::getPos(){
     return last_move;
 }
+
 void Player::setHealth(int h){
     health = h;
 }
@@ -60,27 +62,23 @@ void Player::playerControls(sf::Time deltaTime){
             bullets.push_back(std::make_unique<playerBullet>(pos.x + 10,pos.y,2));
             bullet_clock.restart();
         }
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+    }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
         if (bullet_clock.getElapsedTime().asSeconds() > 0.5){
             bullets.push_back(std::make_unique<playerBullet>(pos.x - 10,pos.y,3));
             bullet_clock.restart();
         }
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+    }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
         if (bullet_clock.getElapsedTime().asSeconds() > 0.5){
             bullets.push_back(std::make_unique<playerBullet>(pos.x,pos.y - 10,1));
             bullet_clock.restart();
         }
-    }
-
-
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+    }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
         if (bullet_clock.getElapsedTime().asSeconds() > 0.5){
             bullets.push_back(std::make_unique<playerBullet>(pos.x,pos.y + 10,0));
             bullet_clock.restart();
         }
     }
+
     // push a new walking state onto the event queue when a player presses a movement key
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
         states.newPanel(std::make_unique<playerWalkingState>('W', *this, deltaTime));
@@ -94,12 +92,29 @@ void Player::playerControls(sf::Time deltaTime){
 }
 
 void Player::evaluateDamage(int enemyDamage){
-    states.newPanel(std::make_unique<playerDamageState>(*this, enemyDamage));
+    if(m_hit_timer.getElapsedTime().asSeconds() > 1.0f){
+        states.newPanel(std::make_unique<playerDamageState>(*this, enemyDamage));
+        m_hit_timer.restart();
+    }
 }
 // collision detection
 // gets the x and y values of the obj collided with and determins where on the map it is based on pixel location
 void Player::bounce(sf::Time deltaTime){
-    states.newPanel(std::make_unique<playerBounceState>(*this, deltaTime));
+    const auto knock_back = deltaTime.asSeconds() * 10;
+    const sf::Vector2f pos = sprite.getPosition();
+    if((getPos()[0] == -1 && getPos()[1] == 0) ){
+        sprite.setPosition(pos.x + knock_back, pos.y);
+
+    }else if((getPos()[0] == 1 && getPos()[1] == 0)){
+        sprite.setPosition(pos.x - knock_back, pos.y);
+
+    }else if( (getPos()[0] == 0 && getPos()[1] == 1) ){
+        sprite.setPosition(pos.x, pos.y + knock_back);
+
+    }else if((getPos()[0] == 0 && getPos()[1] == -1) ){
+        sprite.setPosition(pos.x, pos.y - knock_back);
+    }
+   // states.newPanel(std::make_unique<playerBounceState>(*this, deltaTime));
 }
 
 
@@ -152,14 +167,19 @@ void Player::updateWalkingAnimation(char dir){
 
 void Player::transporForDoor(){
     sf::Vector2f pos = loadImage().getPosition();
-    if(last_move[0] == 1 && last_move[1] == 0){
-        sprite.setPosition(pos.x - 480,pos.y);
-    }
-    else if (last_move[0] == -1 && last_move[1] == 0){
-        loadImage().setPosition(pos.x + 480,pos.y);
-    }
+    if(door !=  3){
+        if(last_move[0] == 1 && last_move[1] == 0){
+            sprite.setPosition(pos.x - 480,pos.y);
+        }
+        else if (last_move[0] == -1 && last_move[1] == 0){
+            sprite.setPosition(pos.x + 480,pos.y);
+        }
+    }else{
+        sprite.setPosition(70,300);
 
+    }
 }
+
 // used for damage calculation for enemies in the update cycle
 int Player::getOffensiveValue(){
     return attack;
@@ -193,12 +213,12 @@ void Player::setDamageColorToggle(bool setting){
 }
 
 void Player::manageColors(){
-    if(colorTiming.getElapsedTime().asSeconds() > 0.5f){
+    if(colorTiming.getElapsedTime().asSeconds() > 1.0f){
         if(damageColorToggle){
             sprite.setColor(sf::Color::Red);
             damageColorToggle = !damageColorToggle;
         }else{
-            sprite.setColor(sf::Color::White);
+            sprite.setColor(sf::Color::White); //resets the sprite to the original color
         }
         colorTiming.restart();
     }

@@ -27,7 +27,7 @@ class baseBullet : public sf::Transformable{
         // returns a sprite at each location of the bullet ( need to change this but sprites are cheap)
         virtual sf::Sprite loadImage() = 0;
         // moves sprite to location clicked
-        virtual void move() = 0;
+        virtual void move(sf::Time deltaTime) = 0;
         // private vars for the class
     protected:
         // used to move the bullets position.

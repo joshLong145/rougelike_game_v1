@@ -23,6 +23,7 @@ public:
     void draw();
     bool switchPanel();
     GameState & getCurrentPanel();
+    void requeuePanel();
 private:
      std::queue<std::unique_ptr<GameState>> states;
 };

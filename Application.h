@@ -11,11 +11,13 @@
 
 #include "PlayState.h"
 #include "MenuState.h"
+#include "pauseState.h"
 #include "panelManager.h"
 
 namespace applicationManager{
     void startGame();
     void addPanel(GameState::states state);
+    void addAndSaveCurrentPanel(GameState::states state);
     static panelManager manager;
     static sf::RenderWindow standard_window;
 }

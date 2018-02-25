@@ -1,8 +1,8 @@
 #ifndef levelConfiguration_h
 #define levelConfiguration_h
 
-#include<map>
-#include<string>
+#include <map>
+#include <string>
 #include <vector>
 #include <tuple>
 #include <memory>
@@ -11,6 +11,7 @@
 #include "loadLevel.h"
 #include "fly.h"
 #include "Ghost.h"
+#include "turret.h"
 
 class envriormentReading{
 public:

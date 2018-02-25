@@ -24,16 +24,6 @@ namespace applicationManager{
                     // Someone closed the window- bye
                     standard_window.close();
                 }
-
-                //check for state transistions and update accordingly
-                if(manager.getCurrentPanel().getState() == GameState::states::PlayState &&
-                   sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && sf::Keyboard::isKeyPressed(sf::Keyboard::E)){
-                    addPanel(GameState::states::MenuState);
-                }
-                if(manager.getCurrentPanel().getState() == GameState::states::MenuState &&
-                   sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-                    addPanel(GameState::states::PlayState);
-                }
             }
 
             manager.nextPanel();
@@ -58,4 +48,22 @@ namespace applicationManager{
             moveToNextPanel();
         }
     }
+
+    void addAndSaveCurrentPanel(GameState::states state){
+        if(state == GameState::states::MenuState){
+            manager.newPanel(std::make_unique<MenuState>(standard_window));
+            moveToNextPanel();
+        }
+
+        if(state == GameState::states::PlayState){
+            manager.newPanel(std::make_unique<PlayState>(standard_window));
+            moveToNextPanel();
+        }
+        if(state == GameState::states::PauseState){
+           manager.newPanel(std::make_unique<pauseState>(standard_window));
+           manager.requeuePanel();
+
+        }
+    }
 }
+

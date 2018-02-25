@@ -9,10 +9,8 @@
 #ifndef doorBlock_h
 #define doorBlock_h
 #pragma once
+
 #include <stdio.h>
-
-#endif /* doorBlock_hpp */
-
 #include "enviormentBlocks.h"
 class doorBlock : public enviormentBlocks{
 public:
@@ -27,3 +25,6 @@ private:
     sf::Texture texture;
     int direction = -1;
 };
+
+
+#endif /* doorBlock_hpp */

@@ -6,9 +6,9 @@ playerBounceState::playerBounceState(Player &p, sf::Time deltaTime) : gameObject
 }
 
 void playerBounceState::update(){
-    const auto pos = player->loadImage().getPosition();
+    const sf::Vector2f pos = player->loadImage().getPosition();
     // calcualtes knock back distance when colliding with enemies
-    const auto knock_back = delta.asSeconds() * 80;
+    const auto knock_back = delta.asSeconds() * 2;
 
     if((player->getPos()[0] == -1 && player->getPos()[1] == 0) ){
         player->loadImage().setPosition(pos.x + knock_back, pos.y);

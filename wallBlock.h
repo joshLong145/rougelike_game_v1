@@ -13,14 +13,10 @@
 class wallBlock : public enviormentBlocks{
 public:
     wallBlock(int xpos, int ypos);
-    void draw(sf::RenderWindow &window);
     sf::Sprite loadImage();
     void setImage(std::string image_path);
     void initilizeSprite();
     sf::FloatRect getRect();
-private:
-    sf::Texture texture;
-    sf::Sprite sprite;
 };
 
 #endif /* wallBlock_hpp */

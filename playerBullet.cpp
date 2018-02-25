@@ -31,9 +31,8 @@ sf::Sprite playerBullet::loadImage(){
     return sprite;
 }
 
-void playerBullet::move(){
-    delta = mainTimer.restart();
-    const auto speed = delta.asSeconds() * 200;
+void playerBullet::move(sf::Time deltaTime){
+    const auto speed = deltaTime.asSeconds() * 200;
     sf::Vector2f pos = loadImage().getPosition();
     if(direction == EAST){
         sprite.setPosition(pos.x + speed,pos.y);

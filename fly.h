@@ -14,6 +14,8 @@
 #include "Player.h"
 #include <math.h>
 
+#define PI 3.14159265
+
 class fly : public baseEnemy{
 public:
     fly(int x_pos, int y_pos, int v);
@@ -35,18 +37,19 @@ public:
 
     int getVelocity();
 
+    inline baseEnemy::enemyType getEnemyType() { return baseEnemy::enemyType::fly; }
+
     std::vector<std::unique_ptr<enemyBullet>> & getBulletVector();
 
     int path_length(int x1, int y1, int x2, int y2);
-
-    void setBulletDirection();
 
     void hitNonWallObj();
 
     sf::Vector2f interpolate(const sf::Vector2f point_A, const sf::Vector2f point_B, float factor);
 
 private:
-    int health = 1;
+    int health = 2;
+    float angle = 20 * PI / 180;
 
 };
 

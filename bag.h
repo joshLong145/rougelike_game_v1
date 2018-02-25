@@ -3,6 +3,7 @@
 // INCLUDE STATEMENTS
 #include "baseItem.h"
 #include "healthIncreaseItem.h"
+#include "damageIncreaseItem.h"
 #include <vector>
 #include <memory>
 

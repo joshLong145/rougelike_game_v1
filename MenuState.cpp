@@ -28,6 +28,10 @@ void MenuState::initilize(){
 }
 
 void MenuState::update(){
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+        applicationManager::addPanel(GameState::states::PlayState);
+    }
 }
 
 void MenuState::draw(){

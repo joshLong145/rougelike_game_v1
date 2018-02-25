@@ -23,7 +23,7 @@ class enemyBullet : public baseBullet{
         // returns a sprite at each location of the bullet ( need to change this but sprites are cheap)
         sf::Sprite loadImage();
         // moves sprite to location clicked
-        void move();
+        void move(sf::Time deltaTime);
 };
 
 

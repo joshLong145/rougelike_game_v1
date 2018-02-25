@@ -19,6 +19,11 @@
 
 class baseEnemy : public sf::Transformable{
     public:
+        enum enemyType{
+            fly,
+            ghost
+        };
+
         baseEnemy(int x_pos, int y_pos, const int v){
             x_val = x_pos;
             y_val = y_pos;
@@ -54,9 +59,9 @@ class baseEnemy : public sf::Transformable{
 
         virtual int path_length(int x1, int y1, int x2, int y2) = 0;
 
-        virtual void setBulletDirection() = 0;
-
         inline int getDamageAmount(){ return damage; }
+
+        virtual enemyType getEnemyType() = 0;
 
     protected:
         int x_val;

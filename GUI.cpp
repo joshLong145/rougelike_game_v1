@@ -55,7 +55,7 @@ std::vector<sf::Sprite> & GUI::displayItems(Player &p){
 
     int counter = 0;
     for(auto item = m_itemSprites.begin(); item != m_itemSprites.end(); item++){
-        (*item).setPosition(150 + (counter * 30),650);
+        (*item).setPosition(150 + (counter * 50),650);
         counter++;
     }
     return m_itemSprites;

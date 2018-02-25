@@ -13,13 +13,10 @@
 class groundBlock : public enviormentBlocks{
     public:
         groundBlock(int xpos, int ypos);
-        void draw(sf::RenderWindow &window);
         sf::Sprite loadImage();
         void setImage(std::string image_path);
         void initilizeSprite();
         sf::FloatRect getRect();
-    private:
-        sf::Texture texture;
 };
 
 
