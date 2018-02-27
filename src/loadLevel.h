@@ -1,0 +1,54 @@
+//
+//  loadLevel.hpp
+//  game_proj
+//
+//  Created by josh long on 1/31/17.
+//  Copyright © 2017 josh long. All rights reserved.
+//
+
+#ifndef loadLevel_h
+#define loadLevel_h
+
+#include "Player.h"
+#include "baseEnemy.h"
+#include "groundBlock.h"
+#include "wallBlock.h"
+#include "rockBlock.h"
+#include "doorBlock.h"
+#include "levelDoorBlock.h"
+#include "chest.h"
+#include <memory>
+
+/*
+renders each room of the game. all textures that could potentially be used are rendered during obj initialization.
+player object is passed by refrence to the object.
+display() and update() update any object on the screen and display will display any objects to the window which is passed by refrence to display().
+*/
+
+class loadLevel{
+    public:
+        loadLevel(std::vector<std::string> rooms, std::vector<std::unique_ptr<baseEnemy>> &e);
+        void setPlayer(Player &player);
+        void display(sf::RenderWindow &window);
+        void update();
+        std::vector<sf::Sprite> getRects();
+        std::vector<std::unique_ptr<baseEnemy>> & getEnemies();
+        std::vector<std::shared_ptr<doorBlock>> getDoors();
+        std::vector<sf::Sprite> getEnviormentRocks();
+        std::vector<std::shared_ptr<chest>> getChests();
+    private:
+        Player *p = nullptr;
+        //stores enviorment blocks for the room
+        std::vector<std::shared_ptr<enviormentBlocks>> level_blocks;
+        std::vector<sf::Sprite> rects;
+        std::vector<sf::Sprite> m_rockRects;
+        //container for handling door collisions
+        std::vector<std::shared_ptr<doorBlock>> doorRects;
+        std::vector<std::shared_ptr<levelDoorBlock>> m_levelDoorRects;
+        //stores enemies for the given room
+        std::vector<std::unique_ptr<baseEnemy>> enemies;
+        // stores chests that are within the room
+        std::vector<std::shared_ptr<chest>> chests;
+};
+
+#endif /* loadLevel_hpp */
