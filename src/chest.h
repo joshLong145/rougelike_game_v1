@@ -6,6 +6,7 @@
 #include "enviormentBlocks.h"
 #include "healthIncreaseItem.h"
 #include "damageIncreaseItem.h"
+#include "healthDecreaseItem.h"
 #include <memory>
 
 class chest : public enviormentBlocks {

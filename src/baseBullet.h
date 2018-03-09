@@ -10,8 +10,6 @@
 #define baseBullet_h
 
 #include <SFML/Graphics.hpp>
-#include "gameObjectStateManager.h"
-
 class baseBullet : public sf::Transformable{
     // public class functions
     public:
@@ -22,7 +20,7 @@ class baseBullet : public sf::Transformable{
             // direction the bullet will be going
             direction = dir;
         }
-            // destructor
+        // destructor
         ~baseBullet() = default;
         // returns a sprite at each location of the bullet ( need to change this but sprites are cheap)
         virtual sf::Sprite loadImage() = 0;

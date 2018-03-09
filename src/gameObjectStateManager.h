@@ -12,6 +12,7 @@ class gameObjectStateManager{
 
         gameObjectStateManager() = default;
         void newPanel(std::shared_ptr<gameObjectState> panel);
+        void requeuePanel();
         void nextPanel();
         void update();
         gameObjectState & getCurrentPanel();

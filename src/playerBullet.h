@@ -9,8 +9,6 @@
 #ifndef playerBullet_h
 #define playerBullet_h
 
-#include <SFML/Graphics.hpp>
-#include "gameObjectStateManager.h"
 #include "baseBullet.h"
 
 class playerBullet : public baseBullet{

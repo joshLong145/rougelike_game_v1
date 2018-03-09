@@ -11,12 +11,17 @@ public:
     //to inside of the itemManager class.
     enum items{
         healthIncrease,
-        damageIncrease
+        damageIncrease,
+        healthDecrease
     };
 
     /*
     */
-    baseItem() = default;
+    baseItem(){
+      m_texture.loadFromFile("./resources/itemSheet.png");
+      m_sprite.setTextureRect(sf::IntRect(50 * 8,0,50,50));
+      m_sprite.setTexture(m_texture);
+    }
 
     /*
 
@@ -49,6 +54,7 @@ public:
     inline bool isItemUsed() { return m_itemUsed; }
 
     inline bool accountedFor() { return m_isAccounted; }
+
     inline void setAccountedFor(bool account) { m_isAccounted = account; }
 protected:
     std::string m_itemName;

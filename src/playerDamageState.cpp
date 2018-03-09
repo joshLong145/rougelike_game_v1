@@ -13,8 +13,7 @@ bool playerDamageState::nextPanel(){
 }
 
 void playerDamageState::update(){
-    player->setHealth((player->getHealth() - enemyDamage));
-    player->setDamageColorToggle(true);
-    next = true;
+  player->setDamageColorToggle(true);
+  next = true;
 }
 

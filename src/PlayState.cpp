@@ -14,7 +14,7 @@ PlayState::PlayState(sf::RenderWindow &w):GameState(w){}
 void PlayState::initilize(){
     // resize the window and set the name of the window to game
     auto videoMode = sf::VideoMode::getDesktopMode();
-    window.create(videoMode,"game",sf::Style::Titlebar);
+    window.create(videoMode,"game",sf::Style::Resize);
     sf::View view;
     view.setSize(window.getSize().x, window.getSize().y);
     view.setCenter(view.getSize().x / 4, view.getSize().y / 2);
@@ -35,13 +35,13 @@ void PlayState::checkRoomTransition(){
     if(player.getDoor() == 1){
         player.clearBullets();
         current_room++;
-        //rooms.at(current_room)->setPlayer(player);
+        levels["level"+std::to_string(current_level)][current_room]->setPlayer(player);
         player.setDoor(0);
 
     }else if(player.getDoor() == 2){
         player.clearBullets();
         current_room--;
-        //rooms.at(current_room)->setPlayer(player);
+        levels["level"+std::to_string(current_level)][current_room]->setPlayer(player);
         player.setDoor(0);
     }else if(player.getDoor() == 3){
         player.clearBullets();

@@ -8,9 +8,7 @@
 
 #ifndef doorBlock_h
 #define doorBlock_h
-#pragma once
 
-#include <stdio.h>
 #include "enviormentBlocks.h"
 class doorBlock : public enviormentBlocks{
 public:

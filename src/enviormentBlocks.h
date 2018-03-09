@@ -9,9 +9,8 @@
 #ifndef enviormentBlocks_h
 #define enviormentBlocks_h
 
-#include <string>
 #include <SFML/Graphics.hpp>
-#include "../ResourcePath.hpp"
+
 /*
  base class for object inheritance, all enviorment blocks will derive from this class ( single level inheritace structure )
 

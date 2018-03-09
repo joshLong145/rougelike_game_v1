@@ -1,10 +1,6 @@
 #include "healthIncreaseItem.h"
 
-healthIncreaseItem::healthIncreaseItem():baseItem(){
-    m_texture.loadFromFile("./resources/health_icon.png");
-    m_sprite.setTextureRect(sf::IntRect(0,0,32,32));
-    m_sprite.setTexture(m_texture);
-}
+healthIncreaseItem::healthIncreaseItem():baseItem(){}
 
 int healthIncreaseItem::getStatModifier(){
     return m_stateModifier;

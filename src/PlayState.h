@@ -9,7 +9,6 @@
 #ifndef PlayState_h
 #define PlayState_h
 
-#include <stdio.h>
 #include "GameState.h"
 #include <queue>
 // class for checking collision with other objects

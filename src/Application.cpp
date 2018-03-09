@@ -37,10 +37,10 @@ namespace applicationManager{
         manager.nextPanel();
     }
 
-    void addPanel(GameState::states state){
+    void addPanel(const GameState::states state){
         if(state == GameState::states::MenuState){
-            manager.newPanel(std::make_unique<MenuState>(standard_window));
-            moveToNextPanel();
+         manager.newPanel(std::move(std::make_unique<MenuState>(standard_window)));
+         moveToNextPanel();
         }
 
         if(state == GameState::states::PlayState){
@@ -49,7 +49,7 @@ namespace applicationManager{
         }
     }
 
-    void addAndSaveCurrentPanel(GameState::states state){
+    void addAndSaveCurrentPanel(const GameState::states state){
         if(state == GameState::states::MenuState){
             manager.newPanel(std::make_unique<MenuState>(standard_window));
             moveToNextPanel();

@@ -4,7 +4,7 @@ MY PROJECT -*- mode: org -*-
 
 *** ENEMIES 
 +**** TODO Move enemies generation to file.+  
-**** TODO Add a turret enemy ( stationary enemy with high health that fires in a signle direction).
++**** TODO Add a turret enemy ( stationary enemy with high health that fires in a signle direction).
 +**** TODO Abstract loading in of enemies into the gam enviroment into a seperate function outside of the sate's init() function.+
 **** TODO Add one boss enemy (watch more rouge like play throughs to get ideas). 
 *** PLAYER   
@@ -15,12 +15,12 @@ MY PROJECT -*- mode: org -*-
 +**** TODO Add health increase item+ 
 +**** TODO Add damage increase item+   
 **** TODO Add damage decrease item
-**** TODO ADD health decrease item
++**** TODO ADD health decrease item+
 
 *** MISC 
 +**** TODO refine state machine to allow for existing states to be pushed back onto the call stack.+ 
   
 *** BUGS
-**** TODO fix issues with player collision when multiple blocks are present.
++**** TODO fix issues with player collision when multiple blocks are present.
 +**** TODO fix issues with damage be assigned to player.+
    

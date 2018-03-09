@@ -38,6 +38,10 @@ class Player : public sf::Transformable{
         // get the position of player ( only one player obj within the game so static typing implemented to reduces object passing)
         int * getPos();
 
+        bool isWallHit(){ return m_wallHit; }
+
+        bool setWallHit(bool hit){ m_wallHit = hit; }
+
         sf::IntRect & getImageArray(int col, int row);
 
         void setDoor(int d);
@@ -71,12 +75,12 @@ class Player : public sf::Transformable{
 
         void evaluateDamage(int enemyDamage);
 
-
     private:
         int velocity = 200;
         int image_row = 0;
         int image_col = 0;
         int last_move[2];
+        bool m_wallHit = false;
         int health = 99;
         int door = -1;
         int attack  = 1;

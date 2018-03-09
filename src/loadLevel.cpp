@@ -18,7 +18,7 @@ loadLevel::loadLevel(std::vector<std::string> rooms, std::vector<std::unique_ptr
     // go through matrix and map each integer to a tile obj
     int r = 0;
     for(auto room : rooms ){
-        for(int c = 0;  c < 9; c++){
+      for(unsigned int c = 0;  c < room.size(); c++){
             // add wall objs to both the level and rect vectors. (rect vector is for collision detection)
             if(room[c] == 'W'){
                 std::shared_ptr<wallBlock> block = std::make_unique<wallBlock>(r * 65, c * 70);
@@ -85,11 +85,6 @@ void loadLevel::display(sf::RenderWindow &window){
             window.draw((*bullet)->loadImage());
         }
     }
-     //draws the chests in the correct location.
-    for(auto chest = chests.begin(); chest != chests.end(); chest++){
-        window.draw((*chest)->loadImage());
-    }
-
 }
 
 // returns boundiries for the level

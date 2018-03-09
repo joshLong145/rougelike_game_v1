@@ -1,5 +1,3 @@
-
-#include <iostream>
 #include "Update.h"
 #include "checkCollision.h"
 
@@ -9,20 +7,21 @@ void Update::updatePlayerObjs(Player &player,std::vector<sf::Sprite> rects,std::
                               std::vector<std::shared_ptr<doorBlock>> doors, std::vector<std::shared_ptr<chest>> chests,
                               std::vector<sf::Sprite> enviormentRocks,
                               sf::Time deltaTime){
+  // checks collision with door obj if true, go to next level
+  checkCollisionDoors(doors,player);
+
+  // manages color changing based on enviorment interaction
+  player.manageColors();
+
+  // checks to see if new items where aquired by the player
+  player.addItemModifications();
+
 
     if((checkCollisionWalls(player.loadImage(),rects) || checkCollisionWalls(player.loadImage(), enviormentRocks))){
          player.bounce(deltaTime);
     }else{
         player.playerControls(deltaTime);
     }
-    // checks collision with door obj if true, go to next level
-    checkCollisionDoors(doors,player);
-
-    // manages color changing based on enviorment interaction
-    player.manageColors();
-
-    // checks to see if new items where aquired by the player
-    player.addItemModifications();
 
     // checks for collision with bullets against wall object.
     //if it does, remove it.
@@ -39,13 +38,13 @@ void Update::updatePlayerObjs(Player &player,std::vector<sf::Sprite> rects,std::
     // check for bullet collision with obsticals, if a bullet collides with a obstical, remove it,
     for(auto enemy = e.begin(); enemy != e.end(); enemy++){
         if(checkCollisionBasic(player.loadImage(), (*enemy) ->loadImage())){
-            player.evaluateDamage((*enemy)->getDamageAmount());
+          player.evaluateDamage((*enemy)->getDamageAmount());
         }
     }
+
     // check for bullet collision with obsticals, if a bullet collides with a obstical, remove it,
     if(checkCollisionEnemyBullets(player.loadImage(),e)){
-        player.evaluateDamage(1); // constant value for bullet damage ( will always be 1 unit of damage)
-        hit_timer.restart();
+      player.evaluateDamage(1); // constant value for bullet damage ( will always be 1 unit of damage)
     }
 
     for(auto chest = chests.begin(); chest != chests.end(); chest++){
@@ -83,7 +82,7 @@ void Update::updateEnemeyObjs(std::vector<std::unique_ptr<baseEnemy>> &e,
         if(checkCollisionPlayerBullets((*enemy) -> loadImage(),p)){
             const int enemyHealth = (*enemy)->getHealth() - p.getOffensiveValue();
             if(enemyHealth <= 0){
-                e.erase(enemy);
+              e.erase(enemy);
             }else{
                 (*enemy)->setHealth(enemyHealth);
             }

@@ -1,9 +1,6 @@
 #include "damageIncreaseItem.h"
 
 damageIncreaseItem::damageIncreaseItem():baseItem(){
-    m_texture.loadFromFile("./resources/attack_item_icon.png");
-    m_sprite.setTextureRect(sf::IntRect(0,0,32,32));
-    m_sprite.setTexture(m_texture);
 }
 
 int damageIncreaseItem::getStatModifier(){
