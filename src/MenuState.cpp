@@ -7,47 +7,40 @@
 //
 
 #include "MenuState.h"
-#include <iostream>
 #include "PlayState.h"
 
 MenuState::MenuState(sf::RenderWindow &w) : GameState(w){
-    font.loadFromFile("./resources/sansation.ttf");
+    m_font.loadFromFile("./resources/sansation.ttf");
     //initilizing font and text for menu items
-    display.setFont(font);
-    display.setPosition({150,10});
-    display.setString("ISSAC RIP OFF \n Press space to start");
+    m_display.setFont(m_font);
+    m_display.setPosition({150,10});
+    m_display.setString("ISSAC RIP OFF \n Press space to start");
 }
 
-void MenuState::initilize(){
-    window.create(sf::VideoMode::getDesktopMode(), "game", sf::Style::Resize);
+void MenuState::InitilizeGameState(){
+    m_window.create(sf::VideoMode::getDesktopMode(), "game", sf::Style::Resize);
     sf::View view;
     view.setCenter(view.getSize().x / 4, view.getSize().y / 2);
-    window.setView(view);
-    window.setVerticalSyncEnabled(true); // call it once, after creating the window
-    window.setFramerateLimit(60); // set the frame rate to 30 constant.
+    m_window.setView(view);
+    m_window.setVerticalSyncEnabled(true); // call it once, after creating the window
+    m_window.setFramerateLimit(60); // set the frame rate to 30 constant.
 }
 
 void MenuState::update(){
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-        applicationManager::addPanel(GameState::states::PlayState);
+        applicationManager::addPanel(GameState::m_states::PlayState);
     }
 }
 
-void MenuState::draw(){
-    window.clear();
-    window.draw(display);
-    window.display();
+void MenuState::DrawAssets(){
+    m_window.clear();
+    m_window.draw(m_display);
+    m_window.display();
 }
 
-bool MenuState::nextPanel(){
-    return next;
-}
 
-void MenuState::setNext(bool n){
-    next = n;
-}
 
-GameState::states MenuState::getState(){
-    return GameState::states::MenuState;
+GameState::m_states MenuState::GetState(){
+    return GameState::m_states::MenuState;
 }

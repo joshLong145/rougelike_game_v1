@@ -8,13 +8,13 @@ MY PROJECT -*- mode: org -*-
 +**** TODO Abstract loading in of enemies into the gam enviroment into a seperate function outside of the sate's init() function.+
 **** TODO Add one boss enemy (watch more rouge like play throughs to get ideas). 
 *** PLAYER   
-**** TODO abstract damage calculations from update() function into its own custom state class.
++**** TODO abstract damage calculations from update() function into its own custom state class.+
 
 *** ITEM
 +**** TODO Finish designing base class for all items to use.+ 
 +**** TODO Add health increase item+ 
 +**** TODO Add damage increase item+   
-**** TODO Add damage decrease item
++**** TODO Add damage decrease item+
 +**** TODO ADD health decrease item+
 
 *** MISC 
@@ -23,4 +23,9 @@ MY PROJECT -*- mode: org -*-
 *** BUGS
 +**** TODO fix issues with player collision when multiple blocks are present.
 +**** TODO fix issues with damage be assigned to player.+
-   
+
+ 
+*** REFACTORING
+     TODO: Document all header files. 
+     TODO: Change function decleration to mach naming convention i.e. capitalize first word. 
+     TODO:  

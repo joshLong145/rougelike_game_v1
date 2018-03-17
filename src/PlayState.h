@@ -26,35 +26,66 @@
 
 class PlayState : public virtual GameState{
     public:
-        PlayState(sf::RenderWindow &w);
+        PlayState(sf::RenderWindow &a_windowObj);
         void update();
 
-        void initilize();
+        void InitilizeGameState();
 
-        void updateGameObjects();
+        /*
+          NAME:
+            UpdateGameObjects
 
-        void checkRoomTransition();
+          SYNOPSIS:
+            GameState::updateGameObjects();
 
-        void draw();
+          DESCRIPTION:
+            moves and manipulates all sprites/ assets within the current State. is called in every update cycle.
+            Uses functions from the Update class used to update both the player and all enemies within the current room.
 
-        bool nextPanel();
+          RETURNS:
+            None
 
-        states getState();
+          AUTHOR:
+            Josh Long
+        */
+        void UpdateGameObjects();
+        /*
+          NAME:
+            CheckRoomTransition
 
-        void setNext(bool n);
+          SYNOPSIS:
+            GameState::CheckRoomTransition();
 
-        void setMainClock();
+          DESCRIPTION:
+            if a door has been hit by the player check which kind of door was hit and update the player accordingly.
+            there are 3 kinds of a door, a door that brings you forward to the next room, a door that brings you back to the last room
+            and a door that brings you to the next level.
+
+          RETURNS:
+            None
+
+          AUTHOR:
+            Josh Long
+        */
+        void CheckRoomTransition();
+
+        //FOLLOWING FUNCTIONS ARE INHERITED FROM THE GAMESATE BASE CLASS, SEE GameState.h for documentation.
+        void DrawAssets();
+
+        m_states GetState();
+
+        void SetMainClock();
 
     private:
         //iteration vars;
-        int current_level = 1;
-        int current_room = 0;
+        int m_current_level = 1;
+        int m_current_room = 0;
         //containers for level creation
-        std::map<std::string,std::vector<std::unique_ptr<loadLevel>>> levels;
+        std::map<std::string,std::vector<std::unique_ptr<loadLevel>>> m_levels;
         // player object
-        Player player = *new Player(75,75);
+        Player m_player = *new Player(75,75);
         //create a update obj which will detect collision between player and other obj (also checks collision of bullets from the player)
-        Update update_objects;
+        Update m_update_objects;
         // object for GUI
         GUI gui;
 };

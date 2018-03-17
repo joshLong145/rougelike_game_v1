@@ -12,9 +12,10 @@ namespace applicationManager{
 
     void startGame(){
         //Add the first state of the game to the menu state.
-        manager.newPanel(std::make_unique<MenuState>(standard_window));
+        manager.NewPanel(std::make_unique<MenuState>(standard_window));
+
         //Initilize the first panel
-        manager.getCurrentPanel().initilize();
+        manager.GetCurrentPanel().InitilizeGameState();
 
         while(standard_window.isOpen()){
             sf::Event event;
@@ -25,43 +26,47 @@ namespace applicationManager{
                     standard_window.close();
                 }
             }
-
-            manager.nextPanel();
-            manager.update();
+            // Checks if it is time for a new Panel to be processed.
+            manager.InitilizeNewPanel();
+            // Updates the assets in the current panel.
+            manager.Update();
+            // Draws all sprites in the current panel.
             manager.draw();
         }
     }
 
     inline void moveToNextPanel(){
-        manager.getCurrentPanel().setNext(true);
-        manager.nextPanel();
-    }
+        // Set the current panel m_next to true and moves to the next panel in queue.
+        manager.GetCurrentPanel().SetNextPanel(true);
 
-    void addPanel(const GameState::states state){
-        if(state == GameState::states::MenuState){
-         manager.newPanel(std::move(std::make_unique<MenuState>(standard_window)));
+        manager.InitilizeNewPanel();
+    }
+  // TODO: change from an enum to a unique ptr to the new state (better architrure for current design).
+    void addPanel(const GameState::m_states state){
+        if(state == GameState::m_states::MenuState){
+         manager.NewPanel(std::move(std::make_unique<MenuState>(standard_window)));
          moveToNextPanel();
         }
 
-        if(state == GameState::states::PlayState){
-            manager.newPanel(std::make_unique<PlayState>(standard_window));
+        if(state == GameState::m_states::PlayState){
+            manager.NewPanel(std::make_unique<PlayState>(standard_window));
             moveToNextPanel();
         }
     }
 
-    void addAndSaveCurrentPanel(const GameState::states state){
-        if(state == GameState::states::MenuState){
-            manager.newPanel(std::make_unique<MenuState>(standard_window));
+    void addAndSaveCurrentPanel(const GameState::m_states state){
+        if(state == GameState::m_states::MenuState){
+            manager.NewPanel(std::make_unique<MenuState>(standard_window));
             moveToNextPanel();
         }
 
-        if(state == GameState::states::PlayState){
-            manager.newPanel(std::make_unique<PlayState>(standard_window));
+        if(state == GameState::m_states::PlayState){
+            manager.NewPanel(std::make_unique<PlayState>(standard_window));
             moveToNextPanel();
         }
-        if(state == GameState::states::PauseState){
-           manager.newPanel(std::make_unique<pauseState>(standard_window));
-           manager.requeuePanel();
+        if(state == GameState::m_states::PauseState){
+           manager.NewPanel(std::make_unique<pauseState>(standard_window));
+           manager.RequeuePanel();
 
         }
     }

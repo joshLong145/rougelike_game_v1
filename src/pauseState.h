@@ -13,18 +13,31 @@
 
 class pauseState : public virtual GameState{
     public:
-        pauseState(sf::RenderWindow &w);
+        /*
+         NAME:
+           pauseState
+
+         SYNOPSIS:
+           pauseState::pauseState();
+
+         DESCRIPTION:
+           Initilizes a pauseState object and initlizes all sprites / assets needed within the panel.
+
+         RETURNS:
+           None
+
+         AUTHOR:
+           Josh Long
+        */
+        pauseState(sf::RenderWindow &a_windowObj);
+        // ALL DOCUMENTATION FOR INHERITED FUNCTIONS WITHIN GameState BASE CLASS.
         void update();
-        void initilize();
-        void draw();
-        bool nextPanel();
-        states getState();
-        void setNext(bool n);
+        void InitilizeGameState();
+        void DrawAssets();
+        m_states GetState();
     private:
         // for displaying text
-        sf::Font font;
-        sf::Text display;
-        // clock for text flashing
-        sf::Clock flash;
+        sf::Font m_font;
+        sf::Text m_display;
 };
 #endif /* MenuState_hpp */

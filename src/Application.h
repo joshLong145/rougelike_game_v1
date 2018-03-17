@@ -16,8 +16,8 @@
 
 namespace applicationManager{
     void startGame();
-    void addPanel(GameState::states state);
-    void addAndSaveCurrentPanel(GameState::states state);
+    void addPanel(GameState::m_states state);
+    void addAndSaveCurrentPanel(GameState::m_states state);
     static panelManager manager;
     static sf::RenderWindow standard_window;
 }

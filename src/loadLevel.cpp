@@ -7,13 +7,8 @@
 //
 
 #include "loadLevel.h"
-// define statements for obj being initilized within constructor
-#define WALL 0
-#define GROUND 1
-#define NEXT_DOOR 2
-#define BACK_DOOR 3
 
-loadLevel::loadLevel(std::vector<std::string> rooms, std::vector<std::unique_ptr<baseEnemy>> &e) : enemies(std::move(e)){
+loadLevel::loadLevel(std::vector<std::string> rooms, std::vector<std::unique_ptr<baseEnemy>> &e) : m_enemies(std::move(e)){
     //assign enemy passed to the room to a local var
     // go through matrix and map each integer to a tile obj
     int r = 0;
@@ -22,40 +17,40 @@ loadLevel::loadLevel(std::vector<std::string> rooms, std::vector<std::unique_ptr
             // add wall objs to both the level and rect vectors. (rect vector is for collision detection)
             if(room[c] == 'W'){
                 std::shared_ptr<wallBlock> block = std::make_unique<wallBlock>(r * 65, c * 70);
-                level_blocks.push_back(block);
-                rects.push_back(block->loadImage());
+                m_levelBlocks.push_back(block);
+                m_rects.push_back(block->loadImage());
             }
             if(room[c] == 'G'){
-                level_blocks.push_back(std::make_unique<groundBlock>(r * 65, c * 70));
+                m_levelBlocks.push_back(std::make_unique<groundBlock>(r * 65, c * 70));
             }
             if(room[c] == 'N'){
                 std::shared_ptr<doorBlock> door = std::make_unique<doorBlock>(r * 65, c * 70,1);
-                level_blocks.push_back(door);
-                doorRects.push_back(door);
-                rects.push_back(door->loadImage());
+                m_levelBlocks.push_back(door);
+                m_doorRects.push_back(door);
+                m_rects.push_back(door->loadImage());
             }
             if(room[c] == 'B'){
                 std::shared_ptr<doorBlock> door = std::make_unique<doorBlock>(r * 65, c * 70,2);
-                level_blocks.push_back(door);
-                doorRects.push_back(door);
-                rects.push_back(door->loadImage());
+                m_levelBlocks.push_back(door);
+                m_doorRects.push_back(door);
+                m_rects.push_back(door->loadImage());
             }
             if(room[c] == 'R'){
                 std::shared_ptr<rockBlock> rock = std::make_unique<rockBlock>(r * 65, c * 70);
-                level_blocks.push_back(rock);
+                m_levelBlocks.push_back(rock);
                 m_rockRects.push_back(rock->loadImage());
             }
             if(room[c] == 'C'){
                 std::shared_ptr<chest> chestTile = std::make_unique<chest>(r * 65,c * 70);
-                level_blocks.push_back(chestTile);
-                chests.push_back(chestTile);
+                m_levelBlocks.push_back(chestTile);
+                m_chests.push_back(chestTile);
                 m_rockRects.push_back(chestTile->loadImage());
             }
             if(room[c] == 'L'){
                 std::shared_ptr<levelDoorBlock> door = std::make_unique<levelDoorBlock>(r * 65, c * 70,3);
-                level_blocks.push_back(door);
-                doorRects.push_back(door);
-                rects.push_back(door->loadImage());
+                m_levelBlocks.push_back(door);
+                m_doorRects.push_back(door);
+                m_rects.push_back(door->loadImage());
             }
         }
         r++;
@@ -63,47 +58,49 @@ loadLevel::loadLevel(std::vector<std::string> rooms, std::vector<std::unique_ptr
 }
 
 // pass a player refrence to room obj
-void loadLevel::setPlayer(Player &player){
-    p = &player;
+void loadLevel::SetPlayer(Player &a_player){
+  // Initlizes the player var from being nullptr to a refrence to the player object.
+  //there is only one player object so it needs to be passed by refrence from object to object. This is done to prevent memory leakage and decrease memory footprint.
+  m_player = &a_player;
 }
 
 
-void loadLevel::display(sf::RenderWindow &window){
+void loadLevel::Display(sf::RenderWindow &a_windowObj){
     //draw each blocks sprite
-    for(auto block = level_blocks.begin(); block != level_blocks.end(); block++){
-        window.draw((*block) -> loadImage() );
+    for(auto block = m_levelBlocks.begin(); block != m_levelBlocks.end(); block++){
+        a_windowObj.draw((*block) -> loadImage() );
     }
 
     // draw enemies in the current room
-    for (auto enemy = enemies.begin(); enemy != enemies.end(); enemy++){
-        window.draw((*enemy)->loadImage() );
+    for (auto enemy = m_enemies.begin(); enemy != m_enemies.end(); enemy++){
+        a_windowObj.draw((*enemy)->loadImage() );
     }
     // draw enemies in the current room
-    for (auto enemy = enemies.begin(); enemy != enemies.end(); enemy++){
-        std::vector<std::unique_ptr<enemyBullet>> &enemy_bullets = (*enemy)->getBulletVector();
-        for (auto bullet = enemy_bullets.begin(); bullet != enemy_bullets.end(); bullet++){
-            window.draw((*bullet)->loadImage());
+    for (auto enemy = m_enemies.begin(); enemy != m_enemies.end(); enemy++){
+        std::vector<std::unique_ptr<enemyBullet>> &enemyBullets = (*enemy)->getBulletVector();
+        for (auto bullet = enemyBullets.begin(); bullet != enemyBullets.end(); bullet++){
+            a_windowObj.draw((*bullet)->loadImage());
         }
     }
 }
 
 // returns boundiries for the level
-std::vector<sf::Sprite> loadLevel::getRects(){
-    return rects;
+std::vector<sf::Sprite> & loadLevel::GetRects(){
+    return m_rects;
 }
 
-std::vector<sf::Sprite> loadLevel::getEnviormentRocks(){
+std::vector<sf::Sprite> & loadLevel::GetEnviormentRocks(){
     return m_rockRects;
 }
 
-std::vector<std::unique_ptr<baseEnemy>> & loadLevel::getEnemies(){
-    return enemies;
+std::vector<std::unique_ptr<baseEnemy>> & loadLevel::GetEnemies(){
+    return m_enemies;
 }
 
-std::vector<std::shared_ptr<doorBlock>> loadLevel::getDoors(){
-    return doorRects;
+std::vector<std::shared_ptr<doorBlock>> & loadLevel::GetDoors(){
+    return m_doorRects;
 }
 
-std::vector<std::shared_ptr<chest>> loadLevel::getChests(){
-    return chests;
+std::vector<std::shared_ptr<chest>> & loadLevel::GetChests(){
+    return m_chests;
 }

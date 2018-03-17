@@ -13,18 +13,34 @@
 
 class MenuState : public virtual GameState{
     public:
-        MenuState(sf::RenderWindow &w);
+        /*
+         NAME:
+           MenuState
+
+         SYNOPSIS:
+           MenuState::MenuState(sf::RenderWindow &a_windowObj);
+           a_windowObj -> a RenderWindow object passed by refrence from the applicationManager
+           that is inilized to the current states specifications.
+
+         DESCRIPTION:
+           Iniltizes a MenuState object and initlizes all textures / assets needed for the panel.
+
+         RETURNS:
+           None
+
+         AUTHOR:
+           Josh Long
+        */
+        MenuState(sf::RenderWindow &a_windowObj);
+        // DOCUMENTATION FOR INHERITED FUNCTIONS FOUND IN GameState BASE CLASS.
         void update();
-        void initilize();
-        void draw();
-        bool nextPanel();
-        states getState();
-        void setNext(bool n);
+        void InitilizeGameState();
+        void DrawAssets();
+        m_states GetState();
     private:
         // for displaying text
-        sf::Font font;
-        sf::Text display;
-        // clock for text flashing
-        sf::Clock flash;
+        sf::Font m_font;
+        sf::Text m_display;
+
 };
 #endif /* MenuState_hpp */

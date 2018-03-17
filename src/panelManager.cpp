@@ -8,43 +8,43 @@
 
 #include "panelManager.h"
 
-void panelManager::newPanel(std::unique_ptr<GameState> state){
-    states.push(std::move(state));
+void panelManager::NewPanel(std::unique_ptr<GameState> state){
+    m_states.push(std::move(state));
 }
 
-void panelManager::nextPanel(){
-    if(getCurrentPanel().nextPanel()){
-        states.pop();
-        if(!states.front()->isInit()){
-            states.front()->initilize();
-            states.front()->init();
+void panelManager::InitilizeNewPanel(){
+    if(GetCurrentPanel().NextPanel()){
+        m_states.pop();
+        if(!m_states.front()->HasBeenInitlized()){
+            m_states.front()->InitilizeGameState();
+            m_states.front()->SetToInitlized();
         }else{
-            //if the playstate has been suspended, then we need to reinitlize the game clock
-            if(states.front()->getState() == GameState::states::PlayState){
-                states.front()->setMainTimer();
-            }
+          //if the playstate has been suspended, then we need to reinitlize the game clock
+          if(m_states.front()->GetState() == GameState::m_states::PlayState){
+              m_states.front()->SetMainTimer();
+          }
         }
     }
 }
 
-GameState & panelManager::getCurrentPanel(){
-    return *states.front();
+GameState & panelManager::GetCurrentPanel(){
+    return *m_states.front();
 }
 
-bool panelManager::switchPanel(){
+bool panelManager::SwitchPanel(){
     return false;
 }
 
-void panelManager::update(){
-    getCurrentPanel().update();
+void panelManager::Update(){
+    GetCurrentPanel().update();
 }
 
 void panelManager::draw(){
-    getCurrentPanel().draw();
+    GetCurrentPanel().DrawAssets();
 }
 
-void panelManager::requeuePanel(){
-    states.push(std::move(states.front()));
-    states.pop(); // pops the refrence to the state that we just requed off of the queue
+void panelManager::RequeuePanel(){
+    m_states.push(std::move(m_states.front()));
+    m_states.pop(); // pops the refrence to the state that we just requed off of the queue
 }
 

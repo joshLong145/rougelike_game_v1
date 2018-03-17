@@ -81,7 +81,7 @@ class Player : public sf::Transformable{
         int image_col = 0;
         int last_move[2];
         bool m_wallHit = false;
-        int health = 99;
+        int health = 5;
         int door = -1;
         int attack  = 1;
         int armor = 1;
