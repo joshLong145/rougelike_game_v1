@@ -1,16 +1,9 @@
 #include "healthDecreaseItem.h"
 
 healthDecreaseItem::healthDecreaseItem():baseItem(){
+  m_sprite.setTextureRect(sf::IntRect(0,0,50,50)); 
 }
 
-int healthDecreaseItem::getStatModifier(){
-  return m_stateModifier;
-}
-
-std::string healthDecreaseItem::getItemName(){
-  return m_itemName;
-}
-
-baseItem::items healthDecreaseItem::itemType(){
+baseItem::items healthDecreaseItem::ItemType(){
   return baseItem::items::healthDecrease;
 }

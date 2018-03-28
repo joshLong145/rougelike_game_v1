@@ -47,9 +47,9 @@ sf::Text GUI::displayTextOffense(Player &p){
 
 std::vector<sf::Sprite> & GUI::displayItems(Player &p){
     for(auto item = p.getItemStorage().getItems().begin(); item != p.getItemStorage().getItems().end(); item++){
-        if(!(*item)->accountedFor()){
-            m_itemSprites.push_back((*item)->loadImage());
-            (*item)->setAccountedFor(true);
+        if(!(*item)->AccountedFor()){
+            m_itemSprites.push_back((*item)->LoadImage());
+            (*item)->SetAccountedFor(true);
         }
     }
 

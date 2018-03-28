@@ -1,9 +1,9 @@
 #include "chest.h"
 #include <stdlib.h>
 
-chest::chest(int x, int y) : enviormentBlocks(x,y){
-    setImage("./resources/chestTile.png");
-    initilizeSprite();
+chest::chest(int a_x, int a_y) : enviormentBlocks(a_x,a_y){
+    SetImage("./resources/chestTile.png");
+
     int randItem = (rand() % 3) + 1;
     if(randItem == 1){
         m_item = std::make_unique<healthIncreaseItem>();
@@ -15,27 +15,6 @@ chest::chest(int x, int y) : enviormentBlocks(x,y){
 
 }
 
-
-void chest::setImage(std::string image_path){
-    texture.loadFromFile(image_path);
-    sprite.setTexture(texture);
-}
-
-void chest::initilizeSprite(){
-    sprite.setTextureRect(sf::IntRect(0,0,65,70));
-    sprite.getTransform().transformRect(sf::FloatRect(0,0,-1,-1));
-    sprite.setPosition(x_pos,y_pos);
-}
-
-sf::FloatRect chest::getRect(){
-    return sprite.getGlobalBounds();
-}
-
-
-sf::Sprite chest::loadImage(){
-    return sprite;
-}
-
-std::shared_ptr<baseItem> chest::getItemStored(){
+std::shared_ptr<baseItem> & chest::GetItemStored(){
     return m_item;
 }

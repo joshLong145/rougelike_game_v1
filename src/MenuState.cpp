@@ -27,9 +27,8 @@ void MenuState::InitilizeGameState(){
 }
 
 void MenuState::update(){
-
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-        applicationManager::addPanel(GameState::m_states::PlayState);
+        applicationManager::AddPanel(GameState::m_states::PlayState);
     }
 }
 

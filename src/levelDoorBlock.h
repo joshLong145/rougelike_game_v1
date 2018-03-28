@@ -16,10 +16,9 @@ class levelDoorBlock : public doorBlock{
 public:
     levelDoorBlock(int xpos, int ypos,int direction);
     void draw(sf::RenderWindow &window);
-    sf::Sprite loadImage();
-    void setImage(std::string image_path);
-    void initilizeSprite();
-    sf::FloatRect getRect();
+    void SetImage(std::string image_path);
+    void InitilizeSprite();
+    sf::FloatRect GetRect();
     int getDirection();
 private:
     sf::Texture texture;

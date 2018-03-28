@@ -16,15 +16,61 @@
 class enemyBullet : public baseBullet{
     // public class functions
     public:
-        // initilizes the obj with starting pos
-        enemyBullet(int x, int y, int dir);
-        // destructor
+        /*
+          NAME:
+            enemyBullet
+
+          SYNOPSIS:
+            enemyBullet(const int a_xPos, const int a_yPos, const int a_dir)
+                        const int a_xPos -> position on the x axis when initlized.
+                        const int a_yPos -> position on the y axis when initlized.
+                        const int a_dir -> direction object will be accelerating in.
+          DESCRIPTION:
+            Initlization of a enemyBullet object, sets inital x,y position and direction.
+
+          RETURNS:
+            None
+
+          AUTHOR:
+            Josh Long
+        */
+        enemyBullet(const int a_xPos, const int a_yPos, const int a_dir);
+        /*
+          NAME:
+            ~enemyBullet
+
+          SYNOPSIS:
+            ~enemyBulet();
+
+          DESCRIPTION:
+            Initlizes a defualt destructor for the object.
+
+          RETURNS:
+            None
+
+          AUTHOR:
+            Josh Long
+        */
         ~enemyBullet() {}
-        // returns a sprite at each location of the bullet ( need to change this but sprites are cheap)
-        sf::Sprite loadImage();
-        // moves sprite to location clicked
+
+        /*
+          NAME:
+            move
+
+          SYNOPSIS:
+            void move(sf::Time a_deltaTime);
+
+          DESCRIPTION:
+            accelerates enemyBullet object within desired direction.
+            every update cycle.
+
+          RETURNS:
+            None
+
+          AUTHOR:
+            Josh Long
+        */
         void move(sf::Time deltaTime);
 };
-
 
 #endif

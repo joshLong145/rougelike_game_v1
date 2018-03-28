@@ -73,13 +73,13 @@ void loadLevel::Display(sf::RenderWindow &a_windowObj){
 
     // draw enemies in the current room
     for (auto enemy = m_enemies.begin(); enemy != m_enemies.end(); enemy++){
-        a_windowObj.draw((*enemy)->loadImage() );
+        a_windowObj.draw((*enemy)->LoadImage() );
     }
     // draw enemies in the current room
     for (auto enemy = m_enemies.begin(); enemy != m_enemies.end(); enemy++){
-        std::vector<std::unique_ptr<enemyBullet>> &enemyBullets = (*enemy)->getBulletVector();
+        std::vector<std::unique_ptr<enemyBullet>> &enemyBullets = (*enemy)->GetBulletVector();
         for (auto bullet = enemyBullets.begin(); bullet != enemyBullets.end(); bullet++){
-            a_windowObj.draw((*bullet)->loadImage());
+            a_windowObj.draw((*bullet)->LoadImage());
         }
     }
 }

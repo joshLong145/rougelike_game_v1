@@ -15,11 +15,88 @@
 #include "panelManager.h"
 
 namespace applicationManager{
-    void startGame();
-    void addPanel(GameState::m_states state);
-    void addAndSaveCurrentPanel(GameState::m_states state);
-    static panelManager manager;
-    static sf::RenderWindow standard_window;
+   /*
+    NAME:
+      StartGame
+
+    SYNOPSIS:
+     void StartGame();
+
+    DESCRIPTION:
+      Main function of the game, is called within the main function and contains the main event loop and is where all checks for
+      panel swithing and intilization takes place.
+
+    RETURNS:
+    None
+
+    AUTHOR:
+    Josh Long
+
+   */
+    void StartGame();
+
+    /*
+      NAME:
+        AddPanel
+
+      SYNOPSIS:
+        void AddPanel(GameState::m_states state);
+        GameState::m_states state -> enum signifying the type of panel being added to the queue.
+
+      DESCRIPTION:
+        Adds a new panel to the queue that will be initlized once it is active.
+
+      RETURNS:
+      None
+
+      AUTHOR:
+      Josh Long
+    */
+    void AddPanel(GameState::m_states state);
+
+    /*
+      NAME:
+       panelManager
+
+      SYNOPSIS:
+        void AddAndSaveCurrentPanel(std::unique_ptr<GameState> a_state);
+        std::unique_ptr<GameState> a_state -> state being added to the queue after panel that is
+        currently active is saved.
+
+      DESCRIPTION:
+        Adds a new panel to the queue and also saves the current panel and queues it after the new
+        panel is added.
+
+      RETURNS:
+        None
+
+      AUTHOR:
+        Josh Long
+    */ 
+    void AddAndSaveCurrentPanel(GameState::m_states state);
+
+    /*
+      NAME:
+      MoveToNextPanel
+
+      SYNOPSIS:
+      void MoveToNextPanel();
+
+      DESCRIPTION:
+      Sets the plag to move to the next panel to true,
+      and initlizes the next panel in the queue.
+
+      RETURNS:
+      None
+
+      AUTHOR:
+      Josh Long
+    */
+    void MoveToNextPanel();
+
+    //variables
+    static panelManager m_manager;
+    static sf::RenderWindow m_standardWindow;
 }
 
 #endif /* Application_hpp */

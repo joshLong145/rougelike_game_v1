@@ -28,4 +28,4 @@ MY PROJECT -*- mode: org -*-
 *** REFACTORING
      TODO: Document all header files. 
      TODO: Change function decleration to mach naming convention i.e. capitalize first word. 
-     TODO:  
+     TODO: Change func  

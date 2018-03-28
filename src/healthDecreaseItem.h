@@ -12,27 +12,44 @@ class healthDecreaseItem : public baseItem{
   healthDecreaseItem();
 
   /*
+    NAME:
+      GetStatModifier
 
-   */
-  ~healthDecreaseItem() = default;
+    SYNOPSIS:
+      int GetStatModifier();
+
+    DESCRIPTION:
+      returns the stat modification correpsonding to the object.
+
+    RETURNS:
+      integer
+
+    AUTHOR:
+      Josh Long
+  */
+  int GetStatModifier(){ return m_statModifier; }
 
   /*
+    NAME:
+    ItemType
 
-   */
-  int getStatModifier();
+    SYNOPSIS:
+    items ItemType();
 
-  /*
+    DESCRIPTION:
+    Returns an enum that correpsonds to the object.
+    used when modifying player states.
 
-   */
-  std::string getItemName();
+    RETURNS:
+    enum items-> defined within the base class and has all possible items
 
-  /*
-
-   */
-  items itemType();
+    AUTHOR:
+    Josh Long
+  */ 
+  items ItemType();
 
  private:
-  int m_stateModifier = 2;
+  int m_statModifier = 2;
 
 };
 #endif

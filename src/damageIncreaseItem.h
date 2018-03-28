@@ -7,32 +7,62 @@ class damageIncreaseItem : public baseItem{
 public:
 
     /*
+      NAME:
+        damageIncreaseItem
 
+      SYNOPSIS:
+        damageIncreaseItem();
+
+      DESCRIPTION:
+        Initlizes a damageIncreaseItem takes no paramaters.
+
+      RETURNS:
+        None
+
+      AUTHOR:
+        Josh Long
     */
     damageIncreaseItem();
 
     /*
+      NAME:
+        ItemType
 
-    */
-    ~damageIncreaseItem() = default;
+      SYNOPSIS:
+        items ItemType();
+
+      DESCRIPTION:
+        Returns an enum that correpsonds to the object.
+        used when modifying player states.
+
+      RETURNS:
+        enum items-> defined within the base class and has all possible items
+
+      AUTHOR:
+        Josh Long
+    */ 
+    items ItemType();
 
     /*
+      NAME:
+        GetStatModifier
 
+      SYNOPSIS:
+        int GetStatModifier();
+
+      DESCRIPTION:
+        returns the stat modification correpsonding to the object.
+
+      RETURNS:
+        integer
+
+      AUTHOR:
+        Josh Long
     */
-    int getStatModifier();
-
-    /*
-
-    */
-    std::string getItemName();
-
-    /*
-
-    */
-    items itemType();
+    int GetStatModifier(){ return m_statModifier; }
 
 private:
-    int m_stateModifier = 1;
+    int m_statModifier = 1;
 
 };
 #endif

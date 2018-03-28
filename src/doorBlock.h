@@ -14,10 +14,7 @@ class doorBlock : public enviormentBlocks{
 public:
     doorBlock(int xpos, int ypos,int direction);
     void draw(sf::RenderWindow &window);
-    sf::Sprite loadImage();
-    void setImage(std::string image_path);
-    void initilizeSprite();
-    sf::FloatRect getRect();
+    sf::FloatRect GetRect();
     int getDirection();
 private:
     sf::Texture texture;

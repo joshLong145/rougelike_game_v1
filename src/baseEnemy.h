@@ -11,7 +11,6 @@
 
 #include <stdio.h>
 #include <SFML/Graphics.hpp>
-#include "../ResourcePath.hpp"
 #include "gameObjectStateManager.h"
 #include "enemyBullet.h"
 #include <memory>
@@ -21,60 +20,225 @@ class baseEnemy : public sf::Transformable{
     public:
         enum enemyType{
             fly,
-            ghost
+            ghost,
+            turret
         };
+        /*
+          NAME:
+            baseEnemy
 
-        baseEnemy(int x_pos, int y_pos, const int v){
-            x_val = x_pos;
-            y_val = y_pos;
-            velocity = v;
+          SYNOPSIS:
+            baseEnemy::baseEnemey(int a_xPos, int a_yPos, int a_velocity)
+            int a_xPos -> x position for the enemy object.
+            int a_yPos -> y position for the enemy object.
+
+          DESCRIPTION:
+            initlizes a new enemy with the desired texture at the specified position
+            and with a specific velocity.
+          RETURNS:
+            None
+          AUTHOR:
+         m_   Josh Long
+        */
+        baseEnemy(const int a_xPos, const int a_yPos, const int a_velocity){
+            x_val = a_xPos;
+            y_val = a_yPos;
+            velocity = a_velocity;
         }
 
+        /*
+          NAME:
+            baseEnemy
+
+          SYNOPSIS:
+            baseEnemey::~baseEnemy() = default;
+
+          DESCRIPTION: 
+            initlizes a default destructor for all enemiy objects.
+
+          RETURNS:
+            None
+
+          AUTHOR:
+          Josh Long
+        */ 
         ~baseEnemy() = default;
 
-        // returns a sprite obj
-        virtual sf::Sprite loadImage() = 0;
-        // moves enemy ( based on AI path )
+        /*
+          NAME:
+            LoadImage
 
-        virtual void move(Player &p, sf::Time deltaTime) = 0;
+          SYNOPSIS:
+            inline sf::Sprite LoadImage();
 
-        //called when collision is made with a wall or rock obj
-        virtual void bounce(sf::Vector2f objectBounds) = 0;
+          DESCRIPTION:
+            Returns a sprite that can be rendered / manipulated.
 
-        //used when interacting with player
-        virtual void hitNonWallObj() = 0;
+          RETURNS:
+            sf::Sprite see sfml framework docs for more info.
+          AUTHOR:
+          Josh Long
+        */
+        inline sf::Sprite LoadImage(){ return m_sprite; }
 
-        // get health
-        virtual int getHealth() = 0;
+        /*
+          NAME:
+            Move
+          SYNOPSIS:
+            virtual void baseEnemy();
 
-        //set value of health to a new object
-        virtual void setHealth(int newAmount) = 0;
+          DESCRIPTION:
+            Performs all manipulation and movement of enemies, specfic for each enemy. 
 
-        // determins of a wall has been hit by the enemy
-        virtual bool isWallHit() = 0;
+          RETURNS:
+            None
 
-        virtual int getVelocity() = 0;
+          AUTHOR:
+          Josh Long
+        */
+        virtual void Move(Player &a_player, const sf::Time a_deltaTime) = 0;
 
-        virtual std::vector<std::unique_ptr<enemyBullet>> & getBulletVector() = 0;
+        /*
+          NAME:
+            Bounce
 
-        virtual int path_length(int x1, int y1, int x2, int y2) = 0;
+          SYNOPSIS:
+            baseEnemy::Bounce(sf::Vector2f a_objectBounds);
+            a_objectBounds -> a 2-d vector of the collided objects position, see sfml framework docs for detials.
 
-        inline int getDamageAmount(){ return damage; }
+          DESCRIPTION:
+            moves enemy away from the object that was collided with
 
-        virtual enemyType getEnemyType() = 0;
+          RETURNS:
+            None
+
+          AUTHOR:
+          Josh Long
+        */ 
+        virtual void Bounce(sf::Vector2f a_objectBounds) = 0;
+
+        /*
+          NAME:
+            GetHealth
+
+          SYNOPSIS:
+            baseEnemy::GetHealth();
+
+          DESCRIPTION:
+            Gives the current health of an enemy.
+
+          RETURNS:
+            int
+
+          AUTHOR:
+          Josh Long
+        */ 
+        virtual int GetHealth() = 0;
+
+        /*
+          NAME:
+           SetHealth
+
+          SYNOPSIS:
+            baseEnemy::SetHealth(const int a_newAmount);
+
+          DESCRIPTION:
+            Assigns a new amount to the enemies current health.
+
+          RETURNS:
+            None
+
+          AUTHOR:
+          Josh Long
+        */ 
+        virtual void SetHealth(int a_newAmount) = 0;
+
+        /*
+          NAME:
+           GetBulletVector
+
+          SYNOPSIS:
+            virtual std::vector<std::unique_ptr<enemyBullet>> & GetBulletVector();
+
+          DESCRIPTION:
+            Returns a refrence to a vector of enemyBullet objects.
+          RETURNS:
+           sf::vector<std::unique_ptr<enemyBullet>>
+
+          AUTHOR:
+          Josh Long
+        */ 
+        inline std::vector<std::unique_ptr<enemyBullet>> & GetBulletVector(){ return m_bullets; };
+
+        /*
+          NAME:
+            PathLength
+
+          SYNOPSIS:
+            inline int baseEnemey::PathLength(int x1, int y1, int x2, int y2);
+
+          DESCRIPTION:
+            finds the distance between two positions.
+
+          RETURNS:
+            int
+
+          AUTHOR:
+          Josh Long
+        */ 
+        inline int PathLength( const int a_x1, const int a_y1, const int a_x2, const int a_y2){
+          return std::abs(a_x1 - a_x2) + std::abs(a_y1 - a_y2);
+        }
+
+        /*
+          NAME:
+            GetDamageAmount
+
+          SYNOPSIS:
+            inline int  baseEnemey:GetDamageAmount();
+
+          DESCRIPTION:
+            returns the amount of damage enemy can assign.
+
+          RETURNS:
+           int
+
+          AUTHOR:
+          Josh Long
+        */ 
+        inline int GetDamageAmount(){ return damage; }
+
+        /*
+          NAME:
+            GetEnemeyType
+
+          SYNOPSIS:
+           virtual enemyType GetEnemeyType();
+
+          DESCRIPTION:
+            Returns an enum of enemyType corepsonding to the specific enemy object.
+
+          RETURNS:
+            enemyType
+
+          AUTHOR:
+          Josh Long
+        */ 
+        virtual enemyType GetEnemyType() = 0;
 
     protected:
+        bool m_wallHit = true;
         int x_val;
         int y_val;
         int velocity;
         int image_x = 0;
         int image_y = 0;
-        int health = 1;
+        int m_health = 1;
         int damage = 1;
         sf::Texture texture;
-        sf::Sprite sprite;
+        sf::Sprite m_sprite;
         sf::Clock animation_clock;
-        std::vector<std::unique_ptr<enemyBullet>> bullets;
+        std::vector<std::unique_ptr<enemyBullet>> m_bullets;
 };
 
 

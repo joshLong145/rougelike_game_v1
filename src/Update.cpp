@@ -2,103 +2,114 @@
 #include "checkCollision.h"
 
 using namespace checkCollision;
+
 // check for collisions with wall obj ( includes bullet obj from the player)
-void Update::updatePlayerObjs(Player &player,std::vector<sf::Sprite> rects,std::vector<std::unique_ptr<baseEnemy>> &e,
-                              std::vector<std::shared_ptr<doorBlock>> doors, std::vector<std::shared_ptr<chest>> chests,
-                              std::vector<sf::Sprite> enviormentRocks,
-                              sf::Time deltaTime){
-  // checks collision with door obj if true, go to next level
-  checkCollisionDoors(doors,player);
+void Update::UpdatePlayerObjs(Player &a_player,std::vector<sf::Sprite> a_rects,std::vector<std::unique_ptr<baseEnemy>> &a_enemy,
+                              std::vector<std::shared_ptr<doorBlock>> a_doors, std::vector<std::shared_ptr<chest>> a_chests,
+                             std::vector<sf::Sprite> a_enviormentRocks, sf::Time a_deltaTime){
 
-  // manages color changing based on enviorment interaction
-  player.manageColors();
+   // Checks collision with door obj if true, go to next level
+   CheckCollisionDoors(a_doors, a_player);
 
-  // checks to see if new items where aquired by the player
-  player.addItemModifications();
+   // Manages color changing based on enviorment interaction
+   a_player.manageColors();
+
+   // Checks to see if new items where aquired by the player
+   a_player.addItemModifications();
 
 
-    if((checkCollisionWalls(player.loadImage(),rects) || checkCollisionWalls(player.loadImage(), enviormentRocks))){
-         player.bounce(deltaTime);
+    if((CheckCollisionWalls(a_player.loadImage(), a_rects) || CheckCollisionWalls(a_player.loadImage(), a_enviormentRocks))){
+         a_player.bounce(a_deltaTime);
     }else{
-        player.playerControls(deltaTime);
+        a_player.playerControls(a_deltaTime);
     }
 
-    // checks for collision with bullets against wall object.
-    //if it does, remove it.
-    std::vector<std::shared_ptr<playerBullet>> &bullets = player.getBulletVector();
+    // Checks for collision with bullets against wall object.
+    // If it does, remove it.
+    std::vector<std::shared_ptr<playerBullet>> &bullets = a_player.getBulletVector();
     for(auto bullet = bullets.begin(); bullet != bullets.end(); ){
-        if(checkCollisionWalls((*bullet) ->loadImage(),rects) || checkCollisionWalls((*bullet) ->loadImage(), enviormentRocks)){
+        if(CheckCollisionWalls((*bullet) ->LoadImage(),a_rects) || CheckCollisionWalls((*bullet) ->LoadImage(), a_enviormentRocks)){
             bullets.erase(bullet);
         }else{
-            (*bullet)->move(deltaTime);
+            (*bullet)->move(a_deltaTime);
             bullet++;
         }
     }
 
-    // check for bullet collision with obsticals, if a bullet collides with a obstical, remove it,
-    for(auto enemy = e.begin(); enemy != e.end(); enemy++){
-        if(checkCollisionBasic(player.loadImage(), (*enemy) ->loadImage())){
-          player.evaluateDamage((*enemy)->getDamageAmount());
+    // Check for bullet collision with obsticals, if a bullet collides with a obstical, remove it,
+    for(auto enemy = a_enemy.begin(); enemy != a_enemy.end(); enemy++){
+        if(CheckCollisionBasic(a_player.loadImage(), (*enemy)->LoadImage())){
+          a_player.evaluateDamage((*enemy)->GetDamageAmount());
         }
     }
 
-    // check for bullet collision with obsticals, if a bullet collides with a obstical, remove it,
-    if(checkCollisionEnemyBullets(player.loadImage(),e)){
-      player.evaluateDamage(1); // constant value for bullet damage ( will always be 1 unit of damage)
+    // Check for bullet collision with obsticals, if a bullet collides with a obstical, remove it,
+    if(CheckCollisionEnemyBullets(a_player.loadImage(),a_enemy)){
+      a_player.evaluateDamage(1); // constant value for bullet damage ( will always be 1 unit of damage)
     }
 
-    for(auto chest = chests.begin(); chest != chests.end(); chest++){
-        if(checkCollisionBasic((*chest)->loadImage(),player.loadImage())){
-            if(!(*chest)->isOpened()){
-                player.getItemStorage().addItem((*chest)->getItemStored());
-                (*chest)->setOpened();
+    // 
+    for(auto chest = a_chests.begin(); chest != a_chests.end(); chest++){
+        if(CheckCollisionBasic((*chest)->loadImage(),a_player.loadImage())){
+            if(!(*chest)->IsOpened()){
+                a_player.getItemStorage().addItem((*chest)->GetItemStored());
+                (*chest)->SetOpened();
             }
         }
     }
 
-    // updates player states to detmine if there is a new action ready to be performed.
-    player.updateStates();
+    // Updates player states to detmine if there is a new action ready to be performed.
+    a_player.updateStates();
 }
-// checks for collision with all enemy obj
-void Update::updateEnemeyObjs(std::vector<std::unique_ptr<baseEnemy>> &e,
-                              std::vector<sf::Sprite> enviormentRocks,
-                              std::vector<sf::Sprite> rects,
-                              Player &p, sf::Time deltaTime){
+// Checks for collision with all enemy obj
+void Update::UpdateEnemeyObjs(std::vector<std::unique_ptr<baseEnemy>> &a_enemy,
+                              std::vector<sf::Sprite> a_enviormentRocks,
+                              std::vector<sf::Sprite> a_rects,
+                              Player &p, sf::Time a_deltaTime){
 
-    for(auto enemy = e.begin(); enemy != e.end();enemy++){
-        sf::Sprite *wallObjectSprite = checkCollisionWalls((*enemy)-> loadImage(), rects);
-        sf::Sprite *rockObjectSprite = checkCollisionWalls((*enemy)->loadImage(), enviormentRocks);
+    for(auto enemy = a_enemy.begin(); enemy != a_enemy.end(); enemy++){
+        // Check for collision with all enviorment objects within a room. 
+        sf::Sprite *wallObjectSprite = CheckCollisionWalls((*enemy)-> LoadImage(), a_rects);
+        sf::Sprite *rockObjectSprite = CheckCollisionWalls((*enemy)->LoadImage(), a_enviormentRocks);
 
+        // Check if a any object where returned as collided with and respond accordingly.
         if(wallObjectSprite != nullptr){
-            (*enemy)->bounce(wallObjectSprite->getPosition());
-        }else if(rockObjectSprite != nullptr && (*enemy)->getEnemyType() != baseEnemy::enemyType::fly){
-            (*enemy)->bounce(rockObjectSprite->getPosition());
+            (*enemy)->Bounce(wallObjectSprite->getPosition());
+        }else if(rockObjectSprite != nullptr && (*enemy)->GetEnemyType() != baseEnemy::enemyType::fly){
+            (*enemy)->Bounce(rockObjectSprite->getPosition());
         }else{
-            (*enemy)->move(p, deltaTime);
+            // If no objects where collided with then the player the enemy is free to move. 
+            (*enemy)->Move(p, a_deltaTime);
         }
     }
 
-    for(auto enemy = e.begin(); enemy != e.end();){
-        if(checkCollisionPlayerBullets((*enemy) -> loadImage(),p)){
-            const int enemyHealth = (*enemy)->getHealth() - p.getOffensiveValue();
+    // Check if any enemy has collided with a projectile from the player.
+    // If they have then subtract the players offensive stat from the
+    // enemies remaining health.
+    for(auto enemy = a_enemy.begin(); enemy != a_enemy.end(); ){
+        if(CheckCollisionPlayerBullets((*enemy) ->LoadImage(),p)){
+            const int enemyHealth = (*enemy)->GetHealth() - p.getOffensiveValue();
             if(enemyHealth <= 0){
-              e.erase(enemy);
+              a_enemy.erase(enemy);
             }else{
-                (*enemy)->setHealth(enemyHealth);
+                (*enemy)->SetHealth(enemyHealth);
             }
         }else{
             enemy++;
         }
     }
 
-    for(auto enemy = e.begin(); enemy!= e.end();enemy++){
-        std::vector<std::unique_ptr<enemyBullet>> &bullets = (*enemy)->getBulletVector();
+    // Check if any enemy projectiles have collided with any objects within the room.
+    // If so then delete the projectile
+    // if not, move the projectile.
+    for(auto enemy = a_enemy.begin(); enemy!= a_enemy.end(); enemy++){
+        std::vector<std::unique_ptr<enemyBullet>> &bullets = (*enemy)->GetBulletVector();
         for(auto bullet = bullets.begin(); bullet != bullets.end(); ){
             // checks for collision with bullets against wall object
-            if(checkCollisionWalls((*bullet) ->loadImage(),rects)){
+            if(CheckCollisionWalls((*bullet)->LoadImage(),a_rects)){
                 bullets.erase(bullet);
             }else{
-                (*bullet)->move(deltaTime);
+                (*bullet)->move(a_deltaTime);
                 bullet++;
             }
         }

@@ -1,17 +1,10 @@
 #include "damageIncreaseItem.h"
 
 damageIncreaseItem::damageIncreaseItem():baseItem(){
+  m_sprite.setTextureRect(sf::IntRect(50 * 4,50 * 5,50,50)); 
 }
 
-int damageIncreaseItem::getStatModifier(){
-    return m_stateModifier;
-}
-
-std::string damageIncreaseItem::getItemName(){
-    return m_itemName;
-}
-
-baseItem::items damageIncreaseItem::itemType(){
+baseItem::items damageIncreaseItem::ItemType(){
     return baseItem::items::damageIncrease;
 }
 

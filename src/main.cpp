@@ -2,6 +2,6 @@
 #include "Application.h"
 
 int main(){
-     applicationManager::startGame();
+     applicationManager::StartGame();
      return 0;
 }

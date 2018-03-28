@@ -54,14 +54,16 @@ void PlayState::CheckRoomTransition(){
 }
 
 void PlayState::UpdateGameObjects(){
+    // Records time since last update cycle to sync updating with current game frame.
+    // frames update at approx 60 frames second.
     sf::Time deltaTime = m_mainTimer.restart();
     //update enemy obj
-    m_update_objects.updateEnemeyObjs(m_levels["level"+std::to_string(m_current_level)][m_current_room]->GetEnemies(),
+    m_update_objects.UpdateEnemeyObjs(m_levels["level"+std::to_string(m_current_level)][m_current_room]->GetEnemies(),
                                   m_levels["level"+std::to_string(m_current_level)][m_current_room]->GetEnviormentRocks(),
                                   m_levels["level"+std::to_string(m_current_level)][m_current_room]->GetRects(),m_player,deltaTime);
 
     // update all obj in level
-    m_update_objects.updatePlayerObjs(m_player,m_levels["level"+std::to_string(m_current_level)][m_current_room]->GetRects(),
+    m_update_objects.UpdatePlayerObjs(m_player,m_levels["level"+std::to_string(m_current_level)][m_current_room]->GetRects(),
                                    m_levels["level"+std::to_string(m_current_level)][m_current_room]->GetEnemies(),
                                    m_levels["level"+std::to_string(m_current_level)][m_current_room]->GetDoors(),
                                    m_levels["level"+std::to_string(m_current_level)][m_current_room]->GetChests(),
@@ -78,18 +80,18 @@ void PlayState::update(){
 
     // if the player's health is 0 or less, quit the game
     if (m_player.getHealth() <= 0){
-        applicationManager::addPanel(GameState::m_states::MenuState);
+        applicationManager::AddPanel(GameState::m_states::MenuState);
         return; // need to return from the update cycle ( I HAVE NOT IDEA WHY THIS WORKS).
     }
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
-        applicationManager::addAndSaveCurrentPanel(GameState::m_states::PauseState);
+        applicationManager::AddAndSaveCurrentPanel(GameState::m_states::PauseState);
         return;
     }
 
     //check for state transistions and update accordingly
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && sf::Keyboard::isKeyPressed(sf::Keyboard::E)){
-        applicationManager::addPanel(GameState::m_states::MenuState);
+        applicationManager::AddPanel(GameState::m_states::MenuState);
         return;
     }
 }
@@ -120,7 +122,7 @@ void PlayState::DrawAssets(){
     m_window.draw(m_player.loadImage());
 
     for (auto bullet : m_player.getBulletVector()){
-        m_window.draw((*bullet).loadImage());
+        m_window.draw((*bullet).LoadImage());
     }
 
     // Show everything we just drew

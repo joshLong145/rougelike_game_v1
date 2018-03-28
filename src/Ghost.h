@@ -11,45 +11,163 @@
 
 #include <stdio.h>
 #include "baseEnemy.h"
-#include "gameObjectStateManager.h"
 
 class Ghost: public baseEnemy{
     public:
-        Ghost(int x_pos, int y_pos,const int v);
+        /*
+          NAME:
+            Ghost
+          SYNOPSIS:
+            Ghost::Ghost(const int a_xPos, const int a_yPos, const int velocity);
+            const int a_xPos -> x position of the Ghost object.
+            const int a_yPos -> y position of the Ghost object.
+            const int velocity -> movement speed of the Ghost object.
+
+          DESCRIPTION:
+            initlizes a instance of the Ghost, loading the image file to a texture
+            and maps it to a sprite member object.
+
+          RETURNS:
+            None
+          AUTHOR:
+            Josh Long
+        */
+        Ghost(const int a_xPos, int a_yPos,const int velocity);
+
+        /*
+          NAME:
+            ~Ghost
+
+          SYNOPSIS:
+            Ghost::~Ghost() = default;
+
+          DESCRIPTION:
+            Initlizes a default destructor for the Ghost object.
+
+          RETURNS:
+            None
+
+          AUTHOR:
+            Josh Long
+        */ 
         ~Ghost() = default;
-        // returns a sprite obj
-        sf::Sprite loadImage();
-        // moves enemy
-        void move(Player &p, sf::Time deltaTime);
-        //called when collision is made with a wall or rock obj
-        void bounce(sf::Vector2f objBounds);
-        // called when enemy hits a player
-        void hitNonWallObj();
-        // get health
-        int getHealth();
 
-        void setHealth(int newAmount);
+        /*
+          NAME:
+            Move
 
-        bool isWallHit();
+          SYNOPSIS:
+            void Ghost::Move(Player &a_player, sf::Time a_deltaTime);
+            a_player -> a refrence to the player object 
 
-        bool setWallHit(bool result);
+          DESCRIPTION:
+            Repositions the sprite object / performs custom actions. 
 
-        int getVelocity();
+          RETURNS:
+            None
 
-        int path_length(int x1, int y1, int x2, int y2);
+          AUTHOR:
+          Josh Long
+        */
+        void Move(Player &a_player, const sf::Time a_deltaTime);
 
-        void setBulletDirection();
+        /*
+          NAME:
+            Bounce
+          SYNOPSIS:
+            Ghost::Bounce
 
-        inline baseEnemy::enemyType getEnemyType() { return baseEnemy::enemyType::ghost; }
+          DESCRIPTION:
+            Performs an action once the enemy has
 
-        // returns a refrence to vector of bullet obj
-        std::vector<std::unique_ptr<enemyBullet>> & getBulletVector();
-    private:
-        bool wallhit = true;
-        bool isHit = false;
-        sf::Clock hitTimer;
-        sf::Clock bullet_clock;
-        int health = 3;
+          RETURNS:
+            None
+
+          AUTHOR:
+          Josh Long
+        */ 
+        void Bounce(const sf::Vector2f a_objBounds);
+
+        /*
+          NAME:
+           SetBulletDirection
+
+          SYNOPSIS:
+            void Ghost::SetBulletDirection();
+           
+          DESCRIPTION:
+            Initlizes bullets that will move in the specified direction (N,S,E,W).
+
+          RETURNS:
+            None
+
+          AUTHOR:
+          Josh Long
+        */ 
+        void SetBulletDirection();
+
+        /*
+          NAME:
+           GetHealth
+
+          SYNOPSIS:
+            int GetHealth();
+
+          DESCRIPTION:
+            Returns the current health of the Ghost object.
+
+          RETURNS:
+            int
+
+          AUTHOR:
+          Josh Long
+        */ 
+        int GetHealth(){ return m_health; }
+
+        /*
+          NAME:
+           SetHealth
+
+          SYNOPSIS:
+            void SetHealth(const int a_newAmount);
+            const int a_newAmount -> number that m_health will be set to.
+
+          DESCRIPTION:
+            Sets the health of Ghost to a new value after it has taken damage from the player.
+
+          RETURNS:
+            None
+
+          AUTHOR:
+          Josh Long
+        */ 
+        void SetHealth(const int a_newAmount){
+          m_health = a_newAmount;
+        }
+
+        /*
+          NAME:
+           GetEnemyType
+
+          SYNOPSIS:
+            baseEnemy::enemyType GetEnemyType();
+
+          DESCRIPTION:
+            Returns a enum that relates to what kind of enemy this is.
+            so in this instance a ghost enum is returned.
+
+          RETURNS:
+             baseEnemy::enemyType -> a enum corresponding to enemy type.
+
+          AUTHOR:
+          Josh Long
+        */ 
+        inline baseEnemy::enemyType GetEnemyType() { return baseEnemy::enemyType::ghost; }
+
+  private:
+        bool m_isHit = false;
+        sf::Clock m_bulletClock;
+        int m_health = 3;
 };
 
 

@@ -12,24 +12,80 @@
 class chest : public enviormentBlocks {
 
     public:
-        chest(int x, int y);
+        /*
+          NAME:
+            chest
 
-        // returns a sprite obj
-        sf::Sprite loadImage();
+          SYNOPSIS:
+            chest::chest(int a_x, int a_y);
+            a_x -> sets the x position of the envriorment block
+            a_y sets the y position of the enviorment block
+
+         DESCRIPTION:
+           initlizes a chest block to loaded into the correpsonding room.
+
+         RETURNS:
+           None
+
+         AUTHOR:
+           Josh Long
+        */
+        chest(int a_x, int a_y);
 
         /*
+          NAME:
+           GetItemStored
+
+          SYNOPSIS:
+            std::shared_ptr<baseItem> GetItemStored();
+
+          DESCRIPTION:
+            Returns the item that is within the object.
+            Item is randomly chosen on initlization.
+
+          RETURNS:
+            std::shared_ptr<baseItem>
+
+          AUTHOR:
+            Josh Long
         */
-        std::shared_ptr<baseItem> getItemStored();
+        std::shared_ptr<baseItem> & GetItemStored();
 
-        void setImage(std::string image_path);
+        /*
+          NAME:
+            IsOpened
 
-        virtual void initilizeSprite();
+          SYNOPSIS:
+            bool IsOpened();
 
-        sf::FloatRect getRect();
+          DESCRIPTION:
+            Checks if the chest has been already opened.
 
-        bool isOpened() { return opened; }
+          RETURNS:
+            bool m_opened
 
-        void setOpened() { opened = true; }
+         AUTHOR:
+           Josh Long
+        */
+        bool IsOpened() { return opened; }
+
+        /*
+          NAME:
+            SetOpened
+
+          SYNOPSIS:
+            void SetOpened();
+
+          DESCRIPTION:
+            Flags the m_opened boolean to true so the chest cannot be collected from again.
+
+          RETURNS:
+            None
+
+          AUTHOR:
+            Josh Long
+        */
+        void SetOpened() { opened = true; }
 
     private:
 

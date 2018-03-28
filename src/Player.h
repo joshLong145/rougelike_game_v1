@@ -1,10 +1,3 @@
-//
-//  Player.h
-//  game_proj
-//
-//  Created by josh long on 1/28/17.
-//  Copyright © 2017 josh long. All rights reserved.
-//
 #ifndef Player_h
 #define Player_h
 

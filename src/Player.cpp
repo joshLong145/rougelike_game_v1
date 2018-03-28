@@ -116,7 +116,6 @@ void Player::bounce(const sf::Time deltaTime){
 }
 
 void Player::updateWalkingAnimation(char dir){
-
     if (animation_clock.getElapsedTime().asSeconds() > 0.1f && dir == 'S'){
         image_col = 0;
         if(image_row >= 2){
@@ -223,19 +222,19 @@ void Player::manageColors(){
 
 void Player::addItemModifications(){
     for(auto item = m_playerItems.getItems().begin(); item != m_playerItems.getItems().end(); item++){
-        if(!(*item)->isItemUsed()){
-            if((*item)->itemType() == baseItem::items::healthIncrease){
-                health += (*item)->getStatModifier();
-                (*item)->setItemUse(true);
+        if(!(*item)->IsItemUsed()){
+            if((*item)->ItemType() == baseItem::items::healthIncrease){
+                health += (*item)->GetStatModifier();
+                (*item)->SetItemUse(true);
            }
-           if((*item)->itemType() == baseItem::items::damageIncrease){
-                attack += (*item)->getStatModifier();
-                (*item)->setItemUse(true);
+           if((*item)->ItemType() == baseItem::items::damageIncrease){
+                attack += (*item)->GetStatModifier();
+                (*item)->SetItemUse(true);
            }
-           if((*item)->itemType() == baseItem::items::healthDecrease){
+           if((*item)->ItemType() == baseItem::items::healthDecrease){
              if(health >= 3){
-               health -= (*item)->getStatModifier();
-               (*item) ->setItemUse(true);
+               health -= (*item)->GetStatModifier();
+               (*item) ->SetItemUse(true);
              }else{
                health  = 1;
              }

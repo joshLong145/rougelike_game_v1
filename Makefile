@@ -1,8 +1,13 @@
 CC = g++
-OBJS =src/*.cpp
+
+OBJS = src/*.cpp
+
 LINKER_FLAGS = -lsfml-graphics -lsfml-window -lsfml-system
+
 COMPILER_FLAGS = -std=c++14 -g
+
 OBJ_Name = rougeShooter
+
 BIN = bin/rougeShooter
 
 #Compile and run
@@ -11,7 +16,7 @@ all: rougeShooter
 %.o: %.cpp
 	$(CXX) -c $< -o $@
 
-%.o: %.hpp
+%.o: %.h
 	$(CXX) -c $< -o $@
 
 rougeShooter:

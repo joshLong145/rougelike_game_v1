@@ -14,20 +14,81 @@
 class playerBullet : public baseBullet{
     // public class functions
     public:
-        // initilizes the obj with starting pos
-        playerBullet(int x, int y, int dir);
-        ~playerBullet() = default;
-        // returns a sprite at each location of the bullet ( need to change this but sprites are cheap)
-        sf::Sprite loadImage();
-        // moves sprite to location clicked
-        void move(sf::Time deltaTime);
-        // find the distance the bullet has moved
-        int getDistance();
-        void incDistance(int d);
-        int getVelocity();
-        int getDirection();
-        void updateStates();
-};
+        /*
+          NAME:
+            playerBullet
 
+          SYNOPSIS:
+            playerBullet(const int a_xStart, const int a_yStart, const int a_dir);
+                         const int a_xStart -> x position on the x axis during initlization.
+                         const int a_yStart -> y position on the y axis during initlization.
+                         const int a_dir -> direction bullet object will head in.
+
+          DESCRIPTION:
+            Initlizes a playerBullet object at the desired x,y position with the desired direction.
+
+          RETURNS:
+            None
+
+          AUTHOR:
+            Josh Long
+        */
+        playerBullet(const int a_xStart, const int a_yStart, const int a_dir);
+
+        /*
+          NAME:
+            ~playerBullet
+
+          SYNOPSIS:
+            ~playerBullet() = default;
+
+          DESCRIPTION:
+            Initlizes a destructor for the playerBullet obj.
+
+          RETURNS:
+            None
+
+          AUTHOR:
+            Josh Long
+        */
+        ~playerBullet() = default;
+
+        /*
+          NAME:
+            move
+
+          SYNOPSIS:
+            void move(sf::Time a_deltaTime);
+                      sf::Time a_deltaTime -> time since last update, used to sync actions with current frame.
+
+          DESCRIPTION:
+            Accelerates the playerBullet object in the appropriate direction.
+
+          RETURNS:
+            None
+
+          AUTHOR:
+            Josh Long
+        */
+        void move(sf::Time deltaTime);
+
+        /*
+          NAME:
+            GetDistance
+
+          SYNOPSIS:
+            int GetDistance();
+
+          DESCRIPTION:
+            Returns the distance that the bullet has traveled in it's lifetime.
+
+          RETURNS:
+            int
+
+          AUTHOR:
+            Josh Long
+        */
+        int GetDistance();
+};
 
 #endif

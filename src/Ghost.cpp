@@ -9,84 +9,45 @@
 #include "Ghost.h"
 #include "checkCollision.h"
 
-Ghost::Ghost(int x_pos, int y_pos,const int v):baseEnemy(x_pos,y_pos,v){
+Ghost::Ghost(const int x_pos, const int y_pos, const int v) : baseEnemy(x_pos,y_pos,v){
     texture.loadFromFile("./resources/ghost_enemy.png");
-    sprite.setTexture(texture);
-    sprite.setPosition(x_val,y_val);
-    sprite.setTextureRect(sf::IntRect(image_x,image_y,40,40));
+    m_sprite.setTexture(texture);
+    m_sprite.setPosition(x_val,y_val);
+    m_sprite.setTextureRect(sf::IntRect(image_x,image_y,40,40));
 }
 
-sf::Sprite Ghost::loadImage(){
-    return sprite;
-}
-
-int Ghost::getHealth(){
-    return health;
-}
-
-void Ghost::setHealth(int newAmount){
-    health  = newAmount;
-}
-
-void Ghost::move(Player &p, sf::Time deltaTime){
-       if(isWallHit()){
-        sprite.setPosition(sprite.getPosition().x + (velocity * deltaTime.asSeconds()),sprite.getPosition().y);
+void Ghost::Move(Player &a_player, const sf::Time a_deltaTime){
+    if(m_wallHit){
+        m_sprite.setPosition(m_sprite.getPosition().x + (velocity * a_deltaTime.asSeconds()),m_sprite.getPosition().y);
     }else{
-        sprite.setPosition( sprite.getPosition().x - (velocity * deltaTime.asSeconds()),sprite.getPosition().y);
+        m_sprite.setPosition(m_sprite.getPosition().x - (velocity * a_deltaTime.asSeconds()),m_sprite.getPosition().y);
     }
 
-    if(path_length(p.loadImage().getPosition().x, p.loadImage().getPosition().y, x_val, y_val) < 150){
-        setBulletDirection();
+    if(PathLength(a_player.loadImage().getPosition().x, a_player.loadImage().getPosition().y, x_val, y_val) < 150){
+        SetBulletDirection();
     }
 }
 
-void Ghost::bounce(sf::Vector2f objBounds){
-    if(wallhit){
+void Ghost::Bounce(const sf::Vector2f a_objBounds){
+    if(m_wallHit){
         // probably should change this soon!!!!!
-        sprite.setPosition(sprite.getPosition().x - (velocity / 10), sprite.getPosition().y);
+        m_sprite.setPosition(m_sprite.getPosition().x - (velocity / 10), m_sprite.getPosition().y);
     }else{
-         sprite.setPosition(sprite.getPosition().x + (velocity / 10), sprite.getPosition().y);
+         m_sprite.setPosition(m_sprite.getPosition().x + (velocity / 10), m_sprite.getPosition().y);
     }
-    wallhit = !wallhit;
+    m_wallHit = !m_wallHit;
 }
 
-void Ghost::hitNonWallObj(){
-
-}
-
-bool Ghost::isWallHit(){
-    return wallhit;
-}
-
-bool Ghost::setWallHit(bool result){
-    wallhit = result;
-    return true;
-}
-
-int Ghost::getVelocity(){
-    return velocity;
-}
-
-int Ghost::path_length(int x1, int y1, int x2, int y2){
-    return std::abs(x1 - x2) + std::abs(y1 - y2);
-}
-
-std::vector<std::unique_ptr<enemyBullet>> & Ghost::getBulletVector(){
-    return bullets;
-}
-
-void Ghost::setBulletDirection(){
-     if (bullet_clock.getElapsedTime().asSeconds() > 0.5){
-        std::unique_ptr<enemyBullet> bullet1 = std::make_unique<enemyBullet>(loadImage().getPosition().x,loadImage().getPosition().y,0);
-        std::unique_ptr<enemyBullet> bullet2 = std::make_unique<enemyBullet>(loadImage().getPosition().x,loadImage().getPosition().y,1);
-        std::unique_ptr<enemyBullet> bullet3 = std::make_unique<enemyBullet>(loadImage().getPosition().x,loadImage().getPosition().y,2);
-        std::unique_ptr<enemyBullet> bullet4 = std::make_unique<enemyBullet>(loadImage().getPosition().x,loadImage().getPosition().y,3);
-        bullets.push_back(std::move(bullet1));
-        bullets.push_back(std::move(bullet2));
-        bullets.push_back(std::move(bullet3));
-        bullets.push_back(std::move(bullet4));
-        bullet_clock.restart();
+void Ghost::SetBulletDirection(){
+     if (m_bulletClock.getElapsedTime().asSeconds() > 0.5){
+        std::unique_ptr<enemyBullet> bullet1 = std::make_unique<enemyBullet>(LoadImage().getPosition().x, LoadImage().getPosition().y,0);
+        std::unique_ptr<enemyBullet> bullet2 = std::make_unique<enemyBullet>(LoadImage().getPosition().x, LoadImage().getPosition().y,1);
+        std::unique_ptr<enemyBullet> bullet3 = std::make_unique<enemyBullet>(LoadImage().getPosition().x, LoadImage().getPosition().y,2);
+        std::unique_ptr<enemyBullet> bullet4 = std::make_unique<enemyBullet>(LoadImage().getPosition().x, LoadImage().getPosition().y,3);
+        m_bullets.push_back(std::move(bullet1));
+        m_bullets.push_back(std::move(bullet2));
+        m_bullets.push_back(std::move(bullet3));
+        m_bullets.push_back(std::move(bullet4));
+        m_bulletClock.restart();
     }
-
-
 }

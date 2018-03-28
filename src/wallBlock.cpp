@@ -7,27 +7,9 @@
 //
 
 #include "wallBlock.h"
+
 //pass arguments from child to parent ( might be a better way to do this )
-wallBlock::wallBlock(int xpos, int ypos) : enviormentBlocks(xpos, ypos){
+wallBlock::wallBlock(int a_xPos, int a_yPos) : enviormentBlocks(a_xPos, a_yPos){
     // initilie texture for the block
-    setImage("./resources/rock.png");
-}
-
-sf::Sprite wallBlock::loadImage(){
-    return sprite;
-}
-
-void wallBlock::setImage(std::string image_path){
-    texture.loadFromFile(image_path);
-    sprite.setTexture(texture);
-    sprite.setPosition(x_pos,y_pos);
-}
-
-void wallBlock::initilizeSprite(){
-    sprite.setTextureRect(sf::IntRect(0,0,65,70));
-    sprite.setPosition(x_pos,y_pos);
-}
-
-sf::FloatRect wallBlock::getRect(){
-    return sprite.getGlobalBounds();
+    SetImage("./resources/rock.png");
 }
