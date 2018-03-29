@@ -1,11 +1,3 @@
-//
-//  Bullet.hpp
-//  game_proj
-//
-//  Created by josh long on 1/30/17.
-//  Copyright © 2017 josh long. All rights reserved.
-//
-
 #ifndef playerBullet_h
 #define playerBullet_h
 
