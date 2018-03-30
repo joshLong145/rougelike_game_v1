@@ -10,8 +10,8 @@
 #include "checkCollision.h"
 
 Ghost::Ghost(const int x_pos, const int y_pos, const int v) : baseEnemy(x_pos,y_pos,v){
-    texture.loadFromFile("./resources/ghost_enemy.png");
-    m_sprite.setTexture(texture);
+    m_texture.loadFromFile("./resources/ghost_enemy.png");
+    m_sprite.setTexture(m_texture);
     m_sprite.setPosition(x_val,y_val);
     m_sprite.setTextureRect(sf::IntRect(image_x,image_y,40,40));
 }
@@ -23,7 +23,7 @@ void Ghost::Move(Player &a_player, const sf::Time a_deltaTime){
         m_sprite.setPosition(m_sprite.getPosition().x - (velocity * a_deltaTime.asSeconds()),m_sprite.getPosition().y);
     }
 
-    if(PathLength(a_player.loadImage().getPosition().x, a_player.loadImage().getPosition().y, x_val, y_val) < 150){
+    if(PathLength(a_player.LoadImage().getPosition().x, a_player.LoadImage().getPosition().y, x_val, y_val) < 150){
         SetBulletDirection();
     }
 }

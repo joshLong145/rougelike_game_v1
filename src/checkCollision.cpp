@@ -13,9 +13,9 @@ sf::Sprite * CheckCollisionWalls(sf::Sprite a_obj,std::vector<sf::Sprite> a_s2){
 
   bool CheckCollisionDoors(std::vector<std::shared_ptr<doorBlock>> a_door, Player &a_player){
     for(auto door : a_door){
-        if((*door).loadImage().getGlobalBounds().intersects(a_player.loadImage().getGlobalBounds())){
-            a_player.setDoor((*door).getDirection());
-            a_player.transporForDoor();
+        if((*door).loadImage().getGlobalBounds().intersects(a_player.LoadImage().getGlobalBounds())){
+            a_player.SetDoor((*door).getDirection());
+            a_player.TransporForDoor();
             return true;
         }
     }
@@ -24,7 +24,7 @@ sf::Sprite * CheckCollisionWalls(sf::Sprite a_obj,std::vector<sf::Sprite> a_s2){
 
 bool CheckCollisionPlayerBullets(sf::Sprite a_obj, Player &a_player){
 
-    std::vector<std::shared_ptr<playerBullet>> &bullets = a_player.getBulletVector();
+    std::vector<std::shared_ptr<playerBullet>> &bullets = a_player.GetBulletVector();
 
     for(auto bullet = bullets.begin(); bullet != bullets.end();bullet++){
         if(a_obj.getGlobalBounds().intersects((*bullet)->LoadImage().getGlobalBounds())){

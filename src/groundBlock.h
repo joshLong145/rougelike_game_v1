@@ -1,11 +1,3 @@
-//
-//  groundBlock.hpp
-//  game_proj
-//
-//  Created by josh long on 2/2/17.
-//  Copyright © 2017 josh long. All rights reserved.
-//
-
 #ifndef groundBlock_h
 #define groundBlock_h
 

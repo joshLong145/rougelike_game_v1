@@ -1,11 +1,3 @@
-//
-//  PlayState.hpp
-//  game_proj
-//
-//  Created by josh long on 5/4/17.
-//  Copyright © 2017 josh long. All rights reserved.
-//
-
 #ifndef PlayState_h
 #define PlayState_h
 
@@ -69,12 +61,52 @@ class PlayState : public virtual GameState{
         */
         void CheckRoomTransition();
 
-        //FOLLOWING FUNCTIONS ARE INHERITED FROM THE GAMESATE BASE CLASS, SEE GameState.h for documentation.
-        void DrawAssets();
+        /*
+          NAME:
+            GetStates
 
+          SYNOPSIS:
+            m_states GetStates();
+
+          DESCRIPTION:
+            Gets the current state on the top of the queue.
+
+          RETURNS:
+            m_states -> enum for all player states.
+
+          AUTHOR:
+            Josh Long
+        */
         m_states GetState();
 
+        /*
+          NAME:
+            SetMainClock
+
+          SYNOPSIS:
+            void SetMainClock();
+
+          DESCRIPTION:
+            Resets the main game clock of the player to resync with the current frames.
+
+          AUTHOR:
+            Josh Long
+        */
         void SetMainClock();
+
+        /*
+          NAME:
+            DrawAssets
+
+          SYNOPSIS:
+            void DrawAssets();
+
+          DESCRIPTION:
+            Renders all sprites within the current Panel.
+            Also renders player object and all related
+            projectiles.
+        */
+        void DrawAssets();
 
     private:
         //iteration vars;

@@ -32,23 +32,23 @@ void PlayState::InitilizeGameState(){
 
 void PlayState::CheckRoomTransition(){
     //TODO: FIX THIS GARBAGE CODE!!!!!
-    if(m_player.getDoor() == 1){
-        m_player.clearBullets();
+    if(m_player.GetDoor() == 1){
+        m_player.ClearBullets();
         m_current_room++;
         m_levels["level"+std::to_string(m_current_level)][m_current_room]->SetPlayer(m_player);
-        m_player.setDoor(0);
+        m_player.SetDoor(0);
 
-    }else if(m_player.getDoor() == 2){
-        m_player.clearBullets();
+    }else if(m_player.GetDoor() == 2){
+        m_player.ClearBullets();
         m_current_room--;
         m_levels["level"+std::to_string(m_current_level)][m_current_room]->SetPlayer(m_player);
-        m_player.setDoor(0);
+        m_player.SetDoor(0);
 
-    }else if(m_player.getDoor() == 3){
-        m_player.clearBullets();
+    }else if(m_player.GetDoor() == 3){
+        m_player.ClearBullets();
         m_current_level++;
         m_current_room = 0;
-        m_player.setDoor(0);
+        m_player.SetDoor(0);
     }
 
 }
@@ -79,7 +79,7 @@ void PlayState::update(){
     UpdateGameObjects();
 
     // if the player's health is 0 or less, quit the game
-    if (m_player.getHealth() <= 0){
+    if (m_player.GetHealth() <= 0){
         applicationManager::AddPanel(GameState::m_states::MenuState);
         return; // need to return from the update cycle ( I HAVE NOT IDEA WHY THIS WORKS).
     }
@@ -119,9 +119,9 @@ void PlayState::DrawAssets(){
         m_window.draw((*itemSprite));
     }
     // draw player sprite
-    m_window.draw(m_player.loadImage());
+    m_window.draw(m_player.LoadImage());
 
-    for (auto bullet : m_player.getBulletVector()){
+    for (auto bullet : m_player.GetBulletVector()){
         m_window.draw((*bullet).LoadImage());
     }
 

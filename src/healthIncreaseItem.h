@@ -42,6 +42,23 @@ public:
     */ 
     int GetStatModifier() { return m_statModifier; }
 
+    /*
+      NAME:
+        ItemType
+
+      SYNOPSIS:
+        item ItemType();
+
+      DESCRIPTION:
+        Returns the type of the item of the correpsonding object.
+        so in this case healthIncrease is returned.
+
+      RETURNS:
+        item -> enum of all items present within the game.
+
+      AUTHOR:
+        Josh Long
+    */
     items ItemType();
 
 private:

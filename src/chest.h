@@ -67,7 +67,7 @@ class chest : public enviormentBlocks {
          AUTHOR:
            Josh Long
         */
-        bool IsOpened() { return opened; }
+        bool IsOpened() { return m_opened; }
 
         /*
           NAME:
@@ -85,11 +85,11 @@ class chest : public enviormentBlocks {
           AUTHOR:
             Josh Long
         */
-        void SetOpened() { opened = true; }
+        void SetOpened() { m_opened = true; }
 
     private:
 
-        bool opened = false;
+        bool m_opened = false;
         std::shared_ptr<baseItem> m_item = nullptr;
 };
 

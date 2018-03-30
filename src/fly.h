@@ -22,28 +22,28 @@ public:
 
   /*
     NAME:
-    fly
+      fly
 
     SYNOPSIS:
-    fly(int a_xPos, int a yPos, int velocity);
-    int a_xPos -> x position for the fly object in the room.
-    int a_yPos -> y position for the fly object in the room.
-    int vecloity -> speed of the fly.
+      fly(int a_xPos, int a yPos, int velocity);
+          int a_xPos -> x position for the fly object in the room.
+          int a_yPos -> y position for the fly object in the room.
+          int vecloity -> speed of the fly.
 
     DESCRIPTION:
-    Initlizes the fly object and initlizes needed textures and sprite.
+      Initlizes the fly object and initlizes needed textures and sprite.
 
     RETURNS:
-    None
+      None
 
-    AUTHOR:
-    Josh Long
-  */ 
+     AUTHOR:
+       Josh Long
+   */
    fly(int x_pos, int y_pos, int v);
 
    /*
      NAME:
-     fly
+       fly
 
      SYNOPSIS:
        ~fly() = default;
@@ -56,9 +56,9 @@ public:
 
      AUTHOR:
        Josh Long
-   */ 
-    ~fly(){};
-    
+   */
+    ~fly() = default;
+
     /*
       NAME:
         Move

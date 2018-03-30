@@ -12,21 +12,21 @@ void Update::UpdatePlayerObjs(Player &a_player,std::vector<sf::Sprite> a_rects,s
    CheckCollisionDoors(a_doors, a_player);
 
    // Manages color changing based on enviorment interaction
-   a_player.manageColors();
+   a_player.ManageColors();
 
    // Checks to see if new items where aquired by the player
-   a_player.addItemModifications();
+   a_player.AddItemModifications();
 
 
-    if((CheckCollisionWalls(a_player.loadImage(), a_rects) || CheckCollisionWalls(a_player.loadImage(), a_enviormentRocks))){
-         a_player.bounce(a_deltaTime);
+    if((CheckCollisionWalls(a_player.LoadImage(), a_rects) || CheckCollisionWalls(a_player.LoadImage(), a_enviormentRocks))){
+         a_player.Bounce(a_deltaTime);
     }else{
-        a_player.playerControls(a_deltaTime);
+        a_player.PlayerControls(a_deltaTime);
     }
 
     // Checks for collision with bullets against wall object.
     // If it does, remove it.
-    std::vector<std::shared_ptr<playerBullet>> &bullets = a_player.getBulletVector();
+    std::vector<std::shared_ptr<playerBullet>> &bullets = a_player.GetBulletVector();
     for(auto bullet = bullets.begin(); bullet != bullets.end(); ){
         if(CheckCollisionWalls((*bullet) ->LoadImage(),a_rects) || CheckCollisionWalls((*bullet) ->LoadImage(), a_enviormentRocks)){
             bullets.erase(bullet);
@@ -38,28 +38,28 @@ void Update::UpdatePlayerObjs(Player &a_player,std::vector<sf::Sprite> a_rects,s
 
     // Check for bullet collision with obsticals, if a bullet collides with a obstical, remove it,
     for(auto enemy = a_enemy.begin(); enemy != a_enemy.end(); enemy++){
-        if(CheckCollisionBasic(a_player.loadImage(), (*enemy)->LoadImage())){
-          a_player.evaluateDamage((*enemy)->GetDamageAmount());
+        if(CheckCollisionBasic(a_player.LoadImage(), (*enemy)->LoadImage())){
+          a_player.EvaluateDamage((*enemy)->GetDamageAmount());
         }
     }
 
     // Check for bullet collision with obsticals, if a bullet collides with a obstical, remove it,
-    if(CheckCollisionEnemyBullets(a_player.loadImage(),a_enemy)){
-      a_player.evaluateDamage(1); // constant value for bullet damage ( will always be 1 unit of damage)
+    if(CheckCollisionEnemyBullets(a_player.LoadImage(),a_enemy)){
+      a_player.EvaluateDamage(1); // constant value for bullet damage ( will always be 1 unit of damage)
     }
 
     // 
     for(auto chest = a_chests.begin(); chest != a_chests.end(); chest++){
-        if(CheckCollisionBasic((*chest)->loadImage(),a_player.loadImage())){
+        if(CheckCollisionBasic((*chest)->loadImage(),a_player.LoadImage())){
             if(!(*chest)->IsOpened()){
-                a_player.getItemStorage().addItem((*chest)->GetItemStored());
+                a_player.GetItemStorage().AddItem((*chest)->GetItemStored());
                 (*chest)->SetOpened();
             }
         }
     }
 
     // Updates player states to detmine if there is a new action ready to be performed.
-    a_player.updateStates();
+    a_player.UpdateStates();
 }
 // Checks for collision with all enemy obj
 void Update::UpdateEnemeyObjs(std::vector<std::unique_ptr<baseEnemy>> &a_enemy,
@@ -88,7 +88,7 @@ void Update::UpdateEnemeyObjs(std::vector<std::unique_ptr<baseEnemy>> &a_enemy,
     // enemies remaining health.
     for(auto enemy = a_enemy.begin(); enemy != a_enemy.end(); ){
         if(CheckCollisionPlayerBullets((*enemy) ->LoadImage(),p)){
-            const int enemyHealth = (*enemy)->GetHealth() - p.getOffensiveValue();
+            const int enemyHealth = (*enemy)->GetHealth() - p.GetOffensiveValue();
             if(enemyHealth <= 0){
               a_enemy.erase(enemy);
             }else{

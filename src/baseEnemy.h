@@ -235,7 +235,7 @@ class baseEnemy : public sf::Transformable{
         int image_y = 0;
         int m_health = 1;
         int damage = 1;
-        sf::Texture texture;
+        sf::Texture m_texture;
         sf::Sprite m_sprite;
         sf::Clock animation_clock;
         std::vector<std::unique_ptr<enemyBullet>> m_bullets;

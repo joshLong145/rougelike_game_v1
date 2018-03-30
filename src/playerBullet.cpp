@@ -8,7 +8,6 @@
 
 #include "playerBullet.h"
 #include "../ResourcePath.hpp"
-#include "bulletMovingState.h"
 
 #define NORTH 0
 #define SOUTH 1

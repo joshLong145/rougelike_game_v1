@@ -1,242 +1,233 @@
-//
-//  Player.cpp
-//  game_proj
-//
-//  Created by josh long on 1/28/17.
-//  Copyright © 2017 josh long. All rights reserved.
-//
-
 #include "Player.h"
 #include "playerWalkingState.h"
 #include "playerBounceState.h"
-#include "playerDamageState.h"
 #include <memory>
 
 // load spritesheet within the constructor of the obj
-Player::Player(int x_pos, int y_pos){
+Player::Player(const int a_xPos, int a_yPos){
     // splice the sprite sheet for the player into IntRect obj (sprites are a standard 32x32)
     for(int col = 0; col < 4; col++){
         for(int row = 0; row < 3; row++){
-            animation_frames[col][row] = sf::IntRect(row * 32,col * 32,32,32);
+            m_animationFrames[col][row] = sf::IntRect(row * 32,col * 32,32,32);
         }
     }
-    texture.loadFromFile("./resources/playerSpriteSheet.png");
+    m_texture.loadFromFile("./resources/playerSpriteSheet.png");
     //smooth sprite sheet so edges/pixels are less jaged.
-    texture.setSmooth(true);
+    m_texture.setSmooth(true);
     // set the initial sprite to
-    sprite.setTextureRect(animation_frames[3][2]);
-    sprite.setTexture(texture);
-    sprite.setPosition(x_pos,y_pos);
+    m_sprite.setTextureRect(m_animationFrames[3][2]);
+    m_sprite.setTexture(m_texture);
+    m_sprite.setPosition(a_xPos,a_yPos);
 }
 
-sf::Sprite & Player::loadImage(){
-    return sprite;
+sf::Sprite & Player::LoadImage(){
+    return m_sprite;
 }
-int Player::getHealth(){
-    return health;
-}
-
-int * Player::getPos(){
-    return last_move;
+int Player::GetHealth(){
+    return m_health;
 }
 
-void Player::setHealth(int h){
-    health = h;
-}
-void Player::setPosition(int x_val, int y_val){
-    sprite.setPosition(x_val,y_val);
-}
-void Player::setDoor(int d){
-    door = d;
-}
-int Player::getDoor(){
-    return door;
+int * Player::GetPos(){
+    return m_lastMove;
 }
 
-void Player::playerControls(const sf::Time deltaTime){
-    sf::Vector2f pos = loadImage().getPosition();
+void Player::SetHealth(const int a_health){
+    m_health = a_health;
+}
+void Player::SetPosition(const int a_xVal, const int a_yVal){
+    m_sprite.setPosition(a_xVal,a_yVal);
+}
+void Player::SetDoor(const int a_door){
+    m_door = a_door;
+}
+int Player::GetDoor(){
+    return m_door;
+}
+
+void Player::PlayerControls(const sf::Time deltaTime){
+    sf::Vector2f pos = m_sprite.getPosition();
 
     // add bullets objs to the vector if left, right, up, or down are pressed, cool down of 1 sec based on internal clock rate of one secound.
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-        if (bullet_clock.getElapsedTime().asSeconds() > 0.5){
-            bullets.push_back(std::make_unique<playerBullet>(pos.x + 10,pos.y,2));
-            bullet_clock.restart();
+        if (m_bulletClock.getElapsedTime().asSeconds() > 0.5){
+            m_bullets.push_back(std::make_unique<playerBullet>(pos.x + 10,pos.y,2));
+            m_bulletClock.restart();
         }
     }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-        if (bullet_clock.getElapsedTime().asSeconds() > 0.5){
-            bullets.push_back(std::make_unique<playerBullet>(pos.x - 10,pos.y,3));
-            bullet_clock.restart();
+        if (m_bulletClock.getElapsedTime().asSeconds() > 0.5){
+            m_bullets.push_back(std::make_unique<playerBullet>(pos.x - 10,pos.y,3));
+            m_bulletClock.restart();
         }
     }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-        if (bullet_clock.getElapsedTime().asSeconds() > 0.5){
-            bullets.push_back(std::make_unique<playerBullet>(pos.x,pos.y - 10,1));
-            bullet_clock.restart();
+        if (m_bulletClock.getElapsedTime().asSeconds() > 0.5){
+            m_bullets.push_back(std::make_unique<playerBullet>(pos.x,pos.y - 10,1));
+            m_bulletClock.restart();
         }
     }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-        if (bullet_clock.getElapsedTime().asSeconds() > 0.5){
-            bullets.push_back(std::make_unique<playerBullet>(pos.x,pos.y + 10,0));
-            bullet_clock.restart();
+        if (m_bulletClock.getElapsedTime().asSeconds() > 0.5){
+            m_bullets.push_back(std::make_unique<playerBullet>(pos.x,pos.y + 10,0));
+            m_bulletClock.restart();
         }
     }
 
     // push a new walking state onto the event queue when a player presses a movement key
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-        states.newPanel(std::make_unique<playerWalkingState>('W', *this, deltaTime));
+        m_states.newPanel(std::make_unique<playerWalkingState>('W', *this, deltaTime));
         // states.getCurrentPanel().setNext(true);
         return;
     }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-      states.newPanel(std::move(std::make_unique<playerWalkingState>('A', *this, deltaTime)));
+         m_states.newPanel(std::move(std::make_unique<playerWalkingState>('A', *this, deltaTime)));
         //states.getCurrentPanel().setNext(true);
         return;
     }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
-        states.newPanel(std::make_unique<playerWalkingState>('S', *this, deltaTime));
+        m_states.newPanel(std::make_unique<playerWalkingState>('S', *this, deltaTime));
         //states.getCurrentPanel().setNext(true);
         return;
     }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-        states.newPanel(std::make_unique<playerWalkingState>('D', *this, deltaTime));
+        m_states.newPanel(std::make_unique<playerWalkingState>('D', *this, deltaTime));
         //states.getCurrentPanel().setNext(true);
         return;
     }
    
 }
 
-void Player::evaluateDamage(const int enemyDamage){
-    if(m_hit_timer.getElapsedTime().asSeconds() > 1.0f){
-      setHealth(health - enemyDamage);
-      setDamageColorToggle(true);
-      m_hit_timer.restart();
+void Player::EvaluateDamage(const int a_enemyDamage){
+    if(m_hitTimer.getElapsedTime().asSeconds() > 1.0f){
+      SetHealth(m_health - a_enemyDamage);
+      SetDamageColorToggle(true);
+      m_hitTimer.restart();
     }
 }
 // collision detection
 // gets the x and y values of the obj collided with and determins where on the map it is based on pixel location
-void Player::bounce(const sf::Time deltaTime){
-  states.newPanel(std::move(std::make_unique<playerBounceState>(*this, deltaTime)));
-   states.getCurrentPanel().setNext(true);
+void Player::Bounce(const sf::Time a_deltaTime){
+  m_states.newPanel(std::move(std::make_unique<playerBounceState>(*this, a_deltaTime)));
+  m_states.getCurrentPanel().setNext(true);
    return;
 }
 
-void Player::updateWalkingAnimation(char dir){
-    if (animation_clock.getElapsedTime().asSeconds() > 0.1f && dir == 'S'){
-        image_col = 0;
-        if(image_row >= 2){
-            image_row = 0;
-            sprite.setTextureRect(animation_frames[image_col][image_row]);
+void Player::UpdateWalkingAnimation(char dir){
+    if (m_animationClock.getElapsedTime().asSeconds() > 0.1f && dir == 'S'){
+        m_imageCol = 0;
+        if(m_imageRow >= 2){
+            m_imageRow = 0;
+            m_sprite.setTextureRect(m_animationFrames[m_imageCol][m_imageRow]);
         }else{
-            image_row++;
-            sprite.setTextureRect(animation_frames[image_col][image_row]);
+            m_imageRow++;
+            m_sprite.setTextureRect(m_animationFrames[m_imageCol][m_imageRow]);
           }
-            animation_clock.restart();
-    }else if (animation_clock.getElapsedTime().asSeconds() > 0.1f && dir == 'W'){
-            image_col = 3;
-            if(image_row >= 2){
-                image_row = 0;
-                sprite.setTextureRect(animation_frames[image_col][image_row]);
+            m_animationClock.restart();
+    }else if (m_animationClock.getElapsedTime().asSeconds() > 0.1f && dir == 'W'){
+            m_imageCol = 3;
+            if(m_imageRow >= 2){
+                m_imageRow = 0;
+                m_sprite.setTextureRect(m_animationFrames[m_imageCol][m_imageRow]);
             }else{
-                image_row++;
-                sprite.setTextureRect(animation_frames[image_col][image_row]);
+                m_imageRow++;
+                m_sprite.setTextureRect(m_animationFrames[m_imageCol][m_imageRow]);
           }
 
-            animation_clock.restart();
-    }else if (animation_clock.getElapsedTime().asSeconds() > 0.1f && dir == 'D'){
-            image_col = 2;
-            if(image_row >= 2){
-                image_row = 0;
-                sprite.setTextureRect(animation_frames[image_col][image_row]);
+            m_animationClock.restart();
+    }else if (m_animationClock.getElapsedTime().asSeconds() > 0.1f && dir == 'D'){
+            m_imageCol = 2;
+            if(m_imageRow >= 2){
+                m_imageRow = 0;
+                m_sprite.setTextureRect(m_animationFrames[m_imageCol][m_imageRow]);
             }else{
-                image_row++;
-                sprite.setTextureRect(animation_frames[image_col][image_row]);
+                m_imageRow++;
+                m_sprite.setTextureRect(m_animationFrames[m_imageCol][m_imageRow]);
           }
-            animation_clock.restart();
-    }else if (animation_clock.getElapsedTime().asSeconds() > 0.1f && 'A'){
-            image_col = 1;
-            if(image_row >= 2){
-                image_row = 0;
-                sprite.setTextureRect(animation_frames[image_col][image_row]);
+            m_animationClock.restart();
+    }else if (m_animationClock.getElapsedTime().asSeconds() > 0.1f && 'A'){
+            m_imageCol = 1;
+            if(m_imageRow >= 2){
+                m_imageRow = 0;
+                m_sprite.setTextureRect(m_animationFrames[m_imageCol][m_imageRow]);
             }else{
-                image_row++;
-                sprite.setTextureRect(animation_frames[image_col][image_row]);
+                m_imageRow++;
+                m_sprite.setTextureRect(m_animationFrames[m_imageCol][m_imageRow]);
             }
-            animation_clock.restart();
+            m_animationClock.restart();
     }
 }
 
-void Player::transporForDoor(){
-    sf::Vector2f pos = loadImage().getPosition();
-    if(door == 1 || door == 2){
-        if(last_move[0] == 1 && last_move[1] == 0){
-          sprite.setPosition(pos.x - (65 * 7) - 32,pos.y);
+void Player::TransporForDoor(){
+    sf::Vector2f pos = m_sprite.getPosition();
+    if(m_door == 1 || m_door == 2){
+        if(m_lastMove[0] == 1 && m_lastMove[1] == 0){
+          m_sprite.setPosition(pos.x - (65 * 7) - 32,pos.y);
         }
-        else if (last_move[0] == -1 && last_move[1] == 0){
-          sprite.setPosition(pos.x + (65 * 7) + 32,pos.y);
+        else if (m_lastMove[0] == -1 && m_lastMove[1] == 0){
+          m_sprite.setPosition(pos.x + (65 * 7) + 32,pos.y);
 
         }
-    }else if(door == 3){
-        sprite.setPosition(65 *2 - 32,300);
+    }else if(m_door == 3){
+        m_sprite.setPosition(65 *2 - 32,300);
 
     }
 }
 
 // used for damage calculation for enemies in the update cycle
-int Player::getOffensiveValue(){
-    return attack;
+int Player::GetOffensiveValue(){
+    return m_attack;
 }
 // used for damage calculation for player in the update cycle
-int Player::getDefensiveValue(){
-    return armor;
+int Player::GetDefensiveValue(){
+    return m_armor;
 }
-std::vector<std::shared_ptr<playerBullet>> & Player::getBulletVector(){
-    return bullets;
+std::vector<std::shared_ptr<playerBullet>> & Player::GetBulletVector(){
+    return m_bullets;
 }
 
-Bag & Player::getItemStorage(){
+Bag & Player::GetItemStorage(){
     return m_playerItems;
 }
 
-void Player::clearBullets(){
-    while(bullets.size() > 0){
-        bullets.pop_back();
+void Player::ClearBullets(){
+    while(m_bullets.size() > 0){
+        m_bullets.pop_back();
 
     }
 }
 
-void Player::updateStates(){
-    states.nextPanel();
-    states.update();
+void Player::UpdateStates(){
+    m_states.nextPanel();
+    m_states.update();
 }
 
-void Player::setDamageColorToggle(bool setting){
-    damageColorToggle = setting;
+void Player::SetDamageColorToggle(bool setting){
+    m_damageColorToggle = setting;
 }
 
-void Player::manageColors(){
-    if(colorTiming.getElapsedTime().asSeconds() > 1.0f){
-        if(damageColorToggle){
-            sprite.setColor(sf::Color::Red);
-            damageColorToggle = !damageColorToggle;
+void Player::ManageColors(){
+    if(m_colorTiming.getElapsedTime().asSeconds() > 1.0f){
+        if(m_damageColorToggle){
+            m_sprite.setColor(sf::Color::Red);
+            m_damageColorToggle = !m_damageColorToggle;
         }else{
-            sprite.setColor(sf::Color::White); //resets the sprite to the original color
+            m_sprite.setColor(sf::Color::White); //resets the sprite to the original color
         }
-        colorTiming.restart();
+        m_colorTiming.restart();
     }
 }
 
-void Player::addItemModifications(){
-    for(auto item = m_playerItems.getItems().begin(); item != m_playerItems.getItems().end(); item++){
+void Player::AddItemModifications(){
+    for(auto item = m_playerItems.GetItems().begin(); item != m_playerItems.GetItems().end(); item++){
         if(!(*item)->IsItemUsed()){
             if((*item)->ItemType() == baseItem::items::healthIncrease){
-                health += (*item)->GetStatModifier();
+                m_health += (*item)->GetStatModifier();
                 (*item)->SetItemUse(true);
            }
            if((*item)->ItemType() == baseItem::items::damageIncrease){
-                attack += (*item)->GetStatModifier();
+                m_attack += (*item)->GetStatModifier();
                 (*item)->SetItemUse(true);
            }
            if((*item)->ItemType() == baseItem::items::healthDecrease){
-             if(health >= 3){
-               health -= (*item)->GetStatModifier();
+             if(m_health >= 3){
+               m_health -= (*item)->GetStatModifier();
                (*item) ->SetItemUse(true);
              }else{
-               health  = 1;
+               m_health  = 1;
              }
            }
         }

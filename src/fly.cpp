@@ -10,21 +10,21 @@
 #include <math.h>
 
 fly::fly(int x_pos, int y_pos, int v):baseEnemy(x_pos, y_pos, v){
-    texture.loadFromFile("./resources/Black_Fly.png");
-    m_sprite.setTexture(texture);
+    m_texture.loadFromFile("./resources/Black_Fly.png");
+    m_sprite.setTexture(m_texture);
     m_sprite.setPosition(x_val,y_val);
     velocity = v;
 }
 
 //main action for enemy ( changes from enemy to enemy)
 //Fly will move towards to player at a constant speed
-void fly::Move(Player &p, sf::Time deltaTime){
+void fly::Move(Player &a_player, sf::Time deltaTime){
     float factor = 0.f;
     const float speed = .1f * velocity;
     factor += deltaTime.asSeconds() * speed;
 
-    if(PathLength(p.loadImage().getPosition().x, p.loadImage().getPosition().y, x_val, y_val) < 300){
-        m_sprite.setPosition(Interpolate(m_sprite.getPosition(), p.loadImage().getPosition(),factor));
+    if(PathLength(a_player.LoadImage().getPosition().x, a_player.LoadImage().getPosition().y, x_val, y_val) < 300){
+        m_sprite.setPosition(Interpolate(m_sprite.getPosition(), a_player.LoadImage().getPosition(),factor));
     }else{
         if(m_angle > 360){
             m_angle -= 360;

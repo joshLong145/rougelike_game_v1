@@ -10,8 +10,8 @@
 #include "checkCollision.h"
 
 Turret::Turret(const int a_xPos, const int a_yPos,const int a_velocity):baseEnemy(a_xPos, a_yPos, a_velocity){
-    texture.loadFromFile("./resources/turret.png");
-    m_sprite.setTexture(texture);
+    m_texture.loadFromFile("./resources/turret.png");
+    m_sprite.setTexture(m_texture);
     m_sprite.setPosition(x_val,y_val);
     m_sprite.setTextureRect(sf::IntRect(image_x,image_y,50,50));
 }

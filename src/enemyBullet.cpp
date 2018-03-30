@@ -1,6 +1,6 @@
 #include "enemyBullet.h"
-#include "bulletMovingState.h"
 
+// defines for each direction a projectile can accelarte in.
 #define NORTH 0
 #define SOUTH 1
 #define EAST 2

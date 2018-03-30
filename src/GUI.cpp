@@ -35,18 +35,18 @@ sf::Sprite GUI::displayOffenseImage(){
     return m_spriteAttack;
 }
 
-sf::Text GUI::displayTextHealth(Player &p){
-    m_healthText.setString(std::to_string(p.getHealth()));
+sf::Text GUI::displayTextHealth(Player &a_player){
+    m_healthText.setString(std::to_string(a_player.GetHealth()));
     return m_healthText;
 }
 
 sf::Text GUI::displayTextOffense(Player &p){
-    m_offenseText.setString(std::to_string(p.getOffensiveValue()));
+    m_offenseText.setString(std::to_string(p.GetOffensiveValue()));
     return m_offenseText;
 }
 
 std::vector<sf::Sprite> & GUI::displayItems(Player &p){
-    for(auto item = p.getItemStorage().getItems().begin(); item != p.getItemStorage().getItems().end(); item++){
+    for(auto item = p.GetItemStorage().GetItems().begin(); item != p.GetItemStorage().GetItems().end(); item++){
         if(!(*item)->AccountedFor()){
             m_itemSprites.push_back((*item)->LoadImage());
             (*item)->SetAccountedFor(true);
