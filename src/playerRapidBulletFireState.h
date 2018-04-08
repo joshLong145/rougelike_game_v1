@@ -1,11 +1,11 @@
 #pragma once
-#ifndef playerBounceState_h
-#define playerBounceState_h
+#ifndef playerRapidBulletFireState_h
+#define playerRapidBulletFireState_h
 
 #include "Player.h"
 #include "gameObjectState.h"
 
-class playerBounceState : public virtual gameObjectState{
+class playerRapidBulletFireBulletState : public virtual gameObjectState{
     public:
         /*
           NAME:
@@ -25,7 +25,7 @@ class playerBounceState : public virtual gameObjectState{
           AUTHOR:
             Josh Long
         */
-        playerBounceState(Player &p, sf::Time deltaTime);
+        playerRapidBulletFireState(Player &p, const int a_direction);
 
         /*
           NAME:
@@ -65,7 +65,7 @@ class playerBounceState : public virtual gameObjectState{
         bool nextPanel();
     private:
         Player *m_player = nullptr;
-        char m_direction;
+        int m_direction;
 };
 
 #endif

@@ -41,9 +41,9 @@ class baseEnemy : public sf::Transformable{
          m_   Josh Long
         */
         baseEnemy(const int a_xPos, const int a_yPos, const int a_velocity){
-            x_val = a_xPos;
-            y_val = a_yPos;
-            velocity = a_velocity;
+            m_xVal = a_xPos;
+            m_yVal = a_yPos;
+            m_velocity = a_velocity;
         }
 
         /*
@@ -206,7 +206,7 @@ class baseEnemy : public sf::Transformable{
           AUTHOR:
           Josh Long
         */ 
-        inline int GetDamageAmount(){ return damage; }
+        inline int GetDamageAmount(){ return m_damage; }
 
         /*
           NAME:
@@ -228,13 +228,13 @@ class baseEnemy : public sf::Transformable{
 
     protected:
         bool m_wallHit = true;
-        int x_val;
-        int y_val;
-        int velocity;
-        int image_x = 0;
-        int image_y = 0;
+        int m_xVal;
+        int m_yVal;
+        int m_velocity;
+        int m_imageX = 0;
+        int m_imageY = 0;
         int m_health = 1;
-        int damage = 1;
+        int m_damage = 1;
         sf::Texture m_texture;
         sf::Sprite m_sprite;
         sf::Clock animation_clock;

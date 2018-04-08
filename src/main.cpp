@@ -3,5 +3,6 @@
 
 int main(){
      applicationManager::StartGame();
+     
      return 0;
 }

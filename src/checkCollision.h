@@ -6,6 +6,7 @@
 #include "baseEnemy.h"
 #include "Player.h"
 #include "doorBlock.h"
+#include "rockBlock.h"
 #include <memory>
 namespace checkCollision{
         /*
@@ -27,6 +28,26 @@ namespace checkCollision{
             Josh Long
         */
         sf::Sprite * CheckCollisionWalls(sf::Sprite obj,std::vector<sf::Sprite> s2);
+
+        /*
+           NAME:
+            CheckCollisionRocks
+
+          SYNOPSIS:
+            rockBlock & CheckCollisionRocks(sf::Sprite a_obj, std::vector<rockBlock> a_rocks);
+                                            sf::Sprite a_obj -> object being checked against.
+                                            std::vector<rockBlock> a_rock -> rockBlock objects being checked for collision.
+          DESCRIPTION:
+            Checks if a sprite is collding with any rockBlock objects.
+
+          RETURNS:
+            rockBlock & -> refrence to rock block object being hit.
+            if no rockBlock is hit, return nullptr.
+
+          AUTHOR:
+            Josh Long
+        */
+        bool CheckCollisionRocks(sf::Sprite a_obj, std::vector<std::shared_ptr<rockBlock>> &a_rocks);
 
         /*
           NAME:
@@ -118,10 +139,5 @@ namespace checkCollision{
         */
         bool CheckCollisionDoors(std::vector<std::shared_ptr<doorBlock>> a_door,Player &a_player);
 }
-
-
-
-
-
 
 #endif /* checkCollision_hpp */

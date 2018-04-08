@@ -12,13 +12,13 @@ loadLevel::loadLevel(std::vector<std::string> rooms, std::vector<std::unique_ptr
     //assign enemy passed to the room to a local var
     // go through matrix and map each integer to a tile obj
     int r = 0;
-    for(auto room : rooms ){
+    for(auto room : rooms){
       for(unsigned int c = 0;  c < room.size(); c++){
             // add wall objs to both the level and rect vectors. (rect vector is for collision detection)
             if(room[c] == 'W'){
                 std::shared_ptr<wallBlock> block = std::make_unique<wallBlock>(r * 65, c * 70);
                 m_levelBlocks.push_back(block);
-                m_rects.push_back(block->loadImage());
+                m_rects.push_back(block->LoadImage());
             }
             if(room[c] == 'G'){
                 m_levelBlocks.push_back(std::make_unique<groundBlock>(r * 65, c * 70));
@@ -27,30 +27,29 @@ loadLevel::loadLevel(std::vector<std::string> rooms, std::vector<std::unique_ptr
                 std::shared_ptr<doorBlock> door = std::make_unique<doorBlock>(r * 65, c * 70,1);
                 m_levelBlocks.push_back(door);
                 m_doorRects.push_back(door);
-                m_rects.push_back(door->loadImage());
+                m_rects.push_back(door->LoadImage());
             }
             if(room[c] == 'B'){
                 std::shared_ptr<doorBlock> door = std::make_unique<doorBlock>(r * 65, c * 70,2);
                 m_levelBlocks.push_back(door);
                 m_doorRects.push_back(door);
-                m_rects.push_back(door->loadImage());
+                m_rects.push_back(door->LoadImage());
             }
             if(room[c] == 'R'){
                 std::shared_ptr<rockBlock> rock = std::make_unique<rockBlock>(r * 65, c * 70);
-                m_levelBlocks.push_back(rock);
-                m_rockRects.push_back(rock->loadImage());
+                m_rockRects.push_back(rock);
             }
             if(room[c] == 'C'){
                 std::shared_ptr<chest> chestTile = std::make_unique<chest>(r * 65,c * 70);
                 m_levelBlocks.push_back(chestTile);
                 m_chests.push_back(chestTile);
-                m_rockRects.push_back(chestTile->loadImage());
+                m_rects.push_back(chestTile->LoadImage());
             }
             if(room[c] == 'L'){
                 std::shared_ptr<levelDoorBlock> door = std::make_unique<levelDoorBlock>(r * 65, c * 70,3);
                 m_levelBlocks.push_back(door);
                 m_doorRects.push_back(door);
-                m_rects.push_back(door->loadImage());
+                m_rects.push_back(door->LoadImage());
             }
         }
         r++;
@@ -68,19 +67,25 @@ void loadLevel::SetPlayer(Player &a_player){
 void loadLevel::Display(sf::RenderWindow &a_windowObj){
     //draw each blocks sprite
     for(auto block = m_levelBlocks.begin(); block != m_levelBlocks.end(); block++){
-        a_windowObj.draw((*block) -> loadImage() );
+        a_windowObj.draw((*block) -> LoadImage() );
     }
 
-    // draw enemies in the current room
-    for (auto enemy = m_enemies.begin(); enemy != m_enemies.end(); enemy++){
-        a_windowObj.draw((*enemy)->LoadImage() );
-    }
     // draw enemies in the current room
     for (auto enemy = m_enemies.begin(); enemy != m_enemies.end(); enemy++){
         std::vector<std::unique_ptr<enemyBullet>> &enemyBullets = (*enemy)->GetBulletVector();
         for (auto bullet = enemyBullets.begin(); bullet != enemyBullets.end(); bullet++){
             a_windowObj.draw((*bullet)->LoadImage());
         }
+    }
+
+    // Draw all Rocks within the room.
+    for(auto rock : m_rockRects){
+      a_windowObj.draw(rock->LoadImage());
+    }
+
+    // draw enemies in the current room
+    for (auto enemy = m_enemies.begin(); enemy != m_enemies.end(); enemy++){
+      a_windowObj.draw((*enemy)->LoadImage() );
     }
 }
 
@@ -89,7 +94,7 @@ std::vector<sf::Sprite> & loadLevel::GetRects(){
     return m_rects;
 }
 
-std::vector<sf::Sprite> & loadLevel::GetEnviormentRocks(){
+std::vector<std::shared_ptr<rockBlock>> & loadLevel::GetEnviormentRocks(){
     return m_rockRects;
 }
 

@@ -32,10 +32,21 @@ class MenuState : public virtual GameState{
            Josh Long
         */
         MenuState(sf::RenderWindow &a_windowObj);
-        // DOCUMENTATION FOR INHERITED FUNCTIONS FOUND IN GameState BASE CLASS.
+
+        /*
+        */
         void update();
+
+        /*
+        */
         void InitilizeGameState();
+
+        /*
+        */
         void DrawAssets();
+
+        /*
+        */
         m_states GetState();
     private:
         // for displaying text

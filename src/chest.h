@@ -7,6 +7,7 @@
 #include "healthIncreaseItem.h"
 #include "damageIncreaseItem.h"
 #include "healthDecreaseItem.h"
+#include "multiFireItem.h"
 #include <memory>
 
 class chest : public enviormentBlocks {

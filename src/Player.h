@@ -505,6 +505,12 @@ class Player : public sf::Transformable{
 
         int m_armor = 1;
 
+        float m_bulletSpeed = .5f;
+
+        bool m_multiFire = false;
+
+        bool m_rapidFire = false;
+
         // SFML objects
         sf::IntRect m_animationFrames[4][3];
 

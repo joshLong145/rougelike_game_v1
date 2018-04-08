@@ -12,17 +12,29 @@
 
 #include <stdio.h>
 #include "doorBlock.h"
+
 class levelDoorBlock : public doorBlock{
 public:
-    levelDoorBlock(int xpos, int ypos,int direction);
-    void draw(sf::RenderWindow &window);
-    void SetImage(std::string image_path);
-    void InitilizeSprite();
-    sf::FloatRect GetRect();
-    int getDirection();
-private:
-    sf::Texture texture;
-    int direction = -1;
+    /*
+      NAME:
+        levelDoorBlock
+      SYNOPSIS:
+        levelDoorBlock(const int a_xPos, const int a_yPos, const int a_direction);
+                       const int a_xPos -> position on the x axis for the doorBlock
+                       const int a_yPos -> position on the y axis for the doorBlock
+                       const int a_direction -> direction that door will bring you towards.
+
+      DESCRIPTION:
+        Initlizes a doorBlock object at the desired x,y position and direction the door will bring you.
+
+      RETURNS:
+        None
+
+      AUTHOR:
+        Josh Long
+    */
+    levelDoorBlock(const int a_xpos, const int ypos, const int direction);
+
 };
 
 #endif /* doorBlock_hpp */

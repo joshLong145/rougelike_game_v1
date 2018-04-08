@@ -27,25 +27,25 @@ GUI::GUI(){
     m_offenseText.setPosition(110, 650);
 }
 
-sf::Sprite GUI::displayHealthImage(){
+sf::Sprite GUI::DisplayHealthImage(){
     return m_spriteHealth;
 }
 
-sf::Sprite GUI::displayOffenseImage(){
+sf::Sprite GUI::DisplayOffenseImage(){
     return m_spriteAttack;
 }
 
-sf::Text GUI::displayTextHealth(Player &a_player){
+sf::Text GUI::DisplayTextHealth(Player &a_player){
     m_healthText.setString(std::to_string(a_player.GetHealth()));
     return m_healthText;
 }
 
-sf::Text GUI::displayTextOffense(Player &p){
+sf::Text GUI::DisplayTextOffense(Player &p){
     m_offenseText.setString(std::to_string(p.GetOffensiveValue()));
     return m_offenseText;
 }
 
-std::vector<sf::Sprite> & GUI::displayItems(Player &p){
+std::vector<sf::Sprite> & GUI::DisplayItems(Player &p){
     for(auto item = p.GetItemStorage().GetItems().begin(); item != p.GetItemStorage().GetItems().end(); item++){
         if(!(*item)->AccountedFor()){
             m_itemSprites.push_back((*item)->LoadImage());

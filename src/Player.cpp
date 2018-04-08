@@ -1,7 +1,14 @@
 #include "Player.h"
 #include "playerWalkingState.h"
 #include "playerBounceState.h"
+#include "playerFireBulletState.h"
+#include "playerBulletMultiFireState.h"
 #include <memory>
+
+
+#define FORWARD_DOOR 1
+#define BACKWARD_DOOR 2
+#define LEVEL_DOOR 3
 
 // load spritesheet within the constructor of the obj
 Player::Player(const int a_xPos, int a_yPos){
@@ -11,6 +18,7 @@ Player::Player(const int a_xPos, int a_yPos){
             m_animationFrames[col][row] = sf::IntRect(row * 32,col * 32,32,32);
         }
     }
+    // Loads sprite sheet from the Resource directory within the app route.
     m_texture.loadFromFile("./resources/playerSpriteSheet.png");
     //smooth sprite sheet so edges/pixels are less jaged.
     m_texture.setSmooth(true);
@@ -20,9 +28,11 @@ Player::Player(const int a_xPos, int a_yPos){
     m_sprite.setPosition(a_xPos,a_yPos);
 }
 
+//Geters and seters for all member vars within the player. Used within each player state.
 sf::Sprite & Player::LoadImage(){
     return m_sprite;
 }
+
 int Player::GetHealth(){
     return m_health;
 }
@@ -34,75 +44,99 @@ int * Player::GetPos(){
 void Player::SetHealth(const int a_health){
     m_health = a_health;
 }
+
 void Player::SetPosition(const int a_xVal, const int a_yVal){
     m_sprite.setPosition(a_xVal,a_yVal);
 }
+
 void Player::SetDoor(const int a_door){
     m_door = a_door;
 }
+
 int Player::GetDoor(){
     return m_door;
 }
 
 void Player::PlayerControls(const sf::Time deltaTime){
-    sf::Vector2f pos = m_sprite.getPosition();
-
     // add bullets objs to the vector if left, right, up, or down are pressed, cool down of 1 sec based on internal clock rate of one secound.
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-        if (m_bulletClock.getElapsedTime().asSeconds() > 0.5){
-            m_bullets.push_back(std::make_unique<playerBullet>(pos.x + 10,pos.y,2));
-            m_bulletClock.restart();
+        if (m_bulletClock.getElapsedTime().asSeconds() > m_bulletSpeed){
+          if(m_multiFire)
+            m_states.NewPanel(std::make_unique<playerBulletMultiFireState>(*this,2));
+          else
+            m_states.NewPanel(std::make_unique<playerFireBulletState>(*this,2));
+
+          m_bulletClock.restart();
+          return;
         }
     }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-        if (m_bulletClock.getElapsedTime().asSeconds() > 0.5){
-            m_bullets.push_back(std::make_unique<playerBullet>(pos.x - 10,pos.y,3));
-            m_bulletClock.restart();
+        if (m_bulletClock.getElapsedTime().asSeconds() > m_bulletSpeed){
+          if(m_multiFire)
+            m_states.NewPanel(std::make_unique<playerBulletMultiFireState>(*this,3));
+          else
+            m_states.NewPanel(std::make_unique<playerFireBulletState>(*this,3));
+
+          m_bulletClock.restart();
+          return;
         }
     }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-        if (m_bulletClock.getElapsedTime().asSeconds() > 0.5){
-            m_bullets.push_back(std::make_unique<playerBullet>(pos.x,pos.y - 10,1));
-            m_bulletClock.restart();
+        if (m_bulletClock.getElapsedTime().asSeconds() > m_bulletSpeed){
+          if(m_multiFire)
+            m_states.NewPanel(std::make_unique<playerBulletMultiFireState>(*this,1));
+          else
+            m_states.NewPanel(std::make_unique<playerFireBulletState>(*this,1));
+
+          m_bulletClock.restart();
+          return;
+       
         }
     }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-        if (m_bulletClock.getElapsedTime().asSeconds() > 0.5){
-            m_bullets.push_back(std::make_unique<playerBullet>(pos.x,pos.y + 10,0));
-            m_bulletClock.restart();
+      if (m_bulletClock.getElapsedTime().asSeconds() >  m_bulletSpeed){
+        if(m_multiFire)
+          m_states.NewPanel(std::make_unique<playerBulletMultiFireState>(*this,0));
+        else
+          m_states.NewPanel(std::make_unique<playerFireBulletState>(*this,0));
+
+        m_bulletClock.restart();
+        return;
+       
         }
     }
 
     // push a new walking state onto the event queue when a player presses a movement key
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-        m_states.newPanel(std::make_unique<playerWalkingState>('W', *this, deltaTime));
-        // states.getCurrentPanel().setNext(true);
-        return;
+        m_states.NewPanel(std::make_unique<playerWalkingState>('W', *this, deltaTime));
+         return;
     }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-         m_states.newPanel(std::move(std::make_unique<playerWalkingState>('A', *this, deltaTime)));
-        //states.getCurrentPanel().setNext(true);
-        return;
+         m_states.NewPanel(std::make_unique<playerWalkingState>('A', *this, deltaTime));
+         return;
     }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
-        m_states.newPanel(std::make_unique<playerWalkingState>('S', *this, deltaTime));
+        m_states.NewPanel(std::make_unique<playerWalkingState>('S', *this, deltaTime));
         //states.getCurrentPanel().setNext(true);
         return;
     }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-        m_states.newPanel(std::make_unique<playerWalkingState>('D', *this, deltaTime));
+        m_states.NewPanel(std::make_unique<playerWalkingState>('D', *this, deltaTime));
         //states.getCurrentPanel().setNext(true);
         return;
     }
-   
+
 }
 
 void Player::EvaluateDamage(const int a_enemyDamage){
+    // Makes sure that damage is on a delay, so that damage cannot stack rapidly.
     if(m_hitTimer.getElapsedTime().asSeconds() > 1.0f){
       SetHealth(m_health - a_enemyDamage);
       SetDamageColorToggle(true);
+      // Restart so player can take damage again.
       m_hitTimer.restart();
     }
 }
+
 // collision detection
 // gets the x and y values of the obj collided with and determins where on the map it is based on pixel location
 void Player::Bounce(const sf::Time a_deltaTime){
-  m_states.newPanel(std::move(std::make_unique<playerBounceState>(*this, a_deltaTime)));
-  m_states.getCurrentPanel().setNext(true);
+  m_states.NewPanel(std::make_unique<playerBounceState>(*this, a_deltaTime));
+  m_states.GetCurrentPanel().setNext(true);
    return;
 }
 
@@ -152,8 +186,10 @@ void Player::UpdateWalkingAnimation(char dir){
 }
 
 void Player::TransporForDoor(){
-    sf::Vector2f pos = m_sprite.getPosition();
-    if(m_door == 1 || m_door == 2){
+  // current position of the player.
+  sf::Vector2f pos = m_sprite.getPosition();
+    // if the door is one between rooms.
+    if(m_door == FORWARD_DOOR || m_door == BACKWARD_DOOR){
         if(m_lastMove[0] == 1 && m_lastMove[1] == 0){
           m_sprite.setPosition(pos.x - (65 * 7) - 32,pos.y);
         }
@@ -161,7 +197,7 @@ void Player::TransporForDoor(){
           m_sprite.setPosition(pos.x + (65 * 7) + 32,pos.y);
 
         }
-    }else if(m_door == 3){
+    }else if(m_door == LEVEL_DOOR){
         m_sprite.setPosition(65 *2 - 32,300);
 
     }
@@ -171,6 +207,7 @@ void Player::TransporForDoor(){
 int Player::GetOffensiveValue(){
     return m_attack;
 }
+
 // used for damage calculation for player in the update cycle
 int Player::GetDefensiveValue(){
     return m_armor;
@@ -191,8 +228,8 @@ void Player::ClearBullets(){
 }
 
 void Player::UpdateStates(){
-    m_states.nextPanel();
-    m_states.update();
+    m_states.NextPanel();
+    m_states.UpdatePanels();
 }
 
 void Player::SetDamageColorToggle(bool setting){
@@ -228,6 +265,18 @@ void Player::AddItemModifications(){
                (*item) ->SetItemUse(true);
              }else{
                m_health  = 1;
+             }
+           }
+           if((*item)->ItemType() == baseItem::items::multiFire){
+             if(m_multiFire && !(*item)->IsItemUsed()){
+               // if the player has already gotten the multifire item, boost health by 1
+               m_attack += (*item)->GetStatModifier();
+               (*item)->LoadImage().setTextureRect(sf::IntRect(50 * 4, 50 * 5,50, 50));
+               (*item)->SetItemUse(true);
+             }else{
+               // else add multifire item.
+               m_multiFire = (*item)->GetStatModifier();
+               (*item)->SetItemUse(true);
              }
            }
         }

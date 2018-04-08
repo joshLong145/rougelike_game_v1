@@ -12,18 +12,18 @@
 fly::fly(int x_pos, int y_pos, int v):baseEnemy(x_pos, y_pos, v){
     m_texture.loadFromFile("./resources/Black_Fly.png");
     m_sprite.setTexture(m_texture);
-    m_sprite.setPosition(x_val,y_val);
-    velocity = v;
+    m_sprite.setPosition(m_xVal,m_yVal);
+    m_velocity = v;
 }
 
 //main action for enemy ( changes from enemy to enemy)
 //Fly will move towards to player at a constant speed
 void fly::Move(Player &a_player, sf::Time deltaTime){
     float factor = 0.f;
-    const float speed = .1f * velocity;
+    const float speed = .1f * m_velocity;
     factor += deltaTime.asSeconds() * speed;
 
-    if(PathLength(a_player.LoadImage().getPosition().x, a_player.LoadImage().getPosition().y, x_val, y_val) < 300){
+    if(PathLength(a_player.LoadImage().getPosition().x, a_player.LoadImage().getPosition().y, m_xVal, m_yVal) < 300){
         m_sprite.setPosition(Interpolate(m_sprite.getPosition(), a_player.LoadImage().getPosition(),factor));
     }else{
         if(m_angle > 360){

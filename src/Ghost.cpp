@@ -12,18 +12,18 @@
 Ghost::Ghost(const int x_pos, const int y_pos, const int v) : baseEnemy(x_pos,y_pos,v){
     m_texture.loadFromFile("./resources/ghost_enemy.png");
     m_sprite.setTexture(m_texture);
-    m_sprite.setPosition(x_val,y_val);
-    m_sprite.setTextureRect(sf::IntRect(image_x,image_y,40,40));
+    m_sprite.setPosition(m_xVal,m_yVal);
+    m_sprite.setTextureRect(sf::IntRect(m_imageX,m_imageY,40,40));
 }
 
 void Ghost::Move(Player &a_player, const sf::Time a_deltaTime){
     if(m_wallHit){
-        m_sprite.setPosition(m_sprite.getPosition().x + (velocity * a_deltaTime.asSeconds()),m_sprite.getPosition().y);
+        m_sprite.setPosition(m_sprite.getPosition().x + (m_velocity * a_deltaTime.asSeconds()),m_sprite.getPosition().y);
     }else{
-        m_sprite.setPosition(m_sprite.getPosition().x - (velocity * a_deltaTime.asSeconds()),m_sprite.getPosition().y);
+        m_sprite.setPosition(m_sprite.getPosition().x - (m_velocity * a_deltaTime.asSeconds()),m_sprite.getPosition().y);
     }
 
-    if(PathLength(a_player.LoadImage().getPosition().x, a_player.LoadImage().getPosition().y, x_val, y_val) < 150){
+    if(PathLength(a_player.LoadImage().getPosition().x, a_player.LoadImage().getPosition().y, m_xVal, m_yVal) < 150){
         SetBulletDirection();
     }
 }
@@ -31,9 +31,9 @@ void Ghost::Move(Player &a_player, const sf::Time a_deltaTime){
 void Ghost::Bounce(const sf::Vector2f a_objBounds){
     if(m_wallHit){
         // probably should change this soon!!!!!
-        m_sprite.setPosition(m_sprite.getPosition().x - (velocity / 10), m_sprite.getPosition().y);
+        m_sprite.setPosition(m_sprite.getPosition().x - (m_velocity / 10), m_sprite.getPosition().y);
     }else{
-         m_sprite.setPosition(m_sprite.getPosition().x + (velocity / 10), m_sprite.getPosition().y);
+         m_sprite.setPosition(m_sprite.getPosition().x + (m_velocity / 10), m_sprite.getPosition().y);
     }
     m_wallHit = !m_wallHit;
 }

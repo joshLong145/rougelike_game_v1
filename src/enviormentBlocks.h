@@ -22,10 +22,11 @@ class enviormentBlocks : public sf::Transformable{
             enviormentBlocks
 
           SYNOPSIS:
-            enviormentBlocks::MoveToNextPanel();
+            enviormentBlocks::enviormentBlocks(const int a_xPos, const int a_yPos);
 
           DESCRIPTION:
-            Initilizes a new enviorment object to be rendered in the correponding room.
+            Base class for all enviormentBlock objects, initlizes x,y coordinates
+            and sets the dimensions for the texture to render within.
 
           RETURNS:
             None
@@ -33,13 +34,13 @@ class enviormentBlocks : public sf::Transformable{
           AUTHOR:
             Josh Long
         */
-        enviormentBlocks(int a_xPos, int a_yPos){
-          // initlize position member variables with desired input.
+        enviormentBlocks(const int a_xPos, const int a_yPos){
+          // Initlize position member variables with desired input.
           m_xPos = a_xPos;
           m_yPos = a_yPos;
           // Sets bounds on the position of the texture
-          // when applied to the sprite.
-          sprite.setTextureRect(sf::IntRect(0,0,65,70));
+          // When applied to the sprite.
+          m_sprite.setTextureRect(sf::IntRect(0,0,65,70));
         }
 
         /*
@@ -54,12 +55,12 @@ class enviormentBlocks : public sf::Transformable{
             used to render all sprites relating to the enviorment.
 
           RETURNS:
-            Sf::Sprite 
+            Sf::Sprite
 
           AUTHOR:
             Josh Long
         */
-        inline sf::Sprite loadImage(){ return sprite; };
+        inline sf::Sprite LoadImage(){ return m_sprite; };
 
         /*
           NAME:
@@ -80,9 +81,9 @@ class enviormentBlocks : public sf::Transformable{
             Josh Long
         */
         void SetImage(std::string a_imagePath){
-          texture.loadFromFile(a_imagePath);
-          sprite.setTexture(texture);
-          sprite.setPosition(m_xPos,m_yPos);
+          m_texture.loadFromFile(a_imagePath);
+          m_sprite.setTexture(m_texture);
+          m_sprite.setPosition(m_xPos,m_yPos);
         }
 
         /*
@@ -102,15 +103,13 @@ class enviormentBlocks : public sf::Transformable{
           AUTHOR:
           Josh Long
         */
-        inline sf::FloatRect GetRect(){
-          return sprite.getGlobalBounds();
-        }
+        inline sf::FloatRect GetRect(){ return m_sprite.getGlobalBounds(); }
 
     protected:
         int m_yPos;
         int m_xPos;
-        sf::Sprite sprite;
-        sf::Texture texture;
+        sf::Sprite m_sprite;
+        sf::Texture m_texture;
 
 };
 

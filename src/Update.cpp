@@ -4,10 +4,17 @@
 using namespace checkCollision;
 
 // check for collisions with wall obj ( includes bullet obj from the player)
-void Update::UpdatePlayerObjs(Player &a_player,std::vector<sf::Sprite> a_rects,std::vector<std::unique_ptr<baseEnemy>> &a_enemy,
-                              std::vector<std::shared_ptr<doorBlock>> a_doors, std::vector<std::shared_ptr<chest>> a_chests,
-                             std::vector<sf::Sprite> a_enviormentRocks, sf::Time a_deltaTime){
+void Update::UpdatePlayerObjs(Player &a_player,std::vector<sf::Sprite> &a_rects,std::vector<std::unique_ptr<baseEnemy>> &a_enemy,
+                              std::vector<std::shared_ptr<doorBlock>> &a_doors, std::vector<std::shared_ptr<chest>> &a_chests,
+                              std::vector<std::shared_ptr<rockBlock>> &a_enviormentRocks, sf::Time a_deltaTime){
 
+   std::vector<sf::Sprite> rockSprites;
+   // Go through all rocks and check if they are active.
+   // If so then add them to list of colliable rocks for the player.
+   for (auto rock : a_enviormentRocks){
+     if(rock->IsActive())
+       rockSprites.push_back(rock->LoadImage());
+   }
    // Checks collision with door obj if true, go to next level
    CheckCollisionDoors(a_doors, a_player);
 
@@ -18,7 +25,7 @@ void Update::UpdatePlayerObjs(Player &a_player,std::vector<sf::Sprite> a_rects,s
    a_player.AddItemModifications();
 
 
-    if((CheckCollisionWalls(a_player.LoadImage(), a_rects) || CheckCollisionWalls(a_player.LoadImage(), a_enviormentRocks))){
+    if((CheckCollisionWalls(a_player.LoadImage(), a_rects) || CheckCollisionWalls(a_player.LoadImage(), rockSprites))){
          a_player.Bounce(a_deltaTime);
     }else{
         a_player.PlayerControls(a_deltaTime);
@@ -28,11 +35,16 @@ void Update::UpdatePlayerObjs(Player &a_player,std::vector<sf::Sprite> a_rects,s
     // If it does, remove it.
     std::vector<std::shared_ptr<playerBullet>> &bullets = a_player.GetBulletVector();
     for(auto bullet = bullets.begin(); bullet != bullets.end(); ){
-        if(CheckCollisionWalls((*bullet) ->LoadImage(),a_rects) || CheckCollisionWalls((*bullet) ->LoadImage(), a_enviormentRocks)){
+      if(CheckCollisionWalls((*bullet)->LoadImage(),a_rects)){
             bullets.erase(bullet);
-        }else{
-            (*bullet)->move(a_deltaTime);
-            bullet++;
+      // Check if a bullet object collides with a rock, if so subtract fro the rocks 'health'
+      }else{
+            if(CheckCollisionRocks((*bullet) ->LoadImage(), a_enviormentRocks)){
+              bullets.erase(bullet);
+            }else{
+              (*bullet)->move(a_deltaTime);
+              bullet++;
+            }
         }
     }
 
@@ -48,10 +60,13 @@ void Update::UpdatePlayerObjs(Player &a_player,std::vector<sf::Sprite> a_rects,s
       a_player.EvaluateDamage(1); // constant value for bullet damage ( will always be 1 unit of damage)
     }
 
-    // 
+    // Loop through all chests and check if a new item is ready to be added.
+    // Based on collsion with chest objects.
     for(auto chest = a_chests.begin(); chest != a_chests.end(); chest++){
-        if(CheckCollisionBasic((*chest)->loadImage(),a_player.LoadImage())){
-            if(!(*chest)->IsOpened()){
+        if(CheckCollisionBasic((*chest)->LoadImage(),a_player.LoadImage())){
+          // Check to make sure current chast hasnt already been opened.
+          if(!(*chest)->IsOpened()){
+                // If not add the item to the player's item storage. 
                 a_player.GetItemStorage().AddItem((*chest)->GetItemStored());
                 (*chest)->SetOpened();
             }
@@ -61,16 +76,22 @@ void Update::UpdatePlayerObjs(Player &a_player,std::vector<sf::Sprite> a_rects,s
     // Updates player states to detmine if there is a new action ready to be performed.
     a_player.UpdateStates();
 }
+
 // Checks for collision with all enemy obj
 void Update::UpdateEnemeyObjs(std::vector<std::unique_ptr<baseEnemy>> &a_enemy,
-                              std::vector<sf::Sprite> a_enviormentRocks,
+                              std::vector<std::shared_ptr<rockBlock>> a_enviormentRocks,
                               std::vector<sf::Sprite> a_rects,
                               Player &p, sf::Time a_deltaTime){
 
+    std::vector<sf::Sprite> rockSprites;
+    for(auto rock : a_enviormentRocks){
+      if(rock->IsActive())
+        rockSprites.push_back(rock->LoadImage());
+    }
     for(auto enemy = a_enemy.begin(); enemy != a_enemy.end(); enemy++){
         // Check for collision with all enviorment objects within a room. 
         sf::Sprite *wallObjectSprite = CheckCollisionWalls((*enemy)-> LoadImage(), a_rects);
-        sf::Sprite *rockObjectSprite = CheckCollisionWalls((*enemy)->LoadImage(), a_enviormentRocks);
+        sf::Sprite *rockObjectSprite = CheckCollisionWalls((*enemy)->LoadImage(), rockSprites);
 
         // Check if a any object where returned as collided with and respond accordingly.
         if(wallObjectSprite != nullptr){

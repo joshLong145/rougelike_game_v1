@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "baseEnemy.h"
 #include "doorBlock.h"
+#include "rockBlock.h"
 #include "chest.h"
 #include <memory>
 
@@ -53,9 +54,9 @@ class Update{
          AUTHOR:
            Josh Long
         */ 
-        void UpdatePlayerObjs(Player &a_player, std::vector<sf::Sprite> a_rects,std::vector<std::unique_ptr<baseEnemy>> &a_enemy,
-                              std::vector<std::shared_ptr<doorBlock>> a_doorRects, std::vector<std::shared_ptr<chest>> a_chests,
-                              std::vector<sf::Sprite> a_enviormentRocks, sf::Time a_deltaTime);
+        void UpdatePlayerObjs(Player &a_player, std::vector<sf::Sprite> &a_rects, std::vector<std::unique_ptr<baseEnemy>> &a_enemy,
+                              std::vector<std::shared_ptr<doorBlock>> &a_doorRects, std::vector<std::shared_ptr<chest>> &a_chests,
+                              std::vector<std::shared_ptr<rockBlock>> &a_enviormentRocks, sf::Time a_deltaTime);
         /*
           NAME:
             UpdateEnemyObjs
@@ -72,7 +73,7 @@ class Update{
             Josh Long
         */
 
-        void UpdateEnemeyObjs(std::vector<std::unique_ptr<baseEnemy>> &a_enemy, std::vector<sf::Sprite> a_enviormentRocks,
+        void UpdateEnemeyObjs(std::vector<std::unique_ptr<baseEnemy>> &a_enemy, std::vector<std::shared_ptr<rockBlock>> a_enviormentRocks,
                               std::vector<sf::Sprite> a_rects, Player &a_player, sf::Time a_deltaTime);
 
 };

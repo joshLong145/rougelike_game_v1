@@ -27,7 +27,7 @@ namespace applicationManager{
       panel swithing and intilization takes place.
 
     RETURNS:
-    None
+      void
 
     AUTHOR:
     Josh Long
@@ -47,7 +47,7 @@ namespace applicationManager{
         Adds a new panel to the queue that will be initlized once it is active.
 
       RETURNS:
-      None
+        void
 
       AUTHOR:
       Josh Long
@@ -68,7 +68,7 @@ namespace applicationManager{
         panel is added.
 
       RETURNS:
-        None
+        void
 
       AUTHOR:
         Josh Long
@@ -77,24 +77,24 @@ namespace applicationManager{
 
     /*
       NAME:
-      MoveToNextPanel
+        MoveToNextPanel
 
       SYNOPSIS:
-      void MoveToNextPanel();
+        void MoveToNextPanel();
 
       DESCRIPTION:
-      Sets the plag to move to the next panel to true,
-      and initlizes the next panel in the queue.
+        Sets the plag to move to the next panel to true,
+        and initlizes the next panel in the queue.
 
       RETURNS:
-      None
+        void
 
       AUTHOR:
       Josh Long
     */
     void MoveToNextPanel();
 
-    //variables
+    // static variables so they can only be used within the namesapce scope.
     static panelManager m_manager;
     static sf::RenderWindow m_standardWindow;
 }

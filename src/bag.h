@@ -16,7 +16,6 @@ public:
 
       SYNOPSIS:
         std::vector<std::shared_ptr<baseItem>> & GetItems();
-
       DESCRIPTION:
         Returns a refrence to all items being stored.
 
@@ -34,6 +33,7 @@ public:
 
      SYNOPSIS:
        void AddItem(std::shared_ptr<baseItem> a_item);
+                    std::shared_ptr<baseItem> a_item -> pointer to object being added to player inventory.
 
      DESCRIPTION:
        Adds an item object to the storage.
@@ -43,9 +43,8 @@ public:
     */
     void AddItem(std::shared_ptr<baseItem> a_item);
 
-
 public:
-
+    // MEMBER VARIABLES //
     std::vector<std::shared_ptr<baseItem>> m_itemStorage;
 };
 

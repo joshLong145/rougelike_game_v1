@@ -1,28 +1,41 @@
-CC = g++
+CC = clang #using clang for elacticity. 
 
-OBJS = src/*.cpp
+APP = Issac_clone
 
-LINKER_FLAGS = -lsfml-graphics -lsfml-window -lsfml-system
+SRCS = src/*.cpp
 
-COMPILER_FLAGS = -std=c++14 -g
+LINKER_FLAGS = -lstdc++ -lm -lsfml-graphics -lsfml-window -lsfml-system
 
-OBJ_Name = rougeShooter
+COMPILER_FLAGS = -std=c++14
 
-BIN = bin/rougeShooter
+OBJ_NAME = rougeShooter
 
-#Compile and run
-all: rougeShooter
+BUILD_DIR = bin/
+
+OBJDIR = obj/
+
+OBJS := $(patsubst %.cpp,$(OBJDIR)%.o,$(SRCS))
+
+CFLAGS = -Wall -g
+
+all: $(APP)
+
+
+$(APP) : $(OBJS)
+	@echo "*** Linking libraries ***"
+	$(CC) $(OBJS) $(LINKER_FLAGS) -o $@
 
 %.o: %.cpp
-	$(CXX) -c $< -o $@
+	$(CC) $(LINKER_FLAGS) $(COMPILER_FLAGS) $(CFLAGS) -c $< -o $@
 
-%.o: %.h
-	$(CXX) -c $< -o $@
+#Compile and run
+obj/%.o: $(SRCS)
+	$(CC) $(CFLAGS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -c $< -o $@
 
-rougeShooter:
-	@echo "** building object files **"
-	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(BIN)$(OBJ_NAME)
-	$(BIN)$(OBJ_NAME)
+build:
+	@echo "** Compiling files... this will take a bit. **"
+	$(CC) $(SRCS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(BUILD_DIR)$(OBJ_NAME)
+	$(BUILD_DIR)$(OBJ_NAME)
 
 clean:
 	@echo "** removing object files and executables **"
@@ -35,3 +48,5 @@ install:
 uninstall:
 	@echo "** uninstalling...."
 	$(RM) /usr/bin/rougeShooter
+
+	.phony clean

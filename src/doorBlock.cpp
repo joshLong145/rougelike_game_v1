@@ -11,13 +11,13 @@
 doorBlock::doorBlock(int xpos, int ypos,int direction) : enviormentBlocks(xpos, ypos){
     // initilie texture for the block
     SetImage("./resources/door.png");
-    this->direction = direction;
+    this->m_direction = direction;
 }
 
-int doorBlock::getDirection(){
-    return direction;
+int doorBlock::GetDirection(){
+    return m_direction;
 }
 
 sf::FloatRect doorBlock::GetRect(){
-    return sprite.getGlobalBounds();
+    return m_sprite.getGlobalBounds();
 }

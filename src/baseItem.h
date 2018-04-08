@@ -11,7 +11,8 @@ public:
     enum items{
         healthIncrease,
         damageIncrease,
-        healthDecrease
+        healthDecrease,
+        multiFire
     };
 
     /*

@@ -159,19 +159,19 @@ class loadLevel{
             ~GetEnviormentRocks
 
           SYNOPSIS:
-            std::vector<sf:Sprite> & GetEnviormentRocks();
+            std::vector<std::shared_ptr<rockBlock>> & GetEnviormentRocks();
 
           DESCRIPTION:
            returns a refrence to a vector of sprites correpsonding to static game sprites
            ( would be contained within GetRects but these have special collision rules).
 
           RETURNS:
-            std::vector<sf::Sprite>
+            std::vector<std::shared_ptr<rockBlock>> 
 
           AUTHOR:
             Josh Long
         */
-        std::vector<sf::Sprite> & GetEnviormentRocks();
+        std::vector<std::shared_ptr<rockBlock>> & GetEnviormentRocks();
 
         /*
           NAME:
@@ -194,8 +194,9 @@ class loadLevel{
         Player *m_player = nullptr;
         //stores enviorment blocks for the room
         std::vector<std::shared_ptr<enviormentBlocks>> m_levelBlocks;
+        // all static enviorment objects.
         std::vector<sf::Sprite> m_rects;
-        std::vector<sf::Sprite> m_rockRects;
+        std::vector<std::shared_ptr<rockBlock>> m_rockRects;
         //container for handling door collisions
         std::vector<std::shared_ptr<doorBlock>> m_doorRects;
         std::vector<std::shared_ptr<levelDoorBlock>> m_levelDoorRects;

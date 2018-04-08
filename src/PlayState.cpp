@@ -25,7 +25,7 @@ void PlayState::InitilizeGameState(){
     initilizeLevels levelInit;
     // parses and loacs all level data for the game
 
-    m_levels = levelInit.createAndReturnLevels();
+    m_levels = levelInit.CreateAndReturnLevels();
     //set the player to the first room in the first level
     m_levels["level"+std::to_string(m_current_level)][m_current_room]->SetPlayer(m_player);
 }
@@ -81,9 +81,16 @@ void PlayState::update(){
     // if the player's health is 0 or less, quit the game
     if (m_player.GetHealth() <= 0){
         applicationManager::AddPanel(GameState::m_states::MenuState);
-        return; // need to return from the update cycle ( I HAVE NOT IDEA WHY THIS WORKS).
+        return; // need to return from the update cycle in order to load the new state.
     }
 
+    if((unsigned)m_current_level >= m_levels.size() && (unsigned)m_current_room >= m_levels["level"+std::to_string(m_current_level)].size()
+       && m_levels["level"+std::to_string(m_current_level)][m_current_room]->GetEnemies().size() <= 0){
+      applicationManager::AddPanel(GameState::m_states::MenuState);
+      return;
+    }
+
+    // if the game is paused, suspend the current state and add the save the current one.
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
         applicationManager::AddAndSaveCurrentPanel(GameState::m_states::PauseState);
         return;
@@ -104,17 +111,17 @@ void PlayState::DrawAssets(){
     m_levels["level"+std::to_string(m_current_level)][m_current_room]->Display(m_window);
 
     //display GUI elements
-    m_window.draw(gui.displayHealthImage());
+    m_window.draw(gui.DisplayHealthImage());
 
     //  draw text for the gui
-    m_window.draw(gui.displayTextHealth(m_player));
+    m_window.draw(gui.DisplayTextHealth(m_player));
 
-    m_window.draw(gui.displayOffenseImage());
+    m_window.draw(gui.DisplayOffenseImage());
 
-    m_window.draw(gui.displayTextOffense(m_player));
+    m_window.draw(gui.DisplayTextOffense(m_player));
 
     //draws all item icons that the player has aquired
-    std::vector<sf::Sprite> itemSprites = gui.displayItems(m_player);
+    std::vector<sf::Sprite> itemSprites = gui.DisplayItems(m_player);
     for(auto itemSprite = itemSprites.begin(); itemSprite != itemSprites.end(); itemSprite++){
         m_window.draw((*itemSprite));
     }
