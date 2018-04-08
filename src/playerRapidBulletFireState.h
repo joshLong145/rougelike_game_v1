@@ -7,7 +7,7 @@
 
 class playerRapidBulletFireBulletState : public virtual gameObjectState{
     public:
-        /*
+        /**
           NAME:
             playerBounceState
 
@@ -27,12 +27,12 @@ class playerRapidBulletFireBulletState : public virtual gameObjectState{
         */
         playerRapidBulletFireState(Player &p, const int a_direction);
 
-        /*
+        /**
           NAME:
-            update
+            UpdateState
 
           SYNOPSIS:
-            void update();
+            void UpdateState();
 
           DESCRIPTION:
             updates / modifies all data within the current state.
@@ -44,11 +44,11 @@ class playerRapidBulletFireBulletState : public virtual gameObjectState{
           AUTHOR:
             Josh Long
         */
-        void update();
+        void UpdateState();
 
-        /*
+        /**
           NAME:
-            nextPanel
+            NextPanel
 
           SYNOPSIS:
             bool nextPanel();
@@ -62,7 +62,7 @@ class playerRapidBulletFireBulletState : public virtual gameObjectState{
           AUTHOR:
             Josh Long
         */
-        bool nextPanel();
+        bool NextPanel();
     private:
         Player *m_player = nullptr;
         int m_direction;

@@ -2,12 +2,12 @@
 
 playerBounceState::playerBounceState(Player &p, const sf::Time deltaTime) : gameObjectState(){
     m_player = &p;
-    delta = deltaTime;
+    m_delta = deltaTime;
 }
 
-void playerBounceState::update(){
+void playerBounceState::UpdateState(){
     // calcualtes knock back distance when colliding with enemies
-    const auto knock_back = delta.asSeconds() * 50;
+    const auto knock_back = m_delta.asSeconds() * 50;
       if((m_player->GetPos()[0] == -1 && m_player->GetPos()[1] == 0) ){
         m_player->LoadImage().move(knock_back, 0);
 
@@ -20,9 +20,9 @@ void playerBounceState::update(){
       }else if((m_player->GetPos()[0] == 0 && m_player->GetPos()[1] == -1) ){
         m_player->LoadImage().move(0,-knock_back);
       }
-     next = true;
+     m_next = true;
 }
 
-bool playerBounceState::nextPanel(){
-    return next;
+bool playerBounceState::NextPanel(){
+    return m_next;
 }

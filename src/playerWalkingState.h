@@ -7,7 +7,8 @@
 
 class playerWalkingState : public virtual gameObjectState{
     public:
-        /*
+
+        /**
           NAME:
             playerWalkingState
 
@@ -28,7 +29,7 @@ class playerWalkingState : public virtual gameObjectState{
         */
         playerWalkingState(const char a_direction, Player &p, const sf::Time a_deltaTime);
 
-        /*
+        /**
           NAME:
             playerWalkingState
 
@@ -47,12 +48,12 @@ class playerWalkingState : public virtual gameObjectState{
         */
         playerWalkingState(playerWalkingState &&other){}
 
-        /*
+        /**
           NAME:
-            update
+            UpdateState
 
           SYNOPSIS:
-            void update();
+            void UpdateState();
 
           RETURNS:
             None
@@ -60,11 +61,11 @@ class playerWalkingState : public virtual gameObjectState{
           AUTHOR:
             Josh Long
         */
-        void update();
+        void UpdateState();
 
-        /*
+        /**
           NAME:
-            nextPanel
+            NextPanel
 
           SYNOPSIS:
             bool nextPanel();
@@ -75,7 +76,8 @@ class playerWalkingState : public virtual gameObjectState{
           AUTHOR:
             Josh Long
         */
-        bool nextPanel();
+        bool NextPanel();
+
     protected:
         Player *m_player = nullptr;
         sf::Clock m_animationCLock;

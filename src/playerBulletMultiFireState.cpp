@@ -6,7 +6,7 @@ playerBulletMultiFireState::playerBulletMultiFireState(Player &p, const int a_di
   m_direction = a_dir;
 }
 
-void playerBulletMultiFireState::update(){ 
+void playerBulletMultiFireState::UpdateState(){ 
   sf::Vector2f pos = m_player->LoadImage().getPosition();
  
  if(m_direction == 3){
@@ -23,10 +23,10 @@ void playerBulletMultiFireState::update(){
     m_player->GetBulletVector().push_back(std::make_unique<playerBulletMultiFire>(pos.x,pos.y,m_direction, -45)); 
   }
   
-  next = true;
+  m_next = true;
 }
 
-bool playerBulletMultiFireState::nextPanel(){
-  return next;
+bool playerBulletMultiFireState::NextPanel(){
+  return m_next;
 }
 

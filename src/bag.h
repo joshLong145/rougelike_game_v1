@@ -10,7 +10,7 @@
 class Bag{
 public:
 
-    /*
+    /**
       NAME:
         GetItems()
 
@@ -27,7 +27,7 @@ public:
     */
     std::vector<std::shared_ptr<baseItem>> & GetItems();
 
-    /*
+    /**
       NAME:
         AddItem
 

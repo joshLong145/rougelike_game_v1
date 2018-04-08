@@ -1,11 +1,3 @@
-//
-//  Bullet.hpp
-//  game_proj
-//
-//  Created by josh long on 1/30/17.
-//  Copyright © 2017 josh long. All rights reserved.
-//
-
 #ifndef  enemyBullet_h
 #define  enemyBullet_h
 
@@ -16,7 +8,7 @@
 class enemyBullet : public baseBullet{
     // public class functions
     public:
-        /*
+        /**
           NAME:
             enemyBullet
 
@@ -35,7 +27,8 @@ class enemyBullet : public baseBullet{
             Josh Long
         */
         enemyBullet(const int a_xPos, const int a_yPos, const int a_dir);
-        /*
+
+        /**
           NAME:
             ~enemyBullet
 
@@ -53,7 +46,7 @@ class enemyBullet : public baseBullet{
         */
         ~enemyBullet() {}
 
-        /*
+        /**
           NAME:
             move
 

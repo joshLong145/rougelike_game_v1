@@ -19,7 +19,7 @@
 #include "chest.h"
 #include <memory>
 
-/*
+/**
 renders each room of the game. all textures that could potentially be used are rendered during obj initialization.
 player object is passed by refrence to the object.
 display() and update() update any object on the screen and display will display any objects to the window which is passed by refrence to display().
@@ -27,7 +27,8 @@ display() and update() update any object on the screen and display will display 
 
 class loadLevel{
     public:
-        /*
+
+        /**
           NAME:
             loadLevel
 
@@ -49,7 +50,8 @@ class loadLevel{
            Josh Long
         */
         loadLevel(std::vector<std::string> rooms, std::vector<std::unique_ptr<baseEnemy>> &e);
-        /*
+
+        /**
           NAME:
             SetPlayer
 
@@ -67,7 +69,7 @@ class loadLevel{
         */
         void SetPlayer(Player &a_player);
 
-        /*
+        /**
           NAME:
             Display
 
@@ -85,7 +87,7 @@ class loadLevel{
         */
         void Display(sf::RenderWindow &a_windowObj);
 
-        /*
+        /**
           NAME:
            Update
 
@@ -103,7 +105,7 @@ class loadLevel{
         */
         void update();
 
-         /*
+        /**
            NAME:
              GetRects
 
@@ -121,7 +123,7 @@ class loadLevel{
          */
         std::vector<sf::Sprite> & GetRects();
 
-        /*
+        /**
           NAME:
            GetEnemies
 
@@ -136,7 +138,7 @@ class loadLevel{
         */
         std::vector<std::unique_ptr<baseEnemy>> & GetEnemies();
 
-        /*
+        /**
            NAME:
              GetDoors
 
@@ -154,7 +156,7 @@ class loadLevel{
         */
         std::vector<std::shared_ptr<doorBlock>> & GetDoors();
 
-        /*
+        /**
           NAME:
             ~GetEnviormentRocks
 
@@ -173,7 +175,7 @@ class loadLevel{
         */
         std::vector<std::shared_ptr<rockBlock>> & GetEnviormentRocks();
 
-        /*
+        /**
           NAME:
             GetChests
 
@@ -190,7 +192,8 @@ class loadLevel{
             Josh Long
         */
         std::vector<std::shared_ptr<chest>> & GetChests();
-    private:
+
+ private:
         Player *m_player = nullptr;
         //stores enviorment blocks for the room
         std::vector<std::shared_ptr<enviormentBlocks>> m_levelBlocks;

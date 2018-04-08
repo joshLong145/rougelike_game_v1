@@ -6,16 +6,17 @@
 
 class baseItem : public sf::Transformable{
 public:
-    //used to add items to the players active items list, abstracts the creation of objects from outside the itemManager class
-    //to inside of the itemManager class.
-    enum items{
+  /**
+  used to add items to the players active items list, abstracts the creation of objects from outside the itemManager class inside of the itemManager class.
+  */
+  enum items{
         healthIncrease,
         damageIncrease,
         healthDecrease,
         multiFire
     };
 
-    /*
+    /**
       NAME:
         baseItem
 
@@ -38,7 +39,7 @@ public:
       m_sprite.setTexture(m_texture);
     }
 
-    /*
+    /**
       NAME:
         baseItem (destructor)
 
@@ -56,7 +57,7 @@ public:
     */
     ~baseItem() = default;
 
-    /*
+    /**
       NAME:
         LoadImage
 
@@ -74,7 +75,7 @@ public:
     */
     inline sf::Sprite LoadImage(){ return m_sprite; }
 
-    /*
+    /**
       NAME:
         GetStatModifier
 
@@ -91,7 +92,8 @@ public:
         Josh Long
     */
     virtual int GetStatModifier() = 0;
-    /*
+
+    /**
       NAME:
         GetItemName()
 
@@ -109,7 +111,7 @@ public:
     */
     inline std::string GetItemName(){ return m_itemName; }
 
-    /*
+    /**
       NAME:
         ItemType
 
@@ -127,7 +129,7 @@ public:
     */
     virtual items ItemType() = 0;
 
-    /*
+    /**
       NAME:
         SetItemUse
 
@@ -146,7 +148,7 @@ public:
     */
     inline void SetItemUse(bool use){ m_itemUsed = true; }
 
-    /*
+    /**
       NAME:
         IsItemUsed
 
@@ -164,7 +166,7 @@ public:
     */
     inline bool IsItemUsed() { return m_itemUsed; }
 
-    /*
+    /**
       NAME;
         AccountedFor
 
@@ -182,7 +184,7 @@ public:
     */
     inline bool AccountedFor() { return m_isAccounted; }
 
-    /*
+    /**
       NAME:
         inline void SetAccountedFor();
 

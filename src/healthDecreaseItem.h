@@ -6,12 +6,25 @@
 class healthDecreaseItem : public baseItem{
  public:
 
-  /*
+  /**
+     NAME:
+       healthDecreaseItem
 
+     SYNOPSIS:
+       healthDecreaseItem();
+
+     DESCRIPTION:
+       Defualt constructor for healthDecreaseItem, takes not params.
+
+     RETURNS:
+       None
+
+     AUTHOR:
+       Josh Long
    */
   healthDecreaseItem();
 
-  /*
+  /**
     NAME:
       GetStatModifier
 
@@ -29,7 +42,7 @@ class healthDecreaseItem : public baseItem{
   */
   int GetStatModifier(){ return m_statModifier; }
 
-  /*
+  /**
     NAME:
     ItemType
 

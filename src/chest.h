@@ -13,7 +13,7 @@
 class chest : public enviormentBlocks {
 
     public:
-        /*
+       /**
           NAME:
             chest
 
@@ -30,10 +30,10 @@ class chest : public enviormentBlocks {
 
          AUTHOR:
            Josh Long
-        */
-        chest(int a_x, int a_y);
+       */
+      chest(int a_x, int a_y);
 
-        /*
+        /**
           NAME:
            GetItemStored
 
@@ -52,7 +52,7 @@ class chest : public enviormentBlocks {
         */
         std::shared_ptr<baseItem> & GetItemStored();
 
-        /*
+        /**
           NAME:
             IsOpened
 
@@ -70,7 +70,7 @@ class chest : public enviormentBlocks {
         */
         bool IsOpened() { return m_opened; }
 
-        /*
+        /**
           NAME:
             SetOpened
 

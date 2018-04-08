@@ -16,7 +16,7 @@
 class Turret: public baseEnemy{
     public:
 
-        /*
+        /**
           NAME:
             Turret
 
@@ -36,7 +36,8 @@ class Turret: public baseEnemy{
             Josh Long
         */
         Turret(const int a_xPos, const int y_pos,const int a_velocity);
-        /*
+
+        /**
           NAME:
           Turret
 
@@ -54,7 +55,7 @@ class Turret: public baseEnemy{
         */ 
        ~Turret() = default;
 
-       /*
+       /**
          NAME:
          Turret
 
@@ -72,10 +73,9 @@ class Turret: public baseEnemy{
          AUTHOR:
          Josh Long
        */
-        
        void Move(Player &a_player, sf::Time a_deltaTime);
 
-       /*
+       /**
          NAME:
          Turret
 
@@ -92,9 +92,10 @@ class Turret: public baseEnemy{
          AUTHOR:
            Josh Long
        */
-        
+
         void Bounce(sf::Vector2f a_objBounds);
-        /*
+
+        /**
           NAME:
             GetHealth
 

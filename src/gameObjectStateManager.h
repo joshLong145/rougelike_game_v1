@@ -9,7 +9,8 @@
 
 class gameObjectStateManager{
     public:
-        /*
+
+        /**
           NAME:
             NewPanel
 
@@ -30,7 +31,7 @@ class gameObjectStateManager{
         */
         void NewPanel(std::shared_ptr<gameObjectState> panel);
 
-        /*
+        /**
           NAME:
             RequeuePanel
 
@@ -48,12 +49,12 @@ class gameObjectStateManager{
         */
         void RequeuePanel();
 
-        /*
+        /**
           NAME:
-            NextPanel
+            MoveToNextPanel
 
           SYNOPSIS:
-            void NextPanel();
+            void MoveToNextPanel();
 
           DESCRIPTION:
             pops the current panel off of the queue and initilizes the new panel.
@@ -64,9 +65,9 @@ class gameObjectStateManager{
           AUTHOR:
             Josh Long
         */
-        void NextPanel();
+        void MoveToNextPanel();
 
-        /*
+        /**
           NAME:
             update
 
@@ -84,7 +85,7 @@ class gameObjectStateManager{
         */
         void UpdatePanels();
 
-        /*
+        /**
           NAME:
             GetCurrentPanel
 

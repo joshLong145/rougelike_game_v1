@@ -7,7 +7,6 @@
 //
 
 #include "playerBullet.h"
-#include "../ResourcePath.hpp"
 
 #define NORTH 0
 #define SOUTH 1

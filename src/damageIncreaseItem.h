@@ -6,7 +6,7 @@
 class damageIncreaseItem : public baseItem{
 public:
 
-    /*
+    /**
       NAME:
         damageIncreaseItem
 
@@ -15,7 +15,7 @@ public:
 
       DESCRIPTION:
         Initlizes a damageIncreaseItem takes no paramaters.
-
+        Inherits from the baseItem class which also takes no constructor paramaters. 
       RETURNS:
         None
 
@@ -24,7 +24,7 @@ public:
     */
     damageIncreaseItem();
 
-    /*
+    /**
       NAME:
         ItemType
 
@@ -40,10 +40,10 @@ public:
 
       AUTHOR:
         Josh Long
-    */ 
+    */
     items ItemType();
 
-    /*
+    /**
       NAME:
         GetStatModifier
 

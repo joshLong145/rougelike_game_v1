@@ -7,7 +7,7 @@
 
 class playerBounceState : public virtual gameObjectState{
     public:
-        /*
+        /**
           NAME:
             playerBounceState
 
@@ -27,12 +27,12 @@ class playerBounceState : public virtual gameObjectState{
         */
         playerBounceState(Player &p, sf::Time deltaTime);
 
-        /*
+        /**
           NAME:
-            update
+            UpdateState
 
           SYNOPSIS:
-            void update();
+            void UpdateState();
 
           DESCRIPTION:
             updates / modifies all data within the current state.
@@ -44,9 +44,9 @@ class playerBounceState : public virtual gameObjectState{
           AUTHOR:
             Josh Long
         */
-        void update();
+        void UpdateState();
 
-        /*
+        /**
           NAME:
             nextPanel
 
@@ -62,10 +62,10 @@ class playerBounceState : public virtual gameObjectState{
           AUTHOR:
             Josh Long
         */
-        bool nextPanel();
+        bool NextPanel();
     private:
         Player *m_player = nullptr;
-        char m_direction;
+        // char m_direction;
 };
 
 #endif

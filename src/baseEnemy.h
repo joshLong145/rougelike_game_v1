@@ -23,7 +23,8 @@ class baseEnemy : public sf::Transformable{
             ghost,
             turret
         };
-        /*
+
+        /**
           NAME:
             baseEnemy
 
@@ -39,6 +40,7 @@ class baseEnemy : public sf::Transformable{
             None
           AUTHOR:
          m_   Josh Long
+
         */
         baseEnemy(const int a_xPos, const int a_yPos, const int a_velocity){
             m_xVal = a_xPos;
@@ -46,7 +48,7 @@ class baseEnemy : public sf::Transformable{
             m_velocity = a_velocity;
         }
 
-        /*
+        /**
           NAME:
             baseEnemy
 
@@ -64,7 +66,7 @@ class baseEnemy : public sf::Transformable{
         */ 
         ~baseEnemy() = default;
 
-        /*
+        /**
           NAME:
             LoadImage
 
@@ -81,7 +83,7 @@ class baseEnemy : public sf::Transformable{
         */
         inline sf::Sprite LoadImage(){ return m_sprite; }
 
-        /*
+        /**
           NAME:
             Move
           SYNOPSIS:
@@ -98,7 +100,7 @@ class baseEnemy : public sf::Transformable{
         */
         virtual void Move(Player &a_player, const sf::Time a_deltaTime) = 0;
 
-        /*
+        /**
           NAME:
             Bounce
 
@@ -117,7 +119,7 @@ class baseEnemy : public sf::Transformable{
         */ 
         virtual void Bounce(sf::Vector2f a_objectBounds) = 0;
 
-        /*
+        /**
           NAME:
             GetHealth
 
@@ -135,7 +137,7 @@ class baseEnemy : public sf::Transformable{
         */ 
         virtual int GetHealth() = 0;
 
-        /*
+        /**
           NAME:
            SetHealth
 
@@ -153,7 +155,7 @@ class baseEnemy : public sf::Transformable{
         */ 
         virtual void SetHealth(int a_newAmount) = 0;
 
-        /*
+        /**
           NAME:
            GetBulletVector
 
@@ -167,10 +169,10 @@ class baseEnemy : public sf::Transformable{
 
           AUTHOR:
           Josh Long
-        */ 
+        */
         inline std::vector<std::unique_ptr<enemyBullet>> & GetBulletVector(){ return m_bullets; };
 
-        /*
+        /**
           NAME:
             PathLength
 
@@ -185,12 +187,12 @@ class baseEnemy : public sf::Transformable{
 
           AUTHOR:
           Josh Long
-        */ 
+        */
         inline int PathLength( const int a_x1, const int a_y1, const int a_x2, const int a_y2){
           return std::abs(a_x1 - a_x2) + std::abs(a_y1 - a_y2);
         }
 
-        /*
+        /**
           NAME:
             GetDamageAmount
 
@@ -208,7 +210,7 @@ class baseEnemy : public sf::Transformable{
         */ 
         inline int GetDamageAmount(){ return m_damage; }
 
-        /*
+        /**
           NAME:
             GetEnemeyType
 

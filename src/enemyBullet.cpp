@@ -13,6 +13,7 @@ enemyBullet::enemyBullet(int a_xPos, int a_yPos, int a_dir) : baseBullet(a_xPos,
     //image_x and image_y are positios on the sprite sheet
     m_sprite.setTextureRect(sf::IntRect(0,30, 32, 32));
     m_sprite.setScale({.8f, .8f});
+    m_sprite.setColor(sf::Color::Red);
 }
 
 void enemyBullet::move(sf::Time a_deltaTime){

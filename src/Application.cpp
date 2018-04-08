@@ -45,7 +45,7 @@ namespace applicationManager{
     // TODO: change from an enum to a unique ptr to the new state (better architrure for current design).
     void AddPanel(const GameState::m_states state){
         if(state == GameState::m_states::MenuState){
-         m_manager.NewPanel(std::move(std::make_unique<MenuState>(m_standardWindow)));
+         m_manager.NewPanel(std::make_unique<MenuState>(m_standardWindow));
          MoveToNextPanel();
         }
 

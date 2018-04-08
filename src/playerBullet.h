@@ -6,7 +6,8 @@
 class playerBullet : public baseBullet{
     // public class functions
     public:
-        /*
+
+        /**
           NAME:
             playerBullet
 
@@ -27,7 +28,7 @@ class playerBullet : public baseBullet{
         */
         playerBullet(const int a_xStart, const int a_yStart, const int a_dir);
 
-        /*
+        /**
           NAME:
             ~playerBullet
 
@@ -45,7 +46,7 @@ class playerBullet : public baseBullet{
         */
         ~playerBullet() = default;
 
-        /*
+        /**
           NAME:
             move
 
@@ -57,14 +58,14 @@ class playerBullet : public baseBullet{
             Accelerates the playerBullet object in the appropriate direction.
 
           RETURNS:
-            None
+            void
 
           AUTHOR:
             Josh Long
         */
         void move(sf::Time deltaTime);
 
-        /*
+        /**
           NAME:
             GetDistance
 

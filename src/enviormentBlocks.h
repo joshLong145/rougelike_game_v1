@@ -11,13 +11,13 @@
 
 #include <SFML/Graphics.hpp>
 
-/*
+/**
  base class for object inheritance, all enviorment blocks will derive from this class ( single level inheritace structure )
-
 */
 class enviormentBlocks : public sf::Transformable{
     public:
-        /*
+
+        /**
           NAME:
             enviormentBlocks
 
@@ -43,7 +43,7 @@ class enviormentBlocks : public sf::Transformable{
           m_sprite.setTextureRect(sf::IntRect(0,0,65,70));
         }
 
-        /*
+        /**
           NAME:
             LoadImage
 
@@ -55,14 +55,14 @@ class enviormentBlocks : public sf::Transformable{
             used to render all sprites relating to the enviorment.
 
           RETURNS:
-            Sf::Sprite
+            Sf::Sprite see SFML docs for more info.
 
           AUTHOR:
             Josh Long
         */
         inline sf::Sprite LoadImage(){ return m_sprite; };
 
-        /*
+        /**
           NAME:
             SetImage
 
@@ -86,7 +86,7 @@ class enviormentBlocks : public sf::Transformable{
           m_sprite.setPosition(m_xPos,m_yPos);
         }
 
-        /*
+        /**
           NAME:
            GetRect
 

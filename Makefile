@@ -1,52 +1,45 @@
-CC = clang #using clang for elacticity. 
+CC = clang++
+OPTS = -c -Wall
 
-APP = Issac_clone
+# Project name
+PROJECT = rougeShooter
 
-SRCS = src/*.cpp
+# Directories
+OBJDIR = obj
+SRCDIR = src
 
-LINKER_FLAGS = -lstdc++ -lm -lsfml-graphics -lsfml-window -lsfml-system
-
-COMPILER_FLAGS = -std=c++14
-
-OBJ_NAME = rougeShooter
-
-BUILD_DIR = bin/
-
-OBJDIR = obj/
-
-OBJS := $(patsubst %.cpp,$(OBJDIR)%.o,$(SRCS))
-
-CFLAGS = -Wall -g
-
-all: $(APP)
+# Libraries
+LIBS = -lstdc++ -lm -lsfml-graphics -lsfml-window -lsfml-system
 
 
-$(APP) : $(OBJS)
-	@echo "*** Linking libraries ***"
-	$(CC) $(OBJS) $(LINKER_FLAGS) -o $@
+# Files and folders
+SRCS    = $(shell find $(SRCDIR) -name '*.cpp')
+SRCDIRS = $(shell find . -name '*.cpp' | dirname {} | sort | uniq | sed 's/\/$(SRCDIR)//g' )
+OBJS    = $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(SRCS))
 
-%.o: %.cpp
-	$(CC) $(LINKER_FLAGS) $(COMPILER_FLAGS) $(CFLAGS) -c $< -o $@
-
-#Compile and run
-obj/%.o: $(SRCS)
-	$(CC) $(CFLAGS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -c $< -o $@
-
-build:
-	@echo "** Compiling files... this will take a bit. **"
-	$(CC) $(SRCS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(BUILD_DIR)$(OBJ_NAME)
-	$(BUILD_DIR)$(OBJ_NAME)
+# Targets
+rougeShooter: buildrepo $(OBJS)
+	@echo "***Linking object files"
+	$(CC) $(OBJS) $(LIBS) -o bin/$@
+	@echo "****running binary"
+	bin/$@
+obj/%.o: src/%.cpp
+	@echo "**** Creating object files"
+	$(CC) $(OPTS) -c $< -o $@
 
 clean:
-	@echo "** removing object files and executables **"
-	rm -rf rougeShooter *.o
+	@echo "****Removing all files"
+	rm $(PROJECT) $(OBJDIR) -Rf
 
-install:
-	@echo "** installing..."
-	cp bin/rougeShooter /usr/bin/
+buildrepo:
+	@echo "****Building repository"
+	@$(call make-repo)
 
-uninstall:
-	@echo "** uninstalling...."
-	$(RM) /usr/bin/rougeShooter
-
-	.phony clean
+# Create obj directory structure
+define make-repo
+	mkdir -p $(OBJDIR)
+	for dir in $(SRCDIRS); \
+	do \
+		mkdir -p $(OBJDIR)/$$dir; \
+	done
+endef

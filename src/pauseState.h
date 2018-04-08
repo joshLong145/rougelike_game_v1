@@ -5,7 +5,7 @@
 
 class pauseState : public virtual GameState{
     public:
-        /*
+        /**
          NAME:
            pauseState
 
@@ -23,7 +23,7 @@ class pauseState : public virtual GameState{
         */
         pauseState(sf::RenderWindow &a_windowObj);
 
-        /*
+        /**
           NAME:
             update
 
@@ -41,7 +41,7 @@ class pauseState : public virtual GameState{
         */
         void update();
 
-        /*
+        /**
           NAME:
             InitilizeGameState
 
@@ -57,7 +57,7 @@ class pauseState : public virtual GameState{
         */
         void InitilizeGameState();
 
-        /*
+        /**
           NAME:
             DrawAssets
 
@@ -75,7 +75,7 @@ class pauseState : public virtual GameState{
         */
         void DrawAssets();
 
-        /*
+        /**
           NAME:
             GetState
 
@@ -93,7 +93,8 @@ class pauseState : public virtual GameState{
             Josh Long
         */
         m_states GetState();
-    private:
+
+ private:
         // for displaying text
         sf::Font m_font;
         sf::Text m_display;

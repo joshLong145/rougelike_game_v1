@@ -11,7 +11,7 @@ class Player : public sf::Transformable{
 
     public:
 
-        /*
+        /**
           NAME:
             Player
 
@@ -29,9 +29,9 @@ class Player : public sf::Transformable{
          AUTHOR:
            Josh Long
         */
-        Player(int y_pos, int x_pos);
+        Player(const int a_yPos, const int a_xPos);
 
-        /*
+        /**
           NAME:
             ~Player
 
@@ -49,7 +49,7 @@ class Player : public sf::Transformable{
         */
         ~Player() = default;
 
-        /*
+        /**
           NAME:
             LoadImage
 
@@ -67,7 +67,7 @@ class Player : public sf::Transformable{
         */
         sf::Sprite & LoadImage();
 
-        /*
+        /**
           NAME:
             PlayerControls
 
@@ -86,7 +86,7 @@ class Player : public sf::Transformable{
         */
         void PlayerControls(const sf::Time a_deltaTime);
 
-        /*
+        /**
           NAME:
             GetBulletVector
 
@@ -104,7 +104,7 @@ class Player : public sf::Transformable{
         */
         std::vector<std::shared_ptr<playerBullet>> & GetBulletVector();
 
-        /*
+        /**
           NAME:
             Bounce
 
@@ -123,7 +123,7 @@ class Player : public sf::Transformable{
         */
         void Bounce(const sf::Time a_deltaTime);
 
-        /*
+        /**
           NAME:
             GetHealth
 
@@ -141,7 +141,7 @@ class Player : public sf::Transformable{
         */
         int GetHealth();
 
-        /*
+        /**
           NAME:
             SetHealth
 
@@ -160,7 +160,7 @@ class Player : public sf::Transformable{
         */
         void SetHealth(const int a_health);
 
-        /*
+        /**
           NAME:
             SetPosition
 
@@ -180,7 +180,7 @@ class Player : public sf::Transformable{
         */
         void SetPosition(const int a_xVal, int a_yVal);
 
-        /*
+        /**
           NAME:
             GetPos
 
@@ -198,7 +198,7 @@ class Player : public sf::Transformable{
         */
         int * GetPos();
 
-        /*
+        /**
           NAME:
             GetImageArray
 
@@ -219,7 +219,7 @@ class Player : public sf::Transformable{
         */
         sf::IntRect & getImageArray(const int a_col, const int a_row);
 
-        /*
+        /**
           NAME:
             SetDoor
 
@@ -238,7 +238,7 @@ class Player : public sf::Transformable{
         */
         void SetDoor(const int a_door);
 
-        /*
+        /**
           NAME:
             GetDoor
 
@@ -256,7 +256,7 @@ class Player : public sf::Transformable{
         */
         int GetDoor();
 
-        /*
+        /**
           NAME:
             ClearBullets
 
@@ -274,7 +274,7 @@ class Player : public sf::Transformable{
         */
         void ClearBullets();
 
-        /*
+        /**
           NAME:
             UpdateWalkingAnimation
 
@@ -290,7 +290,7 @@ class Player : public sf::Transformable{
         */
         void UpdateWalkingAnimation(const char a_direction);
 
-        /*
+        /**
           NAME:
             UpdateStates
 
@@ -309,7 +309,7 @@ class Player : public sf::Transformable{
         */
         void UpdateStates();
 
-        /*
+        /**
           NAME:
             TransportForDoor
 
@@ -328,7 +328,7 @@ class Player : public sf::Transformable{
         */
         void TransporForDoor();
 
-        /*
+        /**
           NAME:
             AddItem
 
@@ -346,25 +346,7 @@ class Player : public sf::Transformable{
         */
         void AddItem();
 
-        /*
-          NAME:
-            RemoveItem
-
-          SYNOPSIS:
-            void RemoveItem();
-
-         DESCTRIPTION:
-           Removes an item from item storage.
-
-         RETURNS:
-           None
-
-         AUTHOR:
-           Josh Long
-        */
-
-        //void RemoveItem();
-        /*
+        /**
           NAME:
             GetOffensiveValue
 
@@ -379,7 +361,7 @@ class Player : public sf::Transformable{
         */
         int GetOffensiveValue();
 
-        /*
+        /**
           NAME:
             GetDefensiveValue
 
@@ -397,7 +379,7 @@ class Player : public sf::Transformable{
         */
         int GetDefensiveValue();
 
-        /*
+        /**
           NAME:
             GetItemStorage
 
@@ -415,7 +397,7 @@ class Player : public sf::Transformable{
         */
         Bag & GetItemStorage();
 
-        /*
+        /**
           NAME:
             AddItemModifications
 
@@ -434,7 +416,7 @@ class Player : public sf::Transformable{
         */
         void AddItemModifications();
 
-        /*
+        /**
           NAME:
             ManageColors
 
@@ -452,7 +434,7 @@ class Player : public sf::Transformable{
         */
         void ManageColors();
 
-        /*
+        /**
           NAME:
             SetDamageColorToggle
 
@@ -468,7 +450,7 @@ class Player : public sf::Transformable{
         */
         void SetDamageColorToggle(bool setting);
 
-        /*
+        /**
           NAME:
             EvaluateDamage
 

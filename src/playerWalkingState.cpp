@@ -4,12 +4,12 @@
 playerWalkingState::playerWalkingState(char b, Player &p, const sf::Time deltaTime) : gameObjectState(){
     button = b;
     m_player = &p;
-    delta = deltaTime;
+    m_delta = deltaTime;
 }
 
-void playerWalkingState::update(){
+void playerWalkingState::UpdateState(){
     m_player->UpdateWalkingAnimation(button);
-    const float speed = delta.asSeconds() * 150;
+    const float speed = m_delta.asSeconds() * 150;
 
     if(button == 'S'){
         m_player->LoadImage().move(0, speed);
@@ -36,9 +36,9 @@ void playerWalkingState::update(){
 
     }
 
-    next = true;
+    m_next = true;
 }
 
-bool playerWalkingState::nextPanel(){
-    return next;
+bool playerWalkingState::NextPanel(){
+    return m_next;
 }

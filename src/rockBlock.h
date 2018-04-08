@@ -6,7 +6,8 @@
 
 class rockBlock : public enviormentBlocks{
 public:
-    /*
+
+    /**
       NAME:
         rockBlock
 
@@ -26,7 +27,7 @@ public:
     */
     rockBlock(int xpos, int ypos);
 
-    /*
+    /**
       NAME:
         GetHealth
 
@@ -44,7 +45,7 @@ public:
     */
     int GetHealth(){ return m_health; }
 
-    /*
+    /**
       NAME:
         SetHealth
 
@@ -63,7 +64,7 @@ public:
     */
     void SetHealth(const int a_newHealth){ m_health = a_newHealth; }
 
-    /*
+    /**
       NAME:
         IsActive
 
@@ -81,7 +82,7 @@ public:
     */
     bool IsActive(){return m_active; }
 
-    /*
+    /**
       NAME:
         SetActive
 
@@ -100,7 +101,7 @@ public:
     */
     void SetActive(bool a_active){m_active = a_active;}
 
-    /*
+    /**
       NAME:
         SetGroundTexture
 

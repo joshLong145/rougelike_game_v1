@@ -8,8 +8,9 @@
 #include "doorBlock.h"
 #include "rockBlock.h"
 #include <memory>
+
 namespace checkCollision{
-        /*
+        /**
           NAME:
             CheckCollisonWalls
 
@@ -22,14 +23,14 @@ namespace checkCollision{
             Checks if an object has collided with any wall objects.
 
           RETURNS:
-            bool
+            sf::Sprite * -> see SFML docs for more info.
 
           AUTHOR:
             Josh Long
         */
         sf::Sprite * CheckCollisionWalls(sf::Sprite obj,std::vector<sf::Sprite> s2);
 
-        /*
+        /**
            NAME:
             CheckCollisionRocks
 
@@ -49,7 +50,7 @@ namespace checkCollision{
         */
         bool CheckCollisionRocks(sf::Sprite a_obj, std::vector<std::shared_ptr<rockBlock>> &a_rocks);
 
-        /*
+        /**
           NAME:
             CheckCollisionPlayerBullets
 
@@ -68,17 +69,26 @@ namespace checkCollision{
         */
         bool CheckCollisionPlayerBullets(sf::Sprite obj,Player &p);
 
-        /*
+        /**
           NAME:
             CheckCollisionBasic
 
           SYNOPSIS:
             bool CheckCollisionBasic(sf::Sprite obj1, sf::Sprite obj2);
 
+          DESCRIPTION:
+            Chescks collision between two sprites. returns true for a hit,
+            false for not a hit.
+
+          RETUNRS:
+            bool
+
+          AUTHOR:
+            Josh Long
         */
         bool CheckCollisionBasic(sf::Sprite obj1, sf::Sprite obj2);
 
-        /*
+        /**
           NAME:
             CheckCollisionEnemies
 
@@ -98,7 +108,7 @@ namespace checkCollision{
         */
         bool CheckCollisionEnemies(sf::Sprite a_obj1, std::vector<std::unique_ptr<baseEnemy>> &a_enemies);
 
-        /*
+        /**
           NAME:
             CheckCollisionEnemyBullets
 
@@ -118,7 +128,7 @@ namespace checkCollision{
         */
         bool CheckCollisionEnemyBullets(sf::Sprite a_obj,std::vector<std::unique_ptr<baseEnemy>> &a_enemies);
 
-        /*
+        /**
           NAME:
             CheckCollisionDoors
 

@@ -136,7 +136,7 @@ void Player::EvaluateDamage(const int a_enemyDamage){
 // gets the x and y values of the obj collided with and determins where on the map it is based on pixel location
 void Player::Bounce(const sf::Time a_deltaTime){
   m_states.NewPanel(std::make_unique<playerBounceState>(*this, a_deltaTime));
-  m_states.GetCurrentPanel().setNext(true);
+  m_states.GetCurrentPanel().SetNext(true);
    return;
 }
 
@@ -228,7 +228,7 @@ void Player::ClearBullets(){
 }
 
 void Player::UpdateStates(){
-    m_states.NextPanel();
+    m_states.MoveToNextPanel();
     m_states.UpdatePanels();
 }
 

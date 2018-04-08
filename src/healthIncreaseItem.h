@@ -6,7 +6,7 @@
 class healthIncreaseItem : public baseItem{
 public:
 
-    /*
+    /**
       NAME:
         healthIncreaseItem
 
@@ -24,7 +24,7 @@ public:
     */
     healthIncreaseItem();
 
-    /*
+    /**
       NAME:
       GetStatModifier
 
@@ -39,10 +39,10 @@ public:
 
       AUTHOR:
       Josh Long
-    */ 
+    */
     int GetStatModifier() { return m_statModifier; }
 
-    /*
+    /**
       NAME:
         ItemType
 

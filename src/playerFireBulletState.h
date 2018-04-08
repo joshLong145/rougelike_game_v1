@@ -1,4 +1,5 @@
 #pragma once
+
 #ifndef playerFireBulletState_h
 #define playerFireBullet_h
 
@@ -7,7 +8,7 @@
 
 class playerFireBulletState : public virtual gameObjectState{
     public:
-        /*
+        /**
           NAME:
             playerBounceState
 
@@ -27,12 +28,12 @@ class playerFireBulletState : public virtual gameObjectState{
         */
         playerFireBulletState(Player &p, const int a_direction);
 
-        /*
+        /**
           NAME:
-            update
+            UpdateState
 
           SYNOPSIS:
-            void update();
+            void UpdateState();
 
           DESCRIPTION:
             updates / modifies all data within the current state.
@@ -44,14 +45,14 @@ class playerFireBulletState : public virtual gameObjectState{
           AUTHOR:
             Josh Long
         */
-        void update();
+        void UpdateState();
 
-        /*
+        /**
           NAME:
-            nextPanel
+            NextPanel
 
           SYNOPSIS:
-            bool nextPanel();
+            bool NextPanel();
 
           DESCRIPTION:
             checks if it time to move to the next state of the players actions.
@@ -62,7 +63,8 @@ class playerFireBulletState : public virtual gameObjectState{
           AUTHOR:
             Josh Long
         */
-        bool nextPanel();
+        bool NextPanel();
+
     private:
         Player *m_player = nullptr;
         int m_direction;

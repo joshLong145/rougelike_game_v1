@@ -1,13 +1,13 @@
 #include "gameObjectStateManager.h"
 
 // move new states to the back
-void gameObjectStateManager::NewPanel(const std::shared_ptr<gameObjectState> state){
-    m_states.push(std::move(state));
+void gameObjectStateManager::NewPanel(const std::shared_ptr<gameObjectState> a_state){
+    m_states.push(std::move(a_state));
 }
 
-void gameObjectStateManager::NextPanel(){
+void gameObjectStateManager::MoveToNextPanel(){
     if(m_states.size() > 0 ){
-      if(GetCurrentPanel().nextPanel() ){
+      if(GetCurrentPanel().NextPanel() ){
             m_states.pop();
       }
     }
@@ -19,7 +19,7 @@ gameObjectState & gameObjectStateManager::GetCurrentPanel(){
 
 void gameObjectStateManager::UpdatePanels(){
     if(m_states.size() > 0){
-      GetCurrentPanel().update();
+      GetCurrentPanel().UpdateState();
     }
 }
 

@@ -165,7 +165,6 @@ class Ghost: public baseEnemy{
         inline baseEnemy::enemyType GetEnemyType() { return baseEnemy::enemyType::ghost; }
 
   private:
-        bool m_isHit = false;
         sf::Clock m_bulletClock;
         int m_health = 3;
 };

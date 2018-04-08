@@ -6,7 +6,8 @@
 class playerBulletMultiFire : public playerBullet{
     // public class functions
     public:
-        /*
+
+        /**
           NAME:
             playerBulletMultiFire
 
@@ -27,7 +28,7 @@ class playerBulletMultiFire : public playerBullet{
         */
         playerBulletMultiFire(const int a_xStart, const int a_yStart, const int a_dir, const int a_angle);
 
-        /*
+        /**
           NAME:
             ~playerBulletMultiFire
 
@@ -45,7 +46,7 @@ class playerBulletMultiFire : public playerBullet{
         */
         ~playerBulletMultiFire() = default;
 
-        /*
+        /**
           NAME:
             move
 
@@ -64,7 +65,7 @@ class playerBulletMultiFire : public playerBullet{
         */
         void move(const sf::Time a_deltaTime);
 
-        /*
+        /**
           NAME:
             GetDistance
 

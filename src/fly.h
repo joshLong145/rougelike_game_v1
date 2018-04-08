@@ -1,11 +1,3 @@
-//
-//  fly.hpp
-//  game_proj
-//
-//  Created by josh long on 5/4/17.
-//  Copyright © 2017 josh long. All rights reserved.
-//
-
 #ifndef fly_h
 #define fly_h
 
@@ -20,7 +12,7 @@ class fly : public baseEnemy{
 
 public:
 
-  /*
+  /**
     NAME:
       fly
 
@@ -41,7 +33,7 @@ public:
    */
    fly(int x_pos, int y_pos, int v);
 
-   /*
+   /**
      NAME:
        fly
 
@@ -59,7 +51,7 @@ public:
    */
     ~fly() = default;
 
-    /*
+    /**
       NAME:
         Move
 
@@ -78,26 +70,26 @@ public:
     */ 
     void Move(Player &p, sf::Time deltaTime);
 
-   /*
-     NAME:
-       Bounce
+    /**
+      NAME:
+        Bounce
 
-     SYNOPSIS:
-       void Bounce(const sf::Vector2f a_objBounds);
+      SYNOPSIS:
+        void Bounce(const sf::Vector2f a_objBounds);
             const sf::Vector2f a_objBounds -> a 2-d vector containg the position of the colided object. 
 
-     DESCRIPTION:
-       Called when a fly collides with a bounded object. moves fly away fro msaid object.
+      DESCRIPTION:
+        Called when a fly collides with a bounded object. moves fly away fro msaid object.
 
-     RETURNS:
-       None
+      RETURNS:
+        None
 
-     AUTHOR:
-       Josh Long
-   */  
+      AUTHOR:
+        Josh Long
+    */
     void Bounce(sf::Vector2f objBounds);
 
-    /*
+    /**
       NAME:
         GetHealth
 
@@ -115,7 +107,7 @@ public:
     */
     int GetHealth(){ return m_health; }
 
-    /*
+    /**
       NAME:
         SetHealth
 
@@ -130,12 +122,12 @@ public:
 
       AUTHOR:
         Josh Long
-    */ 
+    */
      void SetHealth(const int a_newAmount){
       m_health = a_newAmount;
     }
 
-     /*
+     /**
        NAME:
          GetEnemyType
 
@@ -153,7 +145,7 @@ public:
      */  
     inline baseEnemy::enemyType GetEnemyType() { return baseEnemy::enemyType::fly; }
 
-    /*
+    /**
       NAME:
         Interpolate
 

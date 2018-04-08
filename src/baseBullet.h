@@ -1,19 +1,12 @@
-//
-//  Bullet.hpp
-//  game_proj
-//
-//  Created by josh long on 1/30/17.
-//  Copyright © 2017 josh long. All rights reserved.
-//
-
 #ifndef baseBullet_h
 #define baseBullet_h
 
 #include <SFML/Graphics.hpp>
+
 class baseBullet : public sf::Transformable{
     // public class functions
     public:
-      /*
+      /**
         NAME:
         baseBullet
         SYNOPSIS:
@@ -32,13 +25,13 @@ class baseBullet : public sf::Transformable{
         Josh Long
       */
 
-  baseBullet(const int a_xPos, const int a_yPos, const int a_dir){
+      baseBullet(const int a_xPos, const int a_yPos, const int a_dir){
             m_xPos = a_xPos;
             m_yPos = a_yPos;
             // direction the bullet will be going
             m_direction = a_dir;
-        }
-        /*
+      }
+      /**
           NAME:
             ~baseBullet
           SYNOPSIS:
@@ -52,10 +45,10 @@ class baseBullet : public sf::Transformable{
 
           AUTHOR:
           Josh Long
-        */
-        ~baseBullet() = default;
+      */
+      ~baseBullet() = default;
 
-        /*
+      /**
           NAME:
             LoadImage()
           SYNOPSIS:
@@ -72,7 +65,7 @@ class baseBullet : public sf::Transformable{
         */
         inline sf::Sprite LoadImage(){ return m_sprite; }
 
-        /*
+        /**
           NAME:
             move
           SYNOPSIS:
@@ -89,7 +82,8 @@ class baseBullet : public sf::Transformable{
             Josh Long
         */
         virtual void move(sf::Time deltaTime) = 0;
-    protected:
+
+ protected:
         // used to move the bullets position.
         int m_xPos;
         int m_yPos;

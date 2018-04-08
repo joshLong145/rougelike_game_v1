@@ -10,7 +10,7 @@
 
 class Update{
     public:
-        /*
+        /**
           NAME:
             Update
 
@@ -28,7 +28,7 @@ class Update{
         */
         Update() = default;
 
-        /*
+        /**
           NAME:
             UpdatePlayerObjs
 
@@ -57,7 +57,8 @@ class Update{
         void UpdatePlayerObjs(Player &a_player, std::vector<sf::Sprite> &a_rects, std::vector<std::unique_ptr<baseEnemy>> &a_enemy,
                               std::vector<std::shared_ptr<doorBlock>> &a_doorRects, std::vector<std::shared_ptr<chest>> &a_chests,
                               std::vector<std::shared_ptr<rockBlock>> &a_enviormentRocks, sf::Time a_deltaTime);
-        /*
+
+        /**
           NAME:
             UpdateEnemyObjs
 
@@ -73,7 +74,7 @@ class Update{
             Josh Long
         */
 
-        void UpdateEnemeyObjs(std::vector<std::unique_ptr<baseEnemy>> &a_enemy, std::vector<std::shared_ptr<rockBlock>> a_enviormentRocks,
+ void UpdateEnemeyObjs(std::vector<std::unique_ptr<baseEnemy>> &a_enemy, std::vector<std::shared_ptr<rockBlock>> a_enviormentRocks,
                               std::vector<sf::Sprite> a_rects, Player &a_player, sf::Time a_deltaTime);
 
 };

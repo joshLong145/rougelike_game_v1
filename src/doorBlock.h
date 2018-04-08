@@ -1,11 +1,3 @@
-//
-//  doorBlock.hpp
-//  game_proj
-//
-//  Created by josh long on 5/28/17.
-//  Copyright © 2017 josh long. All rights reserved.
-//
-
 #ifndef doorBlock_h
 #define doorBlock_h
 
@@ -13,7 +5,8 @@
 
 class doorBlock : public enviormentBlocks{
 public:
-    /*
+
+    /**
       NAME:
          doorBlock
 
@@ -31,7 +24,7 @@ public:
     */
     doorBlock(int xpos, int ypos,int direction);
 
-    /*
+    /**
       NAME:
         draw
 
@@ -51,7 +44,7 @@ public:
     */
     void draw(sf::RenderWindow &window);
 
-    /*
+    /**
       NAME:
         GetRect
 
@@ -69,7 +62,7 @@ public:
     */
     sf::FloatRect GetRect();
 
-    /*
+    /**
       NAME:
         getDirection
 

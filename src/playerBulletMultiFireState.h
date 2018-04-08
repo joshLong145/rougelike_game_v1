@@ -7,7 +7,7 @@
 
 class playerBulletMultiFireState : public virtual gameObjectState{
     public:
-        /*
+        /**
           NAME:
             playerBounceState
 
@@ -27,14 +27,30 @@ class playerBulletMultiFireState : public virtual gameObjectState{
         */
         playerBulletMultiFireState(Player &p, const int a_direction);
 
+        /**
+           NAME:
+             playerBulletMultiFire
+
+           SYNOPSIS:
+             ~playerBulletMultiFire() = default;
+
+           DESCRIPTION:
+             Default destructor for all playerBulletMultiFire.
+
+           RETURNS:
+             None
+
+           AUTHOR:
+             Josh Long
+        */
         ~playerBulletMultiFireState() = default;
 
-        /*
+        /**
           NAME:
-            update
+            UpdateState
 
           SYNOPSIS:
-            void update();
+            void UpdateState();
 
           DESCRIPTION:
             updates / modifies all data within the current state.
@@ -46,11 +62,11 @@ class playerBulletMultiFireState : public virtual gameObjectState{
           AUTHOR:
             Josh Long
         */
-        void update();
+        void UpdateState();
 
-        /*
+        /**
           NAME:
-            nextPanel
+            NextPanel
 
           SYNOPSIS:
             bool nextPanel();
@@ -64,8 +80,9 @@ class playerBulletMultiFireState : public virtual gameObjectState{
           AUTHOR:
             Josh Long
         */
-        bool nextPanel();
-    private:
+        bool NextPanel();
+
+ private:
         Player *m_player = nullptr;
         int m_direction;
 };
