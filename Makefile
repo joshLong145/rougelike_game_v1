@@ -18,20 +18,24 @@ SRCDIRS = $(shell find . -name '*.cpp' | dirname {} | sort | uniq | sed 's/\/$(S
 OBJS    = $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(SRCS))
 
 # Targets
-rougeShooter: buildrepo $(OBJS)
-	@echo "***Linking object files"
+rougeShooter: builddevrepo $(OBJS)
+	@echo "*** Linking object files"
 	$(CC) $(OBJS) $(LIBS) -o bin/$@
-	@echo "****running binary"
+	@echo "**** running binary"
 	bin/$@
 obj/%.o: src/%.cpp
 	@echo "**** Creating object files"
 	$(CC) $(OPTS) -c $< -o $@
 
 clean:
-	@echo "****Removing all files"
+	@echo "**** Removing all files"
 	rm $(PROJECT) $(OBJDIR) -Rf
 
-buildrepo:
+install:
+	@echo "*** Installing app"
+	mv bin/rougeShooter  ~/usr/bin/
+
+builddevrepo:
 	@echo "****Building repository"
 	@$(call make-repo)
 

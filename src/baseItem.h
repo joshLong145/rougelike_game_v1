@@ -73,7 +73,7 @@ public:
       AUTHOR:
         Josh Long
     */
-    inline sf::Sprite LoadImage(){ return m_sprite; }
+    inline sf::Sprite & LoadImage(){ return m_sprite; }
 
     /**
       NAME:
@@ -203,7 +203,7 @@ public:
     */
     inline void SetAccountedFor(bool account) { m_isAccounted = account; }
 
-protected:
+ protected:
     std::string m_itemName;
     int m_statModifier = 0;
     sf::Texture m_texture;

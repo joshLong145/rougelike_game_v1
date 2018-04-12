@@ -122,7 +122,7 @@ class GUI{
           AUTHOR:
             Josh Long
         */
-        std::vector<sf::Sprite> & DisplayItems(Player &p);
+        void PositionItemTextures(Player &p);
     private:
         sf::Texture m_healthTexture;
         sf::Texture m_offenseTexture;

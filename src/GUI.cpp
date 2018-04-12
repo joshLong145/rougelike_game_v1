@@ -45,18 +45,14 @@ sf::Text GUI::DisplayTextOffense(Player &p){
     return m_offenseText;
 }
 
-std::vector<sf::Sprite> & GUI::DisplayItems(Player &p){
-    for(auto item = p.GetItemStorage().GetItems().begin(); item != p.GetItemStorage().GetItems().end(); item++){
-        if(!(*item)->AccountedFor()){
-            m_itemSprites.push_back((*item)->LoadImage());
+void GUI::PositionItemTextures(Player &p){
+  int counter = 1;
+  for(auto item = p.GetItemStorage().GetItems().begin(); item != p.GetItemStorage().GetItems().end(); item++){
+    if(!(*item)->AccountedFor()){
             (*item)->SetAccountedFor(true);
-        }
+            (*item)->LoadImage().setPosition(150 + (counter * 60),650);
     }
-
-    int counter = 0;
-    for(auto item = m_itemSprites.begin(); item != m_itemSprites.end(); item++){
-        (*item).setPosition(150 + (counter * 50),650);
-        counter++;
-    }
-    return m_itemSprites;
+    counter ++;
+  }
+  
 }

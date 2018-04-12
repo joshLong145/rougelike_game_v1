@@ -7,3 +7,4 @@ multiFireItem::multiFireItem():baseItem(){
 baseItem::items multiFireItem::ItemType(){
   return baseItem::items::multiFire;
 }
+

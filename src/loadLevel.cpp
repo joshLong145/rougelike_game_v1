@@ -1,11 +1,3 @@
-//
-//  loadLevel.cpp
-//  game_proj
-//
-//  Created by josh long on 1/31/17.
-//  Copyright © 2017 josh long. All rights reserved.
-//
-
 #include "loadLevel.h"
 
 loadLevel::loadLevel(std::vector<std::string> rooms, std::vector<std::unique_ptr<baseEnemy>> &e) : m_enemies(std::move(e)){
@@ -70,14 +62,6 @@ void loadLevel::Display(sf::RenderWindow &a_windowObj){
         a_windowObj.draw((*block) -> LoadImage() );
     }
 
-    // draw enemies in the current room
-    for (auto enemy = m_enemies.begin(); enemy != m_enemies.end(); enemy++){
-        std::vector<std::unique_ptr<enemyBullet>> &enemyBullets = (*enemy)->GetBulletVector();
-        for (auto bullet = enemyBullets.begin(); bullet != enemyBullets.end(); bullet++){
-            a_windowObj.draw((*bullet)->LoadImage());
-        }
-    }
-
     // Draw all Rocks within the room.
     for(auto rock : m_rockRects){
       a_windowObj.draw(rock->LoadImage());
@@ -86,6 +70,14 @@ void loadLevel::Display(sf::RenderWindow &a_windowObj){
     // draw enemies in the current room
     for (auto enemy = m_enemies.begin(); enemy != m_enemies.end(); enemy++){
       a_windowObj.draw((*enemy)->LoadImage() );
+    }
+
+    // draw enemies in the current room
+    for (auto enemy = m_enemies.begin(); enemy != m_enemies.end(); enemy++){
+      std::vector<std::unique_ptr<enemyBullet>> &enemyBullets = (*enemy)->GetBulletVector();
+      for (auto bullet = enemyBullets.begin(); bullet != enemyBullets.end(); bullet++){
+        a_windowObj.draw((*bullet)->LoadImage());
+      }
     }
 }
 

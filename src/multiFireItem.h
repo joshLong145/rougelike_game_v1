@@ -63,6 +63,7 @@ public:
     */
     items ItemType();
 
+
 private:
     bool m_statModifier = true;
 

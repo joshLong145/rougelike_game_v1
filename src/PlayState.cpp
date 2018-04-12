@@ -7,6 +7,7 @@
 //
 
 #include "PlayState.h"
+#include <iostream>
 
 PlayState::PlayState(sf::RenderWindow &a_windowObj):GameState(a_windowObj){}
 
@@ -31,7 +32,7 @@ void PlayState::InitilizeGameState(){
 }
 
 void PlayState::CheckRoomTransition(){
-    //TODO: FIX THIS GARBAGE CODE!!!!!
+    // Checks for what door has been entered through, 
     if(m_player.GetDoor() == 1){
         m_player.ClearBullets();
         m_current_room++;
@@ -72,7 +73,13 @@ void PlayState::UpdateGameObjects(){
 }
 
 void PlayState::update(){
-
+  // before we check if its time to go to the next room/ level, check if the game is over aka, no more levels within the level map.
+  // If that is the case then bring the player back to the menu.
+  if(m_player.GetDoor() == 3 && m_current_level + 1 > m_levels.size()){
+         std::cout << "g" << std::endl;
+         applicationManager::AddPanel(GameState::m_states::MenuState);
+         return;
+    }
     //check if a door is went through by the player
     CheckRoomTransition();
     // update player, player objects, enemies, and enemy objects
@@ -82,12 +89,6 @@ void PlayState::update(){
     if (m_player.GetHealth() <= 0){
         applicationManager::AddPanel(GameState::m_states::MenuState);
         return; // need to return from the update cycle in order to load the new state.
-    }
-
-    if((unsigned)m_current_level >= m_levels.size() && (unsigned)m_current_room >= m_levels["level"+std::to_string(m_current_level)].size()
-       && m_levels["level"+std::to_string(m_current_level)][m_current_room]->GetEnemies().size() <= 0){
-      applicationManager::AddPanel(GameState::m_states::MenuState);
-      return;
     }
 
     // if the game is paused, suspend the current state and add the save the current one.
@@ -121,9 +122,9 @@ void PlayState::DrawAssets(){
     m_window.draw(gui.DisplayTextOffense(m_player));
 
     //draws all item icons that the player has aquired
-    std::vector<sf::Sprite> itemSprites = gui.DisplayItems(m_player);
-    for(auto itemSprite = itemSprites.begin(); itemSprite != itemSprites.end(); itemSprite++){
-        m_window.draw((*itemSprite));
+    gui.PositionItemTextures(m_player);
+    for(auto itemSprite = m_player.GetItemStorage().GetItems().begin(); itemSprite != m_player.GetItemStorage().GetItems().end(); itemSprite++){
+      m_window.draw((*itemSprite)->LoadImage());
     }
     // draw player sprite
     m_window.draw(m_player.LoadImage());

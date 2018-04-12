@@ -479,7 +479,7 @@ class Player : public sf::Transformable{
 
         bool m_wallHit = false;
 
-        int m_health = 5;
+        int m_health = 10;
 
         int m_door = -1;
 

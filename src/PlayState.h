@@ -16,6 +16,8 @@
 // for unique and shared pointers
 #include <memory>
 
+#include "quadTree.h"
+
 class PlayState : public virtual GameState{
     public:
         PlayState(sf::RenderWindow &a_windowObj);
@@ -110,8 +112,8 @@ class PlayState : public virtual GameState{
 
     private:
         //iteration vars;
-        int m_current_level = 1;
-        int m_current_room = 0;
+        unsigned int m_current_level = 1;
+        unsigned int m_current_room = 0;
         //containers for level creation
         std::map<std::string,std::vector<std::unique_ptr<loadLevel>>> m_levels;
         // player object
@@ -120,5 +122,6 @@ class PlayState : public virtual GameState{
         Update m_update_objects;
         // object for GUI
         GUI gui;
+        // used for collision detection.
 };
 #endif /* PlayState_hpp */

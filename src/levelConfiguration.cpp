@@ -154,7 +154,7 @@ std::map<std::string,std::vector<std::unique_ptr<loadLevel>>> initilizeLevels::C
             roomNumber++;
         }
         //! Randomly shuffles all rooms within the current level. Except for the first and last rooms. they need to stay in place.
-        std::random_shuffle(levelData[level.first].begin() + 1, levelData[level.first].end() -1); // need to keep the first and last room the correct place
+       //std::random_shuffle(levelData[level.first].begin() + 1, levelData[level.first].end() -1); // need to keep the first and last room the correct place
     }
 
     return levelData;

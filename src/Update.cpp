@@ -39,16 +39,16 @@ void Update::UpdatePlayerObjs(Player &a_player,std::vector<sf::Sprite> &a_rects,
             bullets.erase(bullet);
       // Check if a bullet object collides with a rock, if so subtract fro the rocks 'health'
       }else{
-            if(CheckCollisionRocks((*bullet) ->LoadImage(), a_enviormentRocks)){
-              bullets.erase(bullet);
-            }else{
-              (*bullet)->move(a_deltaTime);
-              bullet++;
-            }
+        if(CheckCollisionRocks((*bullet)->LoadImage(), a_enviormentRocks)){
+          bullets.erase(bullet);
+        }else{
+          (*bullet)->move(a_deltaTime);
+          bullet++;
         }
+      }
     }
 
-    // Check for bullet collision with obsticals, if a bullet collides with a obstical, remove it,
+    //! Check for bullet collision with obsticals, if a bullet collides with a obstical, remove it,
     for(auto enemy = a_enemy.begin(); enemy != a_enemy.end(); enemy++){
         if(CheckCollisionBasic(a_player.LoadImage(), (*enemy)->LoadImage())){
           a_player.EvaluateDamage((*enemy)->GetDamageAmount());
@@ -129,10 +129,12 @@ void Update::UpdateEnemeyObjs(std::vector<std::unique_ptr<baseEnemy>> &a_enemy,
             // checks for collision with bullets against wall object
             if(CheckCollisionWalls((*bullet)->LoadImage(),a_rects)){
                 bullets.erase(bullet);
+            }else if(CheckCollisionRocks((*bullet) ->LoadImage(), a_enviormentRocks)){
+              bullets.erase(bullet);
             }else{
-                (*bullet)->move(a_deltaTime);
-                bullet++;
+              (*bullet)->move(a_deltaTime);
+              bullet++;
             }
-        }
+       }
     }
 }

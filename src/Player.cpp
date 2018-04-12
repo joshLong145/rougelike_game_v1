@@ -237,19 +237,21 @@ void Player::SetDamageColorToggle(bool setting){
 }
 
 void Player::ManageColors(){
-    if(m_colorTiming.getElapsedTime().asSeconds() > 1.0f){
-        if(m_damageColorToggle){
+    if(m_damageColorToggle){
             m_sprite.setColor(sf::Color::Red);
             m_damageColorToggle = !m_damageColorToggle;
-        }else{
-            m_sprite.setColor(sf::Color::White); //resets the sprite to the original color
-        }
-        m_colorTiming.restart();
+            m_colorTiming.restart();
+    }
+    else if(m_sprite.getColor() == sf::Color::Red && m_colorTiming.getElapsedTime().asSeconds() > 2.0f){ 
+            m_sprite.setColor(sf::Color::White); //resets the sprite to the original color 
+            m_colorTiming.restart();
     }
 }
 
 void Player::AddItemModifications(){
-    for(auto item = m_playerItems.GetItems().begin(); item != m_playerItems.GetItems().end(); item++){
+    auto items =  m_playerItems.GetItems();
+    for(auto item = items.begin(); item != items.end(); item++){
+      
         if(!(*item)->IsItemUsed()){
             if((*item)->ItemType() == baseItem::items::healthIncrease){
                 m_health += (*item)->GetStatModifier();
@@ -260,16 +262,16 @@ void Player::AddItemModifications(){
                 (*item)->SetItemUse(true);
            }
            if((*item)->ItemType() == baseItem::items::healthDecrease){
-             if(m_health >= 3){
+             if(m_health >= 3){ // If the users health is greater than or equal to three then we can reduce health by normal amount
                m_health -= (*item)->GetStatModifier();
-               (*item) ->SetItemUse(true);
+               (*item)->SetItemUse(true);
              }else{
                m_health  = 1;
              }
            }
            if((*item)->ItemType() == baseItem::items::multiFire){
              if(m_multiFire && !(*item)->IsItemUsed()){
-               // if the player has already gotten the multifire item, boost health by 1
+               // if the player has already gotten the multifire item, boost attack by 1
                m_attack += (*item)->GetStatModifier();
                (*item)->LoadImage().setTextureRect(sf::IntRect(50 * 4, 50 * 5,50, 50));
                (*item)->SetItemUse(true);

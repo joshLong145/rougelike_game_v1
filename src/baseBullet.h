@@ -63,7 +63,7 @@ class baseBullet : public sf::Transformable{
           AUTHOR:
           Josh Long
         */
-        inline sf::Sprite LoadImage(){ return m_sprite; }
+        inline sf::Sprite & LoadImage(){ return m_sprite; }
 
         /**
           NAME:
