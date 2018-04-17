@@ -1,7 +1,7 @@
-#include "fly.h"
+#include "bossOne.h"
 
-fly::fly(int x_pos, int y_pos, int v):baseEnemy(x_pos, y_pos, v){
-    m_texture.loadFromFile("./resources/Black_Fly.png");
+bossOne::bossOne(int x_pos, int y_pos, int v):baseEnemy(x_pos, y_pos, v){
+    m_texture.loadFromFile("./resources/boss_1.png");
     m_sprite.setTexture(m_texture);
     m_sprite.setPosition(m_xVal,m_yVal);
     m_velocity = v;
@@ -9,7 +9,7 @@ fly::fly(int x_pos, int y_pos, int v):baseEnemy(x_pos, y_pos, v){
 
 //main action for enemy ( changes from enemy to enemy)
 //Fly will move towards to player at a constant speed
-void fly::Move(Player &a_player, sf::Time deltaTime){
+void bossOne::Move(Player &a_player, sf::Time deltaTime){
     float factor = 0.f;
     const float speed = .1f * m_velocity;
     factor += deltaTime.asSeconds() * speed;
@@ -26,7 +26,7 @@ void fly::Move(Player &a_player, sf::Time deltaTime){
 }
 
 //Used to "guess" the next position of movment based on given coords.
- sf::Vector2f fly::Interpolate(const sf::Vector2f point_A, const sf::Vector2f point_B, float factor){
+sf::Vector2f bossOne::Interpolate(const sf::Vector2f point_A, const sf::Vector2f point_B, float factor){
         if(factor > 0.1f){
             factor =  1.0f;
         }else if(factor < 0.f){
@@ -36,7 +36,7 @@ void fly::Move(Player &a_player, sf::Time deltaTime){
         return point_A * (1.0f - (float)factor) + point_B * factor;
 }
 
-void fly::Bounce(sf::Vector2f objBounds){
+void bossOne::Bounce(sf::Vector2f objBounds){
     if(m_sprite.getPosition().x > objBounds.x){
         m_sprite.move(1,0);
     }else{

@@ -4,9 +4,11 @@ level1 room2 fly 300 250 9
 level1 room2 fly 300 400 9
 level1 room3 fly 300 200 10 
 level1 room3 fly 300 100 9
-level1 room4 fly 500 200 8
-level1 room4 fly 500 300 7
-level1 room4 fly 500 400 7
+level1 room4 fly 350 200 8
+level1 room4 fly 350 300 7
+level1 room4 fly 350 400 7
+level1 room4 ghost 300 100 200
+level1 room4 ghost 150 400 200
 level1 room5 ghost 200 100 200
 level1 room5 ghost 200 500 200
 level1 room5 fly 200 300 9
@@ -14,6 +16,11 @@ level1 room6 ghost 200 100 200
 level1 room6 fly 200 200 9
 level1 room6 fly 200 500 8
 level1 room6 ghost 200 300 200
-level1 room7 turret 400 250 1
+level1 room6 turret 410 160 1
+level1 room7 turret 400 160 1
 level1 room7 ghost 300 250 200
+level1 room7 fly 300 400 8
+level1 room7 fly 310 405 7
+level1 room8 boss_1 400 400 7
+level1 room7 fly 310 410 9
 

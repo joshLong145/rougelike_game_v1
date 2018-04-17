@@ -9,7 +9,7 @@
 #include "pauseState.h"
 
 pauseState::pauseState(sf::RenderWindow &w) : GameState(w){
-    m_font.loadFromFile("sansation.ttf");
+    m_font.loadFromFile("./resources/sansation.ttf");
     //initilizing font and text for menu items
     m_display.setFont(m_font);
     m_display.setPosition({150,10});

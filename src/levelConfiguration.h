@@ -12,6 +12,7 @@
 #include "fly.h"
 #include "Ghost.h"
 #include "turret.h"
+#include "bossOne.h"
 
 class envriormentReading{
 public:

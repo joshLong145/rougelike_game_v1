@@ -117,7 +117,7 @@ class PlayState : public virtual GameState{
         //containers for level creation
         std::map<std::string,std::vector<std::unique_ptr<loadLevel>>> m_levels;
         // player object
-        Player m_player = *new Player(75,75);
+        Player m_player = *new Player(300,300);
         //create a update obj which will detect collision between player and other obj (also checks collision of bullets from the player)
         Update m_update_objects;
         // object for GUI

@@ -33,7 +33,8 @@ void PlayState::InitilizeGameState(){
 
 void PlayState::CheckRoomTransition(){
     // Checks for what door has been entered through, 
-    if(m_player.GetDoor() == 1){
+    if(m_player.GetDoor() == 1 &&
+       m_levels["level" + std::to_string(m_current_level)][m_current_room]->GetEnemies().size() == 0){
         m_player.ClearBullets();
         m_current_room++;
         m_levels["level"+std::to_string(m_current_level)][m_current_room]->SetPlayer(m_player);

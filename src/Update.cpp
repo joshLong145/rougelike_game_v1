@@ -16,8 +16,10 @@ void Update::UpdatePlayerObjs(Player &a_player,std::vector<sf::Sprite> &a_rects,
        rockSprites.push_back(rock->LoadImage());
    }
    // Checks collision with door obj if true, go to next level
-   CheckCollisionDoors(a_doors, a_player);
-
+   // Check if there are no enemies in the current room before moving forward
+   if(a_enemy.size() <= 0){
+     CheckCollisionDoors(a_doors, a_player);
+   }
    // Manages color changing based on enviorment interaction
    a_player.ManageColors();
 

@@ -1,11 +1,3 @@
-//
-//  baseEnemy.hpp
-//  game_proj
-//
-//  Created by josh long on 4/10/17.
-//  Copyright © 2017 josh long. All rights reserved.
-//
-
 #ifndef baseEnemy_h
 #define baseEnemy_h
 
@@ -21,7 +13,8 @@ class baseEnemy : public sf::Transformable{
         enum enemyType{
             fly,
             ghost,
-            turret
+            turret,
+            bossOne
         };
 
         /**

@@ -125,11 +125,16 @@ void  initilizeLevels::ParseEnemyData(std::map<std::string,std::map<std::string,
         if(enemyType == "turret"){
             enemyData[enemy.first][room].push_back(std::make_unique<Turret>(xValue, yValue, velocity));
         }
+
+        if(enemyType == "boss_1"){
+          enemyData[enemy.first][room].push_back(std::make_unique<bossOne>(xValue,yValue,velocity));
+        }
     }
 }
 
 std::map<std::string,std::vector<std::unique_ptr<loadLevel>>> initilizeLevels::CreateAndReturnLevels(){
     std::map<std::string,std::vector<std::unique_ptr<loadLevel>>>  levelData;
+    // load the files dealing with the level configuation into memory, there will be more of them in the future. 
     std::vector<std::string> enviormentLevels = {"./level1.txt", "./level2.txt"};
 
     /*!
@@ -154,7 +159,8 @@ std::map<std::string,std::vector<std::unique_ptr<loadLevel>>> initilizeLevels::C
             roomNumber++;
         }
         //! Randomly shuffles all rooms within the current level. Except for the first and last rooms. they need to stay in place.
-       //std::random_shuffle(levelData[level.first].begin() + 1, levelData[level.first].end() -1); // need to keep the first and last room the correct place
+        std::random_shuffle(levelData[level.first].begin() + 1, levelData[level.first].end() -1);
+       // Need to keep the first and last room the correct place
     }
 
     return levelData;

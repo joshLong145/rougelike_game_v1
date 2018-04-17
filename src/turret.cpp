@@ -29,6 +29,7 @@ void Turret::SetBulletDirection(){
         std::unique_ptr<enemyBullet> bullet2 = std::make_unique<enemyBullet>(LoadImage().getPosition().x,LoadImage().getPosition().y,1);
         std::unique_ptr<enemyBullet> bullet3 = std::make_unique<enemyBullet>(LoadImage().getPosition().x,LoadImage().getPosition().y,2);
         std::unique_ptr<enemyBullet> bullet4 = std::make_unique<enemyBullet>(LoadImage().getPosition().x,LoadImage().getPosition().y,3);
+        // Since we are using unique pointers, each one needs to be moved into the vector instead of copied.
         m_bullets.push_back(std::move(bullet1));
         m_bullets.push_back(std::move(bullet2));
         m_bullets.push_back(std::move(bullet3));

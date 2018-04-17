@@ -23,7 +23,7 @@ Player::Player(const int a_xPos, int a_yPos){
     //smooth sprite sheet so edges/pixels are less jaged.
     m_texture.setSmooth(true);
     // set the initial sprite to
-    m_sprite.setTextureRect(m_animationFrames[3][2]);
+    m_sprite.setTextureRect(m_animationFrames[0][1]);
     m_sprite.setTexture(m_texture);
     m_sprite.setPosition(a_xPos,a_yPos);
 }
@@ -198,7 +198,7 @@ void Player::TransporForDoor(){
 
         }
     }else if(m_door == LEVEL_DOOR){
-        m_sprite.setPosition(65 *2 - 32,300);
+        m_sprite.setPosition(65 *5 - 32,300);
 
     }
 }
