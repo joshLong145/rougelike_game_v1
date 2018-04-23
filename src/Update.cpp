@@ -1,6 +1,7 @@
 #include "Update.h"
 #include "checkCollision.h"
-
+#include "fly.h"
+#include <stdlib.h>
 using namespace checkCollision;
 
 // check for collisions with wall obj ( includes bullet obj from the player)
@@ -15,6 +16,7 @@ void Update::UpdatePlayerObjs(Player &a_player,std::vector<sf::Sprite> &a_rects,
      if(rock->IsActive())
        rockSprites.push_back(rock->LoadImage());
    }
+
    // Checks collision with door obj if true, go to next level
    // Check if there are no enemies in the current room before moving forward
    if(a_enemy.size() <= 0){
@@ -25,7 +27,6 @@ void Update::UpdatePlayerObjs(Player &a_player,std::vector<sf::Sprite> &a_rects,
 
    // Checks to see if new items where aquired by the player
    a_player.AddItemModifications();
-
 
     if((CheckCollisionWalls(a_player.LoadImage(), a_rects) || CheckCollisionWalls(a_player.LoadImage(), rockSprites))){
          a_player.Bounce(a_deltaTime);
@@ -116,6 +117,12 @@ void Update::UpdateEnemeyObjs(std::vector<std::unique_ptr<baseEnemy>> &a_enemy,
               a_enemy.erase(enemy);
             }else{
                 (*enemy)->SetHealth(enemyHealth);
+                // If the first boss enemy takes damage, spawn flys 
+                if((*enemy)->GetEnemyType() == baseEnemy::enemyType::bossOne){
+                  a_enemy.push_back(std::make_unique<fly>((*enemy)->LoadImage().getPosition().x + (rand() % 50),
+                                                          (*enemy)->LoadImage().getPosition().y + (rand() % 50),(rand() % 9) + 1));
+                  return;
+                }
             }
         }else{
             enemy++;

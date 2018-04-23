@@ -1,4 +1,4 @@
-level1 room2 ghost 200 400 200 
+level1 room2 ghost 200 400 200
 level1 room2 ghost 200 100 200
 level1 room2 fly 300 250 9
 level1 room2 fly 300 400 9

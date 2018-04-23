@@ -14,15 +14,7 @@ void bossOne::Move(Player &a_player, sf::Time deltaTime){
     const float speed = .1f * m_velocity;
     factor += deltaTime.asSeconds() * speed;
 
-    if(PathLength(a_player.LoadImage().getPosition().x, a_player.LoadImage().getPosition().y, m_xVal, m_yVal) < 300){
-        m_sprite.setPosition(Interpolate(m_sprite.getPosition(), a_player.LoadImage().getPosition(),factor));
-    }else{
-        if(m_angle > 360){
-            m_angle -= 360;
-        }
-        m_angle += speed + 100; // 100 was found to be a good constant to increment by to get nice circles
-        m_sprite.move(sin(m_angle), cos(m_angle));
-    }
+    m_sprite.setPosition(Interpolate(m_sprite.getPosition(), a_player.LoadImage().getPosition(),factor)); 
 }
 
 //Used to "guess" the next position of movment based on given coords.

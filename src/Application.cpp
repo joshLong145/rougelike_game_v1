@@ -1,11 +1,3 @@
-//
-//  Application.cpp
-//  game_proj
-//
-//  Created by josh long on 5/4/17.
-//  Copyright © 2017 josh long. All rights reserved.
-//
-
 #include "Application.h"
 
 namespace applicationManager{
@@ -25,7 +17,7 @@ namespace applicationManager{
                     // Someone closed the window- bye
                     m_standardWindow.close();
                 }
-            }
+           }
             // Checks if it is time for a new Panel to be processed.
             m_manager.InitilizeNewPanel();
             // Updates the assets in the current panel.
@@ -42,7 +34,6 @@ namespace applicationManager{
         m_manager.InitilizeNewPanel();
     }
 
-    // TODO: change from an enum to a unique ptr to the new state (better architrure for current design).
     void AddPanel(const GameState::m_states state){
         if(state == GameState::m_states::MenuState){
          m_manager.NewPanel(std::make_unique<MenuState>(m_standardWindow));

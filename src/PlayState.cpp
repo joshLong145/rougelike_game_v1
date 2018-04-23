@@ -139,7 +139,7 @@ void PlayState::DrawAssets(){
 }
 
 GameState::m_states PlayState::GetState(){
-  // Enum of the specific state is returned 
+  // Enum of the specific state is returned
   return GameState::m_states::PlayState;
 }
 

@@ -167,7 +167,5 @@ public:
 
 private:
     int m_health = 20;
-    int m_angle = 30 * PI / 180;
+    int m_angle = 20 * PI / 180;
 };
-
-
