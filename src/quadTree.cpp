@@ -1,7 +1,5 @@
 #include "quadTree.h"
 
-
-
 void quadTree::Clear(){
   m_objects.clear();
 
