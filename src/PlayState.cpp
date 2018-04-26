@@ -1,11 +1,3 @@
-//
-//  PlayState.cpp
-//  game_proj
-//
-//  Created by josh long on 5/4/17.
-//  Copyright © 2017 josh long. All rights reserved.
-//
-
 #include "PlayState.h"
 #include <iostream>
 
@@ -23,7 +15,7 @@ void PlayState::InitilizeGameState(){
     m_window.setVerticalSyncEnabled(true); // call it once, after creating the window
     m_window.setMouseCursorVisible(false);
     m_window.setFramerateLimit(60); // set the frame rate to 30 constant.
-    initilizeLevels levelInit;
+   initilizeLevels levelInit;
     // parses and loacs all level data for the game
 
     m_levels = levelInit.CreateAndReturnLevels();
